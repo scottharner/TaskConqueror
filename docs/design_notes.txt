@@ -1,0 +1,77 @@
+Steps
+=====
+1. Define Requirements
+2. Define Architecture
+3. Identify Objects
+4. Draw Mockups
+5. Database
+6. Code
+7. Test
+8. Fix Bugs
+9. Write Docs
+10. Distribute App
+
+Define Requirements
+===================
+-allow entry of tasks
+-allow entry of goals
+-manage active tasks
+  -add
+  -remove
+  -prioritize
+-tie tasks to goals
+-set number of tasks in task list
+-weight goals, projects, and tasks to influence progress reports
+-reports
+  -active tasks report
+  -completed tasks for last x days
+  -completed projects for last x days
+  -completed goals for last x days
+  -goal progress report
+  -project progress report
+
+Architecture
+============
+-desktop application using wpf
+-sql server compact
+-entity framework
+-reportviewer/rdlc
+
+Objects
+=======
+-goals
+  -title
+  -status
+  -category
+    -physical
+    -career
+    -financial
+    -relational
+    -spiritual
+    -other
+  -date created
+  -date completed
+-projects
+  -title
+  -status
+  -estimated cost
+  -date created
+  -date completed
+-tasks
+  -title
+  -status
+    -new
+    -in progress
+    -completed
+    -abandoned
+  -priority
+    -high
+    -medium
+    -low
+  -active
+  -date created
+  -date completed
+
+Database
+========
+-password=success
