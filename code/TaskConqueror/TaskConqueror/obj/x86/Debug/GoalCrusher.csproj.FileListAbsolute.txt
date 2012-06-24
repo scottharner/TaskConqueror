@@ -1,0 +1,51 @@
+C:\Documents and Settings\scott\my documents\visual studio 2010\Projects\GoalCrusher\GoalCrusher\bin\Debug\GoalCrusher.exe.config
+C:\Documents and Settings\scott\my documents\visual studio 2010\Projects\GoalCrusher\GoalCrusher\bin\Debug\GoalCrusher.exe
+C:\Documents and Settings\scott\my documents\visual studio 2010\Projects\GoalCrusher\GoalCrusher\bin\Debug\GoalCrusher.pdb
+C:\Documents and Settings\scott\my documents\visual studio 2010\Projects\GoalCrusher\GoalCrusher\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\scott\my documents\visual studio 2010\Projects\GoalCrusher\GoalCrusher\obj\x86\Debug\MainWindow.baml
+C:\Documents and Settings\scott\my documents\visual studio 2010\Projects\GoalCrusher\GoalCrusher\obj\x86\Debug\MainWindowResources.baml
+C:\Documents and Settings\scott\my documents\visual studio 2010\Projects\GoalCrusher\GoalCrusher\obj\x86\Debug\MainWindow.g.cs
+C:\Documents and Settings\scott\my documents\visual studio 2010\Projects\GoalCrusher\GoalCrusher\obj\x86\Debug\App.g.cs
+C:\Documents and Settings\scott\my documents\visual studio 2010\Projects\GoalCrusher\GoalCrusher\obj\x86\Debug\GoalCrusher_MarkupCompile.cache
+C:\Documents and Settings\scott\my documents\visual studio 2010\Projects\GoalCrusher\GoalCrusher\obj\x86\Debug\GoalCrusher.g.resources
+C:\Documents and Settings\scott\my documents\visual studio 2010\Projects\GoalCrusher\GoalCrusher\obj\x86\Debug\GoalCrusher.Properties.Resources.resources
+C:\Documents and Settings\scott\my documents\visual studio 2010\Projects\GoalCrusher\GoalCrusher\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Documents and Settings\scott\my documents\visual studio 2010\Projects\GoalCrusher\GoalCrusher\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Documents and Settings\scott\my documents\visual studio 2010\Projects\GoalCrusher\GoalCrusher\obj\x86\Debug\GoalCrusher.exe
+C:\Documents and Settings\scott\my documents\visual studio 2010\Projects\GoalCrusher\GoalCrusher\obj\x86\Debug\GoalCrusher.pdb
+C:\Documents and Settings\scott\my documents\visual studio 2010\Projects\GoalCrusher\GoalCrusher\obj\x86\Debug\App.baml
+C:\Documents and Settings\scott\my documents\visual studio 2010\Projects\GoalCrusher\GoalCrusher\obj\x86\Debug\View\Task\TaskView.baml
+C:\Documents and Settings\scott\my documents\visual studio 2010\Projects\GoalCrusher\GoalCrusher\obj\x86\Debug\View\Task\TaskView.g.cs
+C:\Documents and Settings\scott\my documents\visual studio 2010\Projects\GoalCrusher\GoalCrusher\bin\Debug\Properties\DataSources\GoalCrusher.Model.GoalCrusherEntities.datasource
+C:\Documents and Settings\scott\my documents\visual studio 2010\Projects\GoalCrusher\GoalCrusher\obj\x86\Debug\GoalCrusher_Content.g.cs
+C:\Documents and Settings\scott\my documents\visual studio 2010\Projects\GoalCrusher\GoalCrusher\bin\Debug\GoalCrusher.sdf
+C:\Documents and Settings\scott\my documents\visual studio 2010\Projects\GoalCrusher\GoalCrusher\obj\x86\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Documents and Settings\scott\my documents\visual studio 2010\Projects\GoalCrusher\GoalCrusher\obj\x86\Debug\GoalCrusher_MarkupCompile.lref
+C:\Users\sharner\Desktop\GoalCrusher\GoalCrusher\bin\Debug\GoalCrusher.exe.config
+C:\Users\sharner\Desktop\GoalCrusher\GoalCrusher\obj\x86\Debug\GoalCrusher.exe
+C:\Users\sharner\Desktop\GoalCrusher\GoalCrusher\obj\x86\Debug\GoalCrusher.pdb
+C:\Users\sharner\Desktop\GoalCrusher\GoalCrusher\bin\Debug\GoalCrusher.sdf
+C:\Users\sharner\Desktop\GoalCrusher\GoalCrusher\bin\Debug\Properties\DataSources\GoalCrusher.Model.GoalCrusherEntities.datasource
+C:\Users\sharner\Desktop\GoalCrusher\GoalCrusher\bin\Debug\GoalCrusher.exe
+C:\Users\sharner\Desktop\GoalCrusher\GoalCrusher\bin\Debug\GoalCrusher.pdb
+C:\Users\sharner\Desktop\GoalCrusher\GoalCrusher\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\sharner\Desktop\GoalCrusher\GoalCrusher\obj\x86\Debug\MainWindow.baml
+C:\Users\sharner\Desktop\GoalCrusher\GoalCrusher\obj\x86\Debug\View\Task\TaskView.baml
+C:\Users\sharner\Desktop\GoalCrusher\GoalCrusher\obj\x86\Debug\App.baml
+C:\Users\sharner\Desktop\GoalCrusher\GoalCrusher\obj\x86\Debug\MainWindow.g.cs
+C:\Users\sharner\Desktop\GoalCrusher\GoalCrusher\obj\x86\Debug\View\Task\TaskView.g.cs
+C:\Users\sharner\Desktop\GoalCrusher\GoalCrusher\obj\x86\Debug\App.g.cs
+C:\Users\sharner\Desktop\GoalCrusher\GoalCrusher\obj\x86\Debug\GoalCrusher_Content.g.cs
+C:\Users\sharner\Desktop\GoalCrusher\GoalCrusher\obj\x86\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\sharner\Desktop\GoalCrusher\GoalCrusher\obj\x86\Debug\GoalCrusher_MarkupCompile.cache
+C:\Users\sharner\Desktop\GoalCrusher\GoalCrusher\obj\x86\Debug\GoalCrusher_MarkupCompile.lref
+C:\Users\sharner\Desktop\GoalCrusher\GoalCrusher\obj\x86\Debug\MainWindowResources.baml
+C:\Users\sharner\Desktop\GoalCrusher\GoalCrusher\obj\x86\Debug\GoalCrusher.g.resources
+C:\Users\sharner\Desktop\GoalCrusher\GoalCrusher\obj\x86\Debug\GoalCrusher.Properties.Resources.resources
+C:\Users\sharner\Desktop\GoalCrusher\GoalCrusher\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\sharner\Desktop\GoalCrusher\GoalCrusher\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Documents and Settings\scott\my documents\visual studio 2010\Projects\GoalCrusher\GoalCrusher\obj\x86\Debug\View\Task\AllTasksView.baml
+C:\Documents and Settings\scott\my documents\visual studio 2010\Projects\GoalCrusher\GoalCrusher\obj\x86\Debug\View\Task\AllTasksView.g.cs
+C:\Documents and Settings\scott\My Documents\Visual Studio 2010\Projects\TaskConqueror\GoalCrusher\bin\Debug\GoalCrusher.exe.config
+C:\Documents and Settings\scott\My Documents\Visual Studio 2010\Projects\TaskConqueror\GoalCrusher\obj\x86\Debug\GoalCrusher.exe
+C:\Documents and Settings\scott\My Documents\Visual Studio 2010\Projects\TaskConqueror\GoalCrusher\obj\x86\Debug\GoalCrusher.pdb

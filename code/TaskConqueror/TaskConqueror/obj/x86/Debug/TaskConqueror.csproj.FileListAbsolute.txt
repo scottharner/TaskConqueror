@@ -1,0 +1,50 @@
+C:\Documents and Settings\scott\My Documents\Visual Studio 2010\Projects\TaskConqueror\TaskConqueror\bin\Debug\TaskConqueror.exe.config
+C:\Documents and Settings\scott\My Documents\Visual Studio 2010\Projects\TaskConqueror\TaskConqueror\bin\Debug\TaskConqueror.sdf
+C:\Documents and Settings\scott\My Documents\Visual Studio 2010\Projects\TaskConqueror\TaskConqueror\bin\Debug\Properties\DataSources\GoalCrusher.Model.GoalCrusherEntities.datasource
+C:\Documents and Settings\scott\My Documents\Visual Studio 2010\Projects\TaskConqueror\TaskConqueror\bin\Debug\TaskConqueror.exe
+C:\Documents and Settings\scott\My Documents\Visual Studio 2010\Projects\TaskConqueror\TaskConqueror\bin\Debug\TaskConqueror.pdb
+C:\Documents and Settings\scott\My Documents\Visual Studio 2010\Projects\TaskConqueror\TaskConqueror\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\scott\My Documents\Visual Studio 2010\Projects\TaskConqueror\TaskConqueror\obj\x86\Debug\MainWindow.baml
+C:\Documents and Settings\scott\My Documents\Visual Studio 2010\Projects\TaskConqueror\TaskConqueror\obj\x86\Debug\View\Task\AllTasksView.baml
+C:\Documents and Settings\scott\My Documents\Visual Studio 2010\Projects\TaskConqueror\TaskConqueror\obj\x86\Debug\View\Task\TaskView.baml
+C:\Documents and Settings\scott\My Documents\Visual Studio 2010\Projects\TaskConqueror\TaskConqueror\obj\x86\Debug\App.baml
+C:\Documents and Settings\scott\My Documents\Visual Studio 2010\Projects\TaskConqueror\TaskConqueror\obj\x86\Debug\MainWindow.g.cs
+C:\Documents and Settings\scott\My Documents\Visual Studio 2010\Projects\TaskConqueror\TaskConqueror\obj\x86\Debug\View\Task\AllTasksView.g.cs
+C:\Documents and Settings\scott\My Documents\Visual Studio 2010\Projects\TaskConqueror\TaskConqueror\obj\x86\Debug\View\Task\TaskView.g.cs
+C:\Documents and Settings\scott\My Documents\Visual Studio 2010\Projects\TaskConqueror\TaskConqueror\obj\x86\Debug\App.g.cs
+C:\Documents and Settings\scott\My Documents\Visual Studio 2010\Projects\TaskConqueror\TaskConqueror\obj\x86\Debug\TaskConqueror_Content.g.cs
+C:\Documents and Settings\scott\My Documents\Visual Studio 2010\Projects\TaskConqueror\TaskConqueror\obj\x86\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Documents and Settings\scott\My Documents\Visual Studio 2010\Projects\TaskConqueror\TaskConqueror\obj\x86\Debug\TaskConqueror_MarkupCompile.cache
+C:\Documents and Settings\scott\My Documents\Visual Studio 2010\Projects\TaskConqueror\TaskConqueror\obj\x86\Debug\TaskConqueror_MarkupCompile.lref
+C:\Documents and Settings\scott\My Documents\Visual Studio 2010\Projects\TaskConqueror\TaskConqueror\obj\x86\Debug\MainWindowResources.baml
+C:\Documents and Settings\scott\My Documents\Visual Studio 2010\Projects\TaskConqueror\TaskConqueror\obj\x86\Debug\TaskConqueror.g.resources
+C:\Documents and Settings\scott\My Documents\Visual Studio 2010\Projects\TaskConqueror\TaskConqueror\obj\x86\Debug\TaskConqueror.Properties.Resources.resources
+C:\Documents and Settings\scott\My Documents\Visual Studio 2010\Projects\TaskConqueror\TaskConqueror\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Documents and Settings\scott\My Documents\Visual Studio 2010\Projects\TaskConqueror\TaskConqueror\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Documents and Settings\scott\My Documents\Visual Studio 2010\Projects\TaskConqueror\TaskConqueror\obj\x86\Debug\TaskConqueror.exe
+C:\Documents and Settings\scott\My Documents\Visual Studio 2010\Projects\TaskConqueror\TaskConqueror\obj\x86\Debug\TaskConqueror.pdb
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\bin\Debug\TaskConqueror.sdf
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\bin\Debug\Properties\DataSources\GoalCrusher.Model.GoalCrusherEntities.datasource
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\bin\Debug\TaskConqueror.exe.config
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\bin\Debug\TaskConqueror.exe
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\bin\Debug\TaskConqueror.pdb
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\MainWindow.baml
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\View\Task\AllTasksView.baml
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\View\Task\TaskView.baml
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\App.baml
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\MainWindow.g.cs
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\View\Task\AllTasksView.g.cs
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\View\Task\TaskView.g.cs
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\App.g.cs
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\TaskConqueror_Content.g.cs
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\TaskConqueror_MarkupCompile.cache
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\TaskConqueror_MarkupCompile.lref
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\MainWindowResources.baml
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\TaskConqueror.g.resources
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\TaskConqueror.Properties.Resources.resources
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\TaskConqueror.exe
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\TaskConqueror.pdb

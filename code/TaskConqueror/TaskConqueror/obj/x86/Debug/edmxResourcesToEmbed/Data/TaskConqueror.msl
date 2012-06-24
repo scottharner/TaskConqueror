@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TaskConquerorModelStoreContainer" CdmEntityContainer="TaskConquerorEntities">
+    <EntitySetMapping Name="Goals">
+      <EntityTypeMapping TypeName="TaskConquerorModel.Goal">
+        <MappingFragment StoreEntitySet="Goal">
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CompletedDate" ColumnName="CompletedDate" />
+          <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+          <ScalarProperty Name="GoalID" ColumnName="GoalID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GoalCategories">
+      <EntityTypeMapping TypeName="TaskConquerorModel.GoalCategory">
+        <MappingFragment StoreEntitySet="GoalCategory">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Projects">
+      <EntityTypeMapping TypeName="TaskConquerorModel.Project">
+        <MappingFragment StoreEntitySet="Project">
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CompletedDate" ColumnName="CompletedDate" />
+          <ScalarProperty Name="EstimatedCost" ColumnName="EstimatedCost" />
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Status">
+      <EntityTypeMapping TypeName="TaskConquerorModel.Status">
+        <MappingFragment StoreEntitySet="Status">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tasks">
+      <EntityTypeMapping TypeName="TaskConquerorModel.Task">
+        <MappingFragment StoreEntitySet="Task">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CompletedDate" ColumnName="CompletedDate" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+          <ScalarProperty Name="PriorityID" ColumnName="PriorityID" />
+          <ScalarProperty Name="TaskID" ColumnName="TaskID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TaskPriorities">
+      <EntityTypeMapping TypeName="TaskConquerorModel.TaskPriority">
+        <MappingFragment StoreEntitySet="TaskPriority">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="PriorityID" ColumnName="PriorityID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="GoalProject" TypeName="TaskConquerorModel.GoalProject" StoreEntitySet="GoalProject">
+      <EndProperty Name="Goal">
+        <ScalarProperty Name="GoalID" ColumnName="GoalID" />
+      </EndProperty>
+      <EndProperty Name="Project">
+        <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ProjectTask" TypeName="TaskConquerorModel.ProjectTask" StoreEntitySet="ProjectTask">
+      <EndProperty Name="Project">
+        <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+      </EndProperty>
+      <EndProperty Name="Task">
+        <ScalarProperty Name="TaskID" ColumnName="TaskID" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

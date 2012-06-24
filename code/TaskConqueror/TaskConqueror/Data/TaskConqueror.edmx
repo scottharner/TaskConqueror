@@ -1,0 +1,540 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TaskConquerorModel.Store" Alias="Self" Provider="System.Data.SqlServerCe.3.5" ProviderManifestToken="3.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="TaskConquerorModelStoreContainer">
+          <EntitySet Name="Goal" EntityType="TaskConquerorModel.Store.Goal" store:Type="Tables" />
+          <EntitySet Name="GoalCategory" EntityType="TaskConquerorModel.Store.GoalCategory" store:Type="Tables" />
+          <EntitySet Name="GoalProject" EntityType="TaskConquerorModel.Store.GoalProject" store:Type="Tables" />
+          <EntitySet Name="Project" EntityType="TaskConquerorModel.Store.Project" store:Type="Tables" />
+          <EntitySet Name="ProjectTask" EntityType="TaskConquerorModel.Store.ProjectTask" store:Type="Tables" />
+          <EntitySet Name="Status" EntityType="TaskConquerorModel.Store.Status" store:Type="Tables" />
+          <EntitySet Name="Task" EntityType="TaskConquerorModel.Store.Task" store:Type="Tables" />
+          <EntitySet Name="TaskPriority" EntityType="TaskConquerorModel.Store.TaskPriority" store:Type="Tables" />
+          <AssociationSet Name="Goal_GoalProject" Association="TaskConquerorModel.Store.Goal_GoalProject">
+            <End Role="Goal" EntitySet="Goal" />
+            <End Role="GoalProject" EntitySet="GoalProject" />
+          </AssociationSet>
+          <AssociationSet Name="GoalCategory_Goal" Association="TaskConquerorModel.Store.GoalCategory_Goal">
+            <End Role="GoalCategory" EntitySet="GoalCategory" />
+            <End Role="Goal" EntitySet="Goal" />
+          </AssociationSet>
+          <AssociationSet Name="Project_GoalProject" Association="TaskConquerorModel.Store.Project_GoalProject">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="GoalProject" EntitySet="GoalProject" />
+          </AssociationSet>
+          <AssociationSet Name="Project_ProjectTask" Association="TaskConquerorModel.Store.Project_ProjectTask">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="ProjectTask" EntitySet="ProjectTask" />
+          </AssociationSet>
+          <AssociationSet Name="Status_Goal" Association="TaskConquerorModel.Store.Status_Goal">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Goal" EntitySet="Goal" />
+          </AssociationSet>
+          <AssociationSet Name="Status_Project" Association="TaskConquerorModel.Store.Status_Project">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Project" EntitySet="Project" />
+          </AssociationSet>
+          <AssociationSet Name="Status_Task" Association="TaskConquerorModel.Store.Status_Task">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Task" EntitySet="Task" />
+          </AssociationSet>
+          <AssociationSet Name="Task_ProjectTask" Association="TaskConquerorModel.Store.Task_ProjectTask">
+            <End Role="Task" EntitySet="Task" />
+            <End Role="ProjectTask" EntitySet="ProjectTask" />
+          </AssociationSet>
+          <AssociationSet Name="TaskPriority_Task" Association="TaskConquerorModel.Store.TaskPriority_Task">
+            <End Role="TaskPriority" EntitySet="TaskPriority" />
+            <End Role="Task" EntitySet="Task" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Goal">
+          <Key>
+            <PropertyRef Name="GoalID" />
+          </Key>
+          <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="CompletedDate" Type="datetime" Nullable="false" />
+          <Property Name="CategoryID" Type="int" Nullable="false" />
+          <Property Name="StatusID" Type="int" Nullable="false" />
+          <Property Name="GoalID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GoalCategory">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="Description" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="CategoryID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GoalProject">
+          <Key>
+            <PropertyRef Name="GoalID" />
+            <PropertyRef Name="ProjectID" />
+          </Key>
+          <Property Name="GoalID" Type="int" Nullable="false" />
+          <Property Name="ProjectID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+          </Key>
+          <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="CompletedDate" Type="datetime" />
+          <Property Name="EstimatedCost" Type="money" />
+          <Property Name="StatusID" Type="int" Nullable="false" />
+          <Property Name="ProjectID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProjectTask">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+            <PropertyRef Name="TaskID" />
+          </Key>
+          <Property Name="ProjectID" Type="int" Nullable="false" />
+          <Property Name="TaskID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="StatusID" />
+          </Key>
+          <Property Name="Description" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="StatusID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Task">
+          <Key>
+            <PropertyRef Name="TaskID" />
+          </Key>
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="CompletedDate" Type="datetime" />
+          <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="StatusID" Type="int" Nullable="false" />
+          <Property Name="PriorityID" Type="int" Nullable="false" />
+          <Property Name="TaskID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TaskPriority">
+          <Key>
+            <PropertyRef Name="PriorityID" />
+          </Key>
+          <Property Name="Description" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="PriorityID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="Goal_GoalProject">
+          <End Role="Goal" Type="TaskConquerorModel.Store.Goal" Multiplicity="1" />
+          <End Role="GoalProject" Type="TaskConquerorModel.Store.GoalProject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Goal">
+              <PropertyRef Name="GoalID" />
+            </Principal>
+            <Dependent Role="GoalProject">
+              <PropertyRef Name="GoalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="GoalCategory_Goal">
+          <End Role="GoalCategory" Type="TaskConquerorModel.Store.GoalCategory" Multiplicity="1" />
+          <End Role="Goal" Type="TaskConquerorModel.Store.Goal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GoalCategory">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="Goal">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Project_GoalProject">
+          <End Role="Project" Type="TaskConquerorModel.Store.Project" Multiplicity="1" />
+          <End Role="GoalProject" Type="TaskConquerorModel.Store.GoalProject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="GoalProject">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Project_ProjectTask">
+          <End Role="Project" Type="TaskConquerorModel.Store.Project" Multiplicity="1" />
+          <End Role="ProjectTask" Type="TaskConquerorModel.Store.ProjectTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="ProjectTask">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Status_Goal">
+          <End Role="Status" Type="TaskConquerorModel.Store.Status" Multiplicity="1" />
+          <End Role="Goal" Type="TaskConquerorModel.Store.Goal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="Goal">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Status_Project">
+          <End Role="Status" Type="TaskConquerorModel.Store.Status" Multiplicity="1" />
+          <End Role="Project" Type="TaskConquerorModel.Store.Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Status_Task">
+          <End Role="Status" Type="TaskConquerorModel.Store.Status" Multiplicity="1" />
+          <End Role="Task" Type="TaskConquerorModel.Store.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Task_ProjectTask">
+          <End Role="Task" Type="TaskConquerorModel.Store.Task" Multiplicity="1" />
+          <End Role="ProjectTask" Type="TaskConquerorModel.Store.ProjectTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Task">
+              <PropertyRef Name="TaskID" />
+            </Principal>
+            <Dependent Role="ProjectTask">
+              <PropertyRef Name="TaskID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TaskPriority_Task">
+          <End Role="TaskPriority" Type="TaskConquerorModel.Store.TaskPriority" Multiplicity="1" />
+          <End Role="Task" Type="TaskConquerorModel.Store.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskPriority">
+              <PropertyRef Name="PriorityID" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="PriorityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TaskConquerorModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="TaskConquerorEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Goals" EntityType="TaskConquerorModel.Goal" />
+          <EntitySet Name="GoalCategories" EntityType="TaskConquerorModel.GoalCategory" />
+          <EntitySet Name="Projects" EntityType="TaskConquerorModel.Project" />
+          <EntitySet Name="Status" EntityType="TaskConquerorModel.Status" />
+          <EntitySet Name="Tasks" EntityType="TaskConquerorModel.Task" />
+          <EntitySet Name="TaskPriorities" EntityType="TaskConquerorModel.TaskPriority" />
+          <AssociationSet Name="GoalCategory_Goal" Association="TaskConquerorModel.GoalCategory_Goal">
+            <End Role="GoalCategory" EntitySet="GoalCategories" />
+            <End Role="Goal" EntitySet="Goals" />
+          </AssociationSet>
+          <AssociationSet Name="Status_Goal" Association="TaskConquerorModel.Status_Goal">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Goal" EntitySet="Goals" />
+          </AssociationSet>
+          <AssociationSet Name="Status_Project" Association="TaskConquerorModel.Status_Project">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Project" EntitySet="Projects" />
+          </AssociationSet>
+          <AssociationSet Name="Status_Task" Association="TaskConquerorModel.Status_Task">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Task" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="TaskPriority_Task" Association="TaskConquerorModel.TaskPriority_Task">
+            <End Role="TaskPriority" EntitySet="TaskPriorities" />
+            <End Role="Task" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="GoalProject" Association="TaskConquerorModel.GoalProject">
+            <End Role="Goal" EntitySet="Goals" />
+            <End Role="Project" EntitySet="Projects" />
+          </AssociationSet>
+          <AssociationSet Name="ProjectTask" Association="TaskConquerorModel.ProjectTask">
+            <End Role="Project" EntitySet="Projects" />
+            <End Role="Task" EntitySet="Tasks" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Goal">
+          <Key>
+            <PropertyRef Name="GoalID" />
+          </Key>
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" />
+          <Property Name="CompletedDate" Type="DateTime" Nullable="false" />
+          <Property Name="CategoryID" Type="Int32" Nullable="false" />
+          <Property Name="StatusID" Type="Int32" Nullable="false" />
+          <Property Name="GoalID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="GoalCategory" Relationship="TaskConquerorModel.GoalCategory_Goal" FromRole="Goal" ToRole="GoalCategory" />
+          <NavigationProperty Name="Status" Relationship="TaskConquerorModel.Status_Goal" FromRole="Goal" ToRole="Status" />
+          <NavigationProperty Name="Projects" Relationship="TaskConquerorModel.GoalProject" FromRole="Goal" ToRole="Project" />
+        </EntityType>
+        <EntityType Name="GoalCategory">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="CategoryID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Goals" Relationship="TaskConquerorModel.GoalCategory_Goal" FromRole="GoalCategory" ToRole="Goal" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+          </Key>
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" />
+          <Property Name="CompletedDate" Type="DateTime" />
+          <Property Name="EstimatedCost" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="StatusID" Type="Int32" Nullable="false" />
+          <Property Name="ProjectID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Status" Relationship="TaskConquerorModel.Status_Project" FromRole="Project" ToRole="Status" />
+          <NavigationProperty Name="Goals" Relationship="TaskConquerorModel.GoalProject" FromRole="Project" ToRole="Goal" />
+          <NavigationProperty Name="Tasks" Relationship="TaskConquerorModel.ProjectTask" FromRole="Project" ToRole="Task" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="StatusID" />
+          </Key>
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="StatusID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Goals" Relationship="TaskConquerorModel.Status_Goal" FromRole="Status" ToRole="Goal" />
+          <NavigationProperty Name="Projects" Relationship="TaskConquerorModel.Status_Project" FromRole="Status" ToRole="Project" />
+          <NavigationProperty Name="Tasks" Relationship="TaskConquerorModel.Status_Task" FromRole="Status" ToRole="Task" />
+        </EntityType>
+        <EntityType Name="Task">
+          <Key>
+            <PropertyRef Name="TaskID" />
+          </Key>
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" />
+          <Property Name="CompletedDate" Type="DateTime" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="StatusID" Type="Int32" Nullable="false" />
+          <Property Name="PriorityID" Type="Int32" Nullable="false" />
+          <Property Name="TaskID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Status" Relationship="TaskConquerorModel.Status_Task" FromRole="Task" ToRole="Status" />
+          <NavigationProperty Name="TaskPriority" Relationship="TaskConquerorModel.TaskPriority_Task" FromRole="Task" ToRole="TaskPriority" />
+          <NavigationProperty Name="Projects" Relationship="TaskConquerorModel.ProjectTask" FromRole="Task" ToRole="Project" />
+        </EntityType>
+        <EntityType Name="TaskPriority">
+          <Key>
+            <PropertyRef Name="PriorityID" />
+          </Key>
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="PriorityID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Tasks" Relationship="TaskConquerorModel.TaskPriority_Task" FromRole="TaskPriority" ToRole="Task" />
+        </EntityType>
+        <Association Name="GoalCategory_Goal">
+          <End Role="GoalCategory" Type="TaskConquerorModel.GoalCategory" Multiplicity="1" />
+          <End Role="Goal" Type="TaskConquerorModel.Goal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GoalCategory">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="Goal">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Status_Goal">
+          <End Role="Status" Type="TaskConquerorModel.Status" Multiplicity="1" />
+          <End Role="Goal" Type="TaskConquerorModel.Goal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="Goal">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Status_Project">
+          <End Role="Status" Type="TaskConquerorModel.Status" Multiplicity="1" />
+          <End Role="Project" Type="TaskConquerorModel.Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Status_Task">
+          <End Role="Status" Type="TaskConquerorModel.Status" Multiplicity="1" />
+          <End Role="Task" Type="TaskConquerorModel.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TaskPriority_Task">
+          <End Role="TaskPriority" Type="TaskConquerorModel.TaskPriority" Multiplicity="1" />
+          <End Role="Task" Type="TaskConquerorModel.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskPriority">
+              <PropertyRef Name="PriorityID" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="PriorityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="GoalProject">
+          <End Role="Goal" Type="TaskConquerorModel.Goal" Multiplicity="*" />
+          <End Role="Project" Type="TaskConquerorModel.Project" Multiplicity="*" />
+        </Association>
+        <Association Name="ProjectTask">
+          <End Role="Project" Type="TaskConquerorModel.Project" Multiplicity="*" />
+          <End Role="Task" Type="TaskConquerorModel.Task" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TaskConquerorModelStoreContainer" CdmEntityContainer="TaskConquerorEntities">
+          <EntitySetMapping Name="Goals"><EntityTypeMapping TypeName="TaskConquerorModel.Goal"><MappingFragment StoreEntitySet="Goal">
+            <ScalarProperty Name="Title" ColumnName="Title" />
+            <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+            <ScalarProperty Name="CompletedDate" ColumnName="CompletedDate" />
+            <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+            <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+            <ScalarProperty Name="GoalID" ColumnName="GoalID" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="GoalCategories"><EntityTypeMapping TypeName="TaskConquerorModel.GoalCategory"><MappingFragment StoreEntitySet="GoalCategory">
+            <ScalarProperty Name="Description" ColumnName="Description" />
+            <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Projects"><EntityTypeMapping TypeName="TaskConquerorModel.Project"><MappingFragment StoreEntitySet="Project">
+            <ScalarProperty Name="Title" ColumnName="Title" />
+            <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+            <ScalarProperty Name="CompletedDate" ColumnName="CompletedDate" />
+            <ScalarProperty Name="EstimatedCost" ColumnName="EstimatedCost" />
+            <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+            <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Status"><EntityTypeMapping TypeName="TaskConquerorModel.Status"><MappingFragment StoreEntitySet="Status">
+            <ScalarProperty Name="Description" ColumnName="Description" />
+            <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Tasks"><EntityTypeMapping TypeName="TaskConquerorModel.Task"><MappingFragment StoreEntitySet="Task">
+            <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+            <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+            <ScalarProperty Name="CompletedDate" ColumnName="CompletedDate" />
+            <ScalarProperty Name="Title" ColumnName="Title" />
+            <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+            <ScalarProperty Name="PriorityID" ColumnName="PriorityID" />
+            <ScalarProperty Name="TaskID" ColumnName="TaskID" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="TaskPriorities"><EntityTypeMapping TypeName="TaskConquerorModel.TaskPriority"><MappingFragment StoreEntitySet="TaskPriority">
+            <ScalarProperty Name="Description" ColumnName="Description" />
+            <ScalarProperty Name="PriorityID" ColumnName="PriorityID" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <AssociationSetMapping Name="GoalProject" TypeName="TaskConquerorModel.GoalProject" StoreEntitySet="GoalProject">
+            <EndProperty Name="Goal">
+              <ScalarProperty Name="GoalID" ColumnName="GoalID" />
+            </EndProperty>
+            <EndProperty Name="Project">
+              <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="ProjectTask" TypeName="TaskConquerorModel.ProjectTask" StoreEntitySet="ProjectTask">
+            <EndProperty Name="Project">
+              <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+            </EndProperty>
+            <EndProperty Name="Task">
+              <ScalarProperty Name="TaskID" ColumnName="TaskID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="TaskConqueror">
+        <EntityTypeShape EntityType="TaskConquerorModel.Goal" Width="1.5" PointX="3" PointY="1" Height="2.4140429687499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaskConquerorModel.GoalCategory" Width="1.5" PointX="0.75" PointY="5.5" Height="1.4279589843749996" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaskConquerorModel.Project" Width="1.5" PointX="5.25" PointY="1" Height="2.4140429687499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaskConquerorModel.Status" Width="1.5" PointX="0.75" PointY="1.375" Height="1.7566536458333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaskConquerorModel.Task" Width="1.5" PointX="7.5" PointY="1" Height="2.5783902994791674" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaskConquerorModel.TaskPriority" Width="1.5" PointX="5.25" PointY="5.5" Height="1.4279589843749996" IsExpanded="true" />
+        <AssociationConnector Association="TaskConquerorModel.GoalCategory_Goal" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="6.2139794921875" />
+          <ConnectorPoint PointX="3.75" PointY="6.2139794921875" />
+          <ConnectorPoint PointX="3.75" PointY="3.4140429687499996" />
+        </AssociationConnector>
+        <AssociationConnector Association="TaskConquerorModel.Status_Goal" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="2.2533268229166667" />
+          <ConnectorPoint PointX="3" PointY="2.2533268229166667" />
+        </AssociationConnector>
+        <AssociationConnector Association="TaskConquerorModel.Status_Project" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="3.1316536458333335" />
+          <ConnectorPoint PointX="2.625" PointY="3.5066536458333335" />
+          <ConnectorPoint PointX="2.625" PointY="3.7890429687499996" />
+          <ConnectorPoint PointX="3.6666666666666665" PointY="3.7890429687499991" />
+          <ConnectorPoint PointX="3.8333333333333335" PointY="3.7890429687499996" />
+          <ConnectorPoint PointX="4.875" PointY="3.7890429687499996" />
+          <ConnectorPoint PointX="5.25" PointY="3.4140429687499996" />
+        </AssociationConnector>
+        <AssociationConnector Association="TaskConquerorModel.Status_Task" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.4687475" PointY="3.1316536458333335" />
+          <ConnectorPoint PointX="1.4687475" PointY="3.5274666341145835" />
+          <ConnectorPoint PointX="3.6666666666666665" PointY="3.5274666341145831" />
+          <ConnectorPoint PointX="3.8333333333333335" PointY="3.5274666341145835" />
+          <ConnectorPoint PointX="5.053243001302083" PointY="3.5274666341145831" />
+          <ConnectorPoint PointX="5.2199096679687491" PointY="3.5274666341145835" />
+          <ConnectorPoint PointX="7.5" PointY="3.5274666341145835" />
+        </AssociationConnector>
+        <AssociationConnector Association="TaskConquerorModel.TaskPriority_Task" ManuallyRouted="false">
+          <ConnectorPoint PointX="6.75" PointY="6.2139794921875" />
+          <ConnectorPoint PointX="8.25" PointY="6.2139794921875" />
+          <ConnectorPoint PointX="8.25" PointY="3.5783902994791674" />
+        </AssociationConnector>
+        <AssociationConnector Association="TaskConquerorModel.GoalProject" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="2.175768984374999" />
+          <ConnectorPoint PointX="5.25" PointY="2.175768984374999" />
+        </AssociationConnector>
+        <AssociationConnector Association="TaskConquerorModel.ProjectTask" ManuallyRouted="false">
+          <ConnectorPoint PointX="6.75" PointY="2.207021484375" />
+          <ConnectorPoint PointX="7.5" PointY="2.207021484375" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
