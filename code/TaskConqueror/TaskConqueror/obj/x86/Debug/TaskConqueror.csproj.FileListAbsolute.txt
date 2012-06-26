@@ -50,3 +50,30 @@ C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConque
 C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\TaskConqueror.pdb
 C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\View\Task\ActiveTasksView.baml
 C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\View\Task\ActiveTasksView.g.cs
+C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\bin\Debug\TaskConqueror.exe.config
+C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\TaskConqueror.exe
+C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\TaskConqueror.pdb
+C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\MainWindow.baml
+C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\View\Task\AllTasksView.baml
+C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\View\Task\TaskView.baml
+C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\App.baml
+C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\MainWindow.g.cs
+C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\View\Task\AllTasksView.g.cs
+C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\View\Task\TaskView.g.cs
+C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\App.g.cs
+C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\TaskConqueror_Content.g.cs
+C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\TaskConqueror_MarkupCompile.cache
+C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\TaskConqueror_MarkupCompile.lref
+C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\bin\Debug\TaskConqueror.sdf
+C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\bin\Debug\Properties\DataSources\GoalCrusher.Model.GoalCrusherEntities.datasource
+C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\bin\Debug\TaskConqueror.exe
+C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\bin\Debug\TaskConqueror.pdb
+C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\View\Task\ActiveTasksView.baml
+C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\View\Task\ActiveTasksView.g.cs
+C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\MainWindowResources.baml
+C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\TaskConqueror.g.resources
+C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\TaskConqueror.Properties.Resources.resources
+C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\GenerateResource.write.1.tlog

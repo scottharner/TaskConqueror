@@ -16,7 +16,7 @@
         </CollectionViewSource>
 
         <Style x:Key="TaskItemStyle" TargetType="{x:Type ListViewItem}">
-            <Setter Property="Template">
+            <!--<Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListViewItem">
                         <Grid>
@@ -34,7 +34,7 @@
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
-            </Setter>
+            </Setter>-->
 
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             <!-- 
@@ -114,25 +114,110 @@
                         CellTemplate="{StaticResource CompletedCellTemplate}"
                     />
                     <GridViewColumn 
-                        Header="Title" 
-                        DisplayMemberBinding="{Binding Path=Title}" 
-                    />
+                        Header="Title"
+                    >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Rectangle Name="StrikeThrough" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                                       Height="1" StrokeThickness="1" Stroke="Transparent"/>
+                                    <TextBlock Text="{Binding Path=Title}"/>
+                                </Grid>
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding Path=IsCompleted}" Value="True">
+                                        <Setter TargetName="StrikeThrough" Property="Stroke" Value="Black"/>
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn 
                         Header="Status" 
-                        DisplayMemberBinding="{Binding Path=StatusDescription}" 
-                    />
+                    >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Rectangle Name="StrikeThrough" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                                       Height="1" StrokeThickness="1" Stroke="Transparent"/>
+                                    <TextBlock Text="{Binding Path=StatusDescription}"/>
+                                </Grid>
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding Path=IsCompleted}" Value="True">
+                                        <Setter TargetName="StrikeThrough" Property="Stroke" Value="Black"/>
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn
                         Header="Priority"
-                        DisplayMemberBinding="{Binding Path=PriorityDescription}"/>
+                    >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Rectangle Name="StrikeThrough" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                                       Height="1" StrokeThickness="1" Stroke="Transparent"/>
+                                    <TextBlock Text="{Binding Path=PriorityDescription}"/>
+                                </Grid>
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding Path=IsCompleted}" Value="True">
+                                        <Setter TargetName="StrikeThrough" Property="Stroke" Value="Black"/>
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn
-                        Header="Project"
-                        DisplayMemberBinding="{Binding Path=ProjectTitle}"/>
+                        Header="Project">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Rectangle Name="StrikeThrough" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                                       Height="1" StrokeThickness="1" Stroke="Transparent"/>
+                                    <TextBlock Text="{Binding Path=ProjectTitle}"/>
+                                </Grid>
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding Path=IsCompleted}" Value="True">
+                                        <Setter TargetName="StrikeThrough" Property="Stroke" Value="Black"/>
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn
-                        Header="Date Created"
-                        DisplayMemberBinding="{Binding Path=CreatedDate}"/>
+                        Header="Date Created">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Rectangle Name="StrikeThrough" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                                       Height="1" StrokeThickness="1" Stroke="Transparent"/>
+                                    <TextBlock Text="{Binding Path=CreatedDate}"/>
+                                </Grid>
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding Path=IsCompleted}" Value="True">
+                                        <Setter TargetName="StrikeThrough" Property="Stroke" Value="Black"/>
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn
-                        Header="Date Completed"
-                        DisplayMemberBinding="{Binding Path=CompletedDate}"/>
+                        Header="Date Completed">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Rectangle Name="StrikeThrough" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                                       Height="1" StrokeThickness="1" Stroke="Transparent"/>
+                                    <TextBlock Text="{Binding Path=CompletedDate}"/>
+                                </Grid>
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding Path=IsCompleted}" Value="True">
+                                        <Setter TargetName="StrikeThrough" Property="Stroke" Value="Black"/>
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
