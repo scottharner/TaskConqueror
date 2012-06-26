@@ -1,0 +1,140 @@
+﻿<UserControl 
+    x:Class="TaskConqueror.ActiveTasksView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+    >
+    <UserControl.Resources>
+        <CollectionViewSource
+            x:Key="TaskGroups" 
+            Source="{Binding Path=ActiveTasks}"
+        >
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="PriorityId" Direction="Descending" />
+                <scm:SortDescription PropertyName="Title" Direction="Ascending" />
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+
+        <Style x:Key="TaskItemStyle" TargetType="{x:Type ListViewItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+                        <Grid>
+                            <Border Name="Border" Padding="2" SnapsToDevicePixels="true" Background="Transparent">
+                                <GridViewRowPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Border>
+                            <Rectangle Name="StrikeThrough" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                                       Height="1" StrokeThickness="1" Stroke="Transparent"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <DataTrigger Binding="{Binding Path=IsCompleted}" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="LightBlue"/>
+                                <Setter TargetName="StrikeThrough" Property="Stroke" Value="Black"/>
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <!-- 
+            Bind the IsSelected property of a ListViewItem to the 
+            IsSelected property of a TaskViewModel object.
+            -->
+            <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
+            <Style.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="ItemsControl.AlternationIndex" Value="1" />
+                        <Condition Property="IsSelected" Value="False" />
+                        <Condition Property="IsMouseOver" Value="False" />
+                    </MultiTrigger.Conditions>
+                    <Setter Property="Background" Value="#EEEEEEEE" />
+                </MultiTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <DataTemplate x:Key="CompletedCellTemplate">
+            <DockPanel>
+                <CheckBox Name="chkCompleted" IsChecked="{Binding Path=IsCompleted, Mode=TwoWay}"/>
+            </DockPanel>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <DockPanel>
+        <!-- Buttons -->
+        <GroupBox 
+            DockPanel.Dock="Top"
+            Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="2" Header="Tasks" HorizontalAlignment="Left" Margin="0,0,0,10">
+            <StackPanel Orientation="Horizontal">
+                <!-- NEW BUTTON -->
+                <Button 
+                    Command="{Binding Path=AddCommand}"
+                    Content="_Add"
+                    Margin="4,2" 
+                    MinWidth="60" 
+                />
+                <Button 
+                    Command="{Binding Path=EditCommand}"
+                    Content="_Edit"
+                    Margin="4,2" 
+                    MinWidth="60" 
+                />
+                <Button 
+                    Command="{Binding Path=DeactivateCommand}"
+                    Content="_Deactivate"
+                    Margin="4,2" 
+                    MinWidth="60" 
+                />
+                <Button 
+                    Command="{Binding Path=DeactivateCompletedCommand}"
+                    Content="_Deactivate Completed"
+                    Margin="4,2" 
+                    MinWidth="60" 
+                />
+            </StackPanel>
+        </GroupBox>
+
+        <Grid DockPanel.Dock="Bottom" Margin="0,2,4,2">
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center">
+            </StackPanel>
+        </Grid>
+
+        <ListView 
+            AlternationCount="2" 
+            DataContext="{StaticResource TaskGroups}" 
+            ItemContainerStyle="{StaticResource TaskItemStyle}"
+            ItemsSource="{Binding}"
+            SelectionMode="Single"
+        >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn 
+                        Header="Completed"
+                        CellTemplate="{StaticResource CompletedCellTemplate}"
+                    />
+                    <GridViewColumn 
+                        Header="Title" 
+                        DisplayMemberBinding="{Binding Path=Title}" 
+                    />
+                    <GridViewColumn 
+                        Header="Status" 
+                        DisplayMemberBinding="{Binding Path=StatusDescription}" 
+                    />
+                    <GridViewColumn
+                        Header="Priority"
+                        DisplayMemberBinding="{Binding Path=PriorityDescription}"/>
+                    <GridViewColumn
+                        Header="Project"
+                        DisplayMemberBinding="{Binding Path=ProjectTitle}"/>
+                    <GridViewColumn
+                        Header="Date Created"
+                        DisplayMemberBinding="{Binding Path=CreatedDate}"/>
+                    <GridViewColumn
+                        Header="Date Completed"
+                        DisplayMemberBinding="{Binding Path=CompletedDate}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </DockPanel>
+</UserControl>
