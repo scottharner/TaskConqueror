@@ -188,6 +188,29 @@ namespace TaskConqueror
         }
 
         /// <summary>
+        /// Gets/sets whether the task is completed.
+        /// </summary>
+        public bool IsCompleted
+        {
+            get { return this.StatusId == Statuses.Completed; }
+            set
+            {
+                if ((value == true && this.StatusId == Statuses.Completed) ||
+                    value == false && this.StatusId != Statuses.Completed)
+                    return;
+
+                if (value == true)
+                    this.StatusId = Statuses.Completed;
+                else
+                    this.StatusId = Statuses.InProgress;
+
+                base.OnPropertyChanged("IsCompleted");
+                base.OnPropertyChanged("StatusId");
+                base.OnPropertyChanged("StatusDescription");
+            }
+        }
+
+        /// <summary>
         /// Returns a command that saves the customer.
         /// </summary>
         public ICommand SaveCommand

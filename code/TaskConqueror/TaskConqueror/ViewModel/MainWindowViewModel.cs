@@ -28,7 +28,9 @@ namespace TaskConqueror
         {
             base.DisplayName = Properties.Resources.MainWindowViewModel_DisplayName;
             _taskData = new TaskData();
+            WorkspaceViewModel activeVM = ListActiveTasks();
             ListTasks();
+            this.SetActiveWorkspace(activeVM);
         }
 
         #endregion // Constructor
@@ -107,12 +109,21 @@ namespace TaskConqueror
 
         #region Private Helpers
 
-        void ListTasks()
+        WorkspaceViewModel ListTasks()
         {
             TaskData taskData = _taskData;
             AllTasksViewModel workspace = new AllTasksViewModel(taskData);
             this.Workspaces.Add(workspace);
+            return workspace;
+        }
+
+        WorkspaceViewModel ListActiveTasks()
+        {
+            TaskData taskData = _taskData;
+            ActiveTasksViewModel workspace = new ActiveTasksViewModel(taskData);
+            this.Workspaces.Add(workspace);
             this.SetActiveWorkspace(workspace);
+            return workspace;
         }
 
         void SetActiveWorkspace(WorkspaceViewModel workspace)

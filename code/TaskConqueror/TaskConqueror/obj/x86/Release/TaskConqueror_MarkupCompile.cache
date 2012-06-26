@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Documents and Settings\scott\My Documents\Visual Studio 2010\Projects\TaskConqueror\TaskConqueror\obj\x86\Release\
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Release\
 TaskConqueror
 none
 false
 TRACE
-C:\Documents and Settings\scott\My Documents\Visual Studio 2010\Projects\TaskConqueror\TaskConqueror\App.xaml
-4-1746948647
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\App.xaml
+5-1254046575
 1-982053785
-24-1710508501
+261012781232
 15603213382
-MainWindow.xaml;MainWindowResources.xaml;View\Task\AllTasksView.xaml;View\Task\TaskView.xaml;
+MainWindow.xaml;MainWindowResources.xaml;View\Task\AllTasksView.xaml;View\Task\ActiveTasksView.xaml;View\Task\TaskView.xaml;
 
-False
+True
 

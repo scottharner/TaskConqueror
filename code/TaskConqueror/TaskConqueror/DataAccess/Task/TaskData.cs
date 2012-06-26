@@ -160,6 +160,26 @@ namespace TaskConqueror
         }
 
         /// <summary>
+        /// Returns a shallow-copied list of all active tasks in the repository.
+        /// </summary>
+        public List<Task> GetActiveTasks()
+        {
+            List<Data.Task> dbTasks = (from t in _appInfo.GcContext.Tasks
+                                       orderby t.Title
+                                       where t.IsActive == true
+                                       select t).ToList();
+
+            List<Task> tasks = new List<Task>();
+
+            foreach (Data.Task dbTask in dbTasks)
+            {
+                tasks.Add(Task.CreateTask(dbTask));
+            }
+
+            return tasks;
+        }
+
+        /// <summary>
         /// Returns a shallow-copied list of a single task by task id.
         /// </summary>
         public Task GetTaskByTaskId(int taskId)

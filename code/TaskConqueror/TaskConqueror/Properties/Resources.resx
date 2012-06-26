@@ -153,4 +153,7 @@
     <value>Priority is invalid</value>
     <comment>Error message for when an object has an invalid priority.</comment>
   </data>
+  <data name="Active_Tasks_DisplayName" xml:space="preserve">
+    <value>Active Task List</value>
+  </data>
 </root>

@@ -91,11 +91,15 @@
     <Compile Include="ViewModel\EditorViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\Task\AllTasksViewModel.cs" />
+    <Compile Include="ViewModel\Task\ActiveTasksViewModel.cs" />
     <Compile Include="ViewModel\Task\TaskViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="ViewModel\WorkspaceViewModel.cs" />
     <Compile Include="View\Task\AllTasksView.xaml.cs">
       <DependentUpon>AllTasksView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Task\ActiveTasksView.xaml.cs">
+      <DependentUpon>ActiveTasksView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Task\TaskView.xaml.cs">
       <DependentUpon>TaskView.xaml</DependentUpon>
@@ -117,6 +121,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Task\AllTasksView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Task\ActiveTasksView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

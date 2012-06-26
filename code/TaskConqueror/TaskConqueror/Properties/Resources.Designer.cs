@@ -61,6 +61,15 @@ namespace TaskConqueror.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Active Task List.
+        /// </summary>
+        internal static string Active_Tasks_DisplayName {
+            get {
+                return ResourceManager.GetString("Active_Tasks_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit Task.
         /// </summary>
         internal static string Edit_Task_DisplayName {
