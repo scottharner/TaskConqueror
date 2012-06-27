@@ -165,7 +165,8 @@ namespace TaskConqueror
                 if (_deactivateCompletedCommand == null)
                 {
                     _deactivateCompletedCommand = new RelayCommand(
-                        param => this.DeactivateCompletedTasks()
+                        param => this.DeactivateCompletedTasks(),
+                        param => this.CanDeactivateCompletedTasks()
                         );
                 }
                 return _deactivateCompletedCommand;
@@ -199,15 +200,13 @@ namespace TaskConqueror
         /// </summary>
         public void DeactivateTask()
         {
-            TaskView window = new TaskView();
-
             TaskViewModel selectedTaskVM = ActiveTasks.FirstOrDefault(t => t.IsSelected == true);
 
-            var viewModel = new TaskViewModel(_taskData.GetTaskByTaskId(selectedTaskVM.TaskId), _taskData);
-
-            viewModel.IsActive = false;
-
-            viewModel.Save();
+            if (selectedTaskVM != null)
+            {
+                selectedTaskVM.IsActive = false;
+                selectedTaskVM.Save();
+            }
         }
 
         /// <summary>
@@ -215,17 +214,15 @@ namespace TaskConqueror
         /// </summary>
         public void DeactivateCompletedTasks()
         {
-            TaskView window = new TaskView();
-
             List<TaskViewModel> completedTaskList = ActiveTasks.Where(t => t.IsCompleted == true).ToList();
 
-            foreach (TaskViewModel taskVM in completedTaskList)
+            if (completedTaskList != null)
             {
-                var viewModel = new TaskViewModel(_taskData.GetTaskByTaskId(taskVM.TaskId), _taskData);
-
-                viewModel.IsActive = false;
-
-                viewModel.Save();
+                foreach (TaskViewModel taskVM in completedTaskList)
+                {
+                    taskVM.IsActive = false;
+                    taskVM.Save();
+                }
             }
         }
 
@@ -285,6 +282,11 @@ namespace TaskConqueror
         bool CanDeactivateTask()
         {
             return ActiveTasks.Count(t => t.IsSelected == true) == 1;
+        }
+
+        bool CanDeactivateCompletedTasks()
+        {
+            return ActiveTasks.Count(t => t.IsCompleted == true) > 0;
         }
 
         #endregion

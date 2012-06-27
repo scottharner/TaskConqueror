@@ -84,19 +84,28 @@ namespace TaskConqueror
             if (task.TaskId == 0)
                 throw new InvalidOperationException("modify task");
 
-            Data.Task dbTask = new Data.Task();
-            dbTask.TaskID = task.TaskId;
-            dbTask.StatusID = task.StatusId;
-            dbTask.PriorityID = task.PriorityId;
-            dbTask.IsActive = task.IsActive;
-            dbTask.CreatedDate = task.CreatedDate;
-            dbTask.CompletedDate = task.CompletedDate;
-            dbTask.Title = task.Title;
+            Data.Task dbTask = (from t in _appInfo.GcContext.Tasks
+             where t.TaskID == task.TaskId
+             select t).FirstOrDefault();
 
-            _appInfo.GcContext.SaveChanges();
+            if (dbTask == null)
+            {
+                throw new InvalidDataException("task id");
+            }
+            else
+            {
+                dbTask.StatusID = task.StatusId;
+                dbTask.PriorityID = task.PriorityId;
+                dbTask.IsActive = task.IsActive;
+                dbTask.CreatedDate = task.CreatedDate;
+                dbTask.CompletedDate = task.CompletedDate;
+                dbTask.Title = task.Title;
 
-            if (this.TaskUpdated != null)
-                this.TaskUpdated(this, new TaskUpdatedEventArgs(task));
+                _appInfo.GcContext.SaveChanges();
+
+                if (this.TaskUpdated != null)
+                    this.TaskUpdated(this, new TaskUpdatedEventArgs(task));
+            }
         }
 
         /// <summary>
