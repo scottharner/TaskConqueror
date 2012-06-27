@@ -26,6 +26,7 @@ namespace TaskConqueror
         string _projectTitle;
         string _statusDescription;
         string _priorityDescription;
+        RelayCommand _toggleCompleteCommand;
 
         #endregion // Fields
 
@@ -211,6 +212,23 @@ namespace TaskConqueror
         }
 
         /// <summary>
+        /// Returns a command that changes the completed status of the selected task.
+        /// </summary>
+        public ICommand ToggleCompleteCommand
+        {
+            get
+            {
+                if (_toggleCompleteCommand == null)
+                {
+                    _toggleCompleteCommand = new RelayCommand(
+                        param => this.ToggleCompleteTask()
+                        );
+                }
+                return _toggleCompleteCommand;
+            }
+        }
+
+        /// <summary>
         /// Returns a command that saves the customer.
         /// </summary>
         public ICommand SaveCommand
@@ -296,6 +314,17 @@ namespace TaskConqueror
             }
 
             _isSaved = true;
+        }
+
+        /// <summary>
+        /// Changes the completed status of the selected task.
+        /// </summary>
+        public void ToggleCompleteTask()
+        {
+            this.IsCompleted = !this.IsCompleted;
+
+            // auto save since this will be called from active task list
+            this.Save();
         }
 
         #endregion // Public Methods

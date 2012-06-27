@@ -75,6 +75,10 @@
     </ApplicationDefinition>
     <Compile Include="AppInfo.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Controls\BoolToTextDecorationConverter.cs" />
+    <Compile Include="Controls\CompletableTextBlock.xaml.cs">
+      <DependentUpon>CompletableTextBlock.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DataAccess\Task\TaskDeletedEventArgs.cs" />
     <Compile Include="DataAccess\Task\TaskUpdatedEventArgs.cs" />
     <Compile Include="DataAccess\Task\TaskAddedEventArgs.cs" />
@@ -104,6 +108,10 @@
     <Compile Include="View\Task\TaskView.xaml.cs">
       <DependentUpon>TaskView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Controls\CompletableTextBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

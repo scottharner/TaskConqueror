@@ -56,7 +56,7 @@
 
         <DataTemplate x:Key="CompletedCellTemplate">
             <DockPanel>
-                <CheckBox Name="chkCompleted" IsChecked="{Binding Path=IsCompleted, Mode=TwoWay}"/>
+                <CheckBox Name="chkCompleted" Command="{Binding Path=ToggleCompleteCommand}" IsChecked="{Binding Path=IsCompleted, Mode=OneWay}"/>
             </DockPanel>
         </DataTemplate>
     </UserControl.Resources>

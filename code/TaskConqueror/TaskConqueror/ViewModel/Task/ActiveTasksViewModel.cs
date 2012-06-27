@@ -20,9 +20,9 @@ namespace TaskConqueror
         #region Fields
 
         readonly TaskData _taskData;
-        RelayCommand _newCommand;
+        RelayCommand _addCommand;
         RelayCommand _editCommand;
-        RelayCommand _deleteCommand;
+        RelayCommand _deactivateCompletedCommand;
         RelayCommand _deactivateCommand;
 
         #endregion // Fields
@@ -156,6 +156,23 @@ namespace TaskConqueror
         }
 
         /// <summary>
+        /// Returns a command that deactivates all the completed tasks.
+        /// </summary>
+        public ICommand DeactivateCompletedCommand
+        {
+            get
+            {
+                if (_deactivateCompletedCommand == null)
+                {
+                    _deactivateCompletedCommand = new RelayCommand(
+                        param => this.DeactivateCompletedTasks()
+                        );
+                }
+                return _deactivateCompletedCommand;
+            }
+        }
+
+        /// <summary>
         /// Returns a command that edits an existing task.
         /// </summary>
         public ICommand EditCommand
@@ -189,6 +206,27 @@ namespace TaskConqueror
             var viewModel = new TaskViewModel(_taskData.GetTaskByTaskId(selectedTaskVM.TaskId), _taskData);
 
             viewModel.IsActive = false;
+
+            viewModel.Save();
+        }
+
+        /// <summary>
+        /// Deactivates all completed tasks.
+        /// </summary>
+        public void DeactivateCompletedTasks()
+        {
+            TaskView window = new TaskView();
+
+            List<TaskViewModel> completedTaskList = ActiveTasks.Where(t => t.IsCompleted == true).ToList();
+
+            foreach (TaskViewModel taskVM in completedTaskList)
+            {
+                var viewModel = new TaskViewModel(_taskData.GetTaskByTaskId(taskVM.TaskId), _taskData);
+
+                viewModel.IsActive = false;
+
+                viewModel.Save();
+            }
         }
 
         /// <summary>

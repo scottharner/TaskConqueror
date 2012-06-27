@@ -77,3 +77,5 @@ C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\
 C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\TaskConqueror.Properties.Resources.resources
 C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\GenerateResource.read.1.tlog
 C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\Controls\CompletableTextBlock.g.cs
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\Controls\CompletableTextBlock.baml

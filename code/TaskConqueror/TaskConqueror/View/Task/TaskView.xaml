@@ -78,7 +78,7 @@
       />
             <ContentPresenter 
       Grid.Row="1" Grid.Column="2"
-      Content="{Binding ElementName=firstNameTxt, Path=(Validation.Errors).CurrentItem}"
+      Content="{Binding ElementName=titleTxt, Path=(Validation.Errors).CurrentItem}"
       />
 
             <!-- PROJECT -->
@@ -151,7 +151,7 @@
       />
             <ContentPresenter 
       Grid.Row="9" Grid.Column="2"
-      Content="{Binding ElementName=emailTxt, Path=(Validation.Errors).CurrentItem}"
+      Content="{Binding ElementName=activeChk, Path=(Validation.Errors).CurrentItem}"
       />
 
             <!-- Date Created -->
