@@ -81,3 +81,7 @@ C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConque
 C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\Controls\CompletableTextBlock.baml
 C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\View\Task\AddTasksView.g.cs
 C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\View\Task\AddTasksView.baml
+C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\Controls\CompletableTextBlock.g.cs
+C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\View\Task\AddTasksView.g.cs
+C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\Controls\CompletableTextBlock.baml
+C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\View\Task\AddTasksView.baml

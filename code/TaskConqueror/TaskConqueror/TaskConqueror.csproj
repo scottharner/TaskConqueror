@@ -213,14 +213,16 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\goal.png" />
-    <None Include="Resources\project.png" />
-    <None Include="Resources\task.png" />
+    <Resource Include="Assets\Images\goal.png" />
+    <Resource Include="Assets\Images\project.png" />
+    <Resource Include="Assets\Images\task.png" />
     <Content Include="TaskConqueror.sdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

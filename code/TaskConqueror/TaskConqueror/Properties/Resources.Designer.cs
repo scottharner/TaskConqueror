@@ -105,13 +105,6 @@ namespace TaskConqueror.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap goal {
-            get {
-                object obj = ResourceManager.GetObject("goal", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
         /// <summary>
         ///   Looks up a localized string similar to Create new task.
         /// </summary>
@@ -139,26 +132,12 @@ namespace TaskConqueror.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap project {
-            get {
-                object obj = ResourceManager.GetObject("project", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
         /// <summary>
         ///   Looks up a localized string similar to Estimated cost is invalid.
         /// </summary>
         internal static string Project_Error_InvalidEstimatedCost {
             get {
                 return ResourceManager.GetString("Project_Error_InvalidEstimatedCost", resourceCulture);
-            }
-        }
-        
-        internal static System.Drawing.Bitmap task {
-            get {
-                object obj = ResourceManager.GetObject("task", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

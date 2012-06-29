@@ -4,15 +4,15 @@
 winexe
 C#
 .cs
-C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\
+C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\
 TaskConqueror
 none
 false
 DEBUG;TRACE
-C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\App.xaml
+C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\App.xaml
 7-1657409077
 1-982053785
-31-1023681251
+31543995288
 16-613435264
 Controls\CompletableTextBlock.xaml;MainWindow.xaml;MainWindowResources.xaml;View\Task\AllTasksView.xaml;View\Task\ActiveTasksView.xaml;View\Task\AddTasksView.xaml;View\Task\TaskView.xaml;
 

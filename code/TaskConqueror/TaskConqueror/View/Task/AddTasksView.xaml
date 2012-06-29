@@ -32,7 +32,7 @@
             <Grid.Resources>
                 <DataTemplate x:Key="DetailTemplate">
                     <StackPanel Orientation="Horizontal" Margin="2">
-                        <Image Source="pack://application:,,,/Resources/project.png"
+                        <Image Source="pack://application:,,,/TaskConqueror;Component/Assets/Images/project.png"
                        Width="16"
                        Height="16"
                        SnapsToDevicePixels="True"/>
@@ -44,7 +44,7 @@
                                           ItemTemplate="{StaticResource DetailTemplate}"
                                           >
                     <StackPanel Orientation="Horizontal" Margin="2">
-                        <Image Source="pack://application:,,,/Resources/goal.png"
+                        <Image Source="pack://application:,,,/TaskConqueror;Component/Assets/Images/goal.png"
                        Width="16"
                        Height="16"
                        SnapsToDevicePixels="True"/>
