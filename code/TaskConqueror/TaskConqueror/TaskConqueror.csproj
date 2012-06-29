@@ -54,6 +54,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
@@ -96,6 +97,7 @@
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\Task\AllTasksViewModel.cs" />
     <Compile Include="ViewModel\Task\ActiveTasksViewModel.cs" />
+    <Compile Include="ViewModel\Task\AddTasksViewModel.cs" />
     <Compile Include="ViewModel\Task\TaskViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="ViewModel\WorkspaceViewModel.cs" />
@@ -104,6 +106,9 @@
     </Compile>
     <Compile Include="View\Task\ActiveTasksView.xaml.cs">
       <DependentUpon>ActiveTasksView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Task\AddTasksView.xaml.cs">
+      <DependentUpon>AddTasksView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Task\TaskView.xaml.cs">
       <DependentUpon>TaskView.xaml</DependentUpon>
@@ -133,6 +138,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Task\ActiveTasksView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Task\AddTasksView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -204,6 +213,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\goal.png" />
+    <None Include="Resources\project.png" />
+    <None Include="Resources\task.png" />
     <Content Include="TaskConqueror.sdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -10,11 +10,11 @@ none
 false
 TRACE
 C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\App.xaml
-4-1746948647
+7-1657409077
 1-982053785
-25-850974148
+31-1023681251
 15603213382
-MainWindow.xaml;MainWindowResources.xaml;View\Task\AllTasksView.xaml;View\Task\TaskView.xaml;
+Controls\CompletableTextBlock.xaml;MainWindow.xaml;MainWindowResources.xaml;View\Task\AllTasksView.xaml;View\Task\ActiveTasksView.xaml;View\Task\AddTasksView.xaml;View\Task\TaskView.xaml;
 
 True
 

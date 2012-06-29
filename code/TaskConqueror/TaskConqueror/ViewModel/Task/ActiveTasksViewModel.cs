@@ -191,6 +191,23 @@ namespace TaskConqueror
             }
         }
 
+        /// <summary>
+        /// Returns a command that adds tasks to the active task list.
+        /// </summary>
+        public ICommand AddCommand
+        {
+            get
+            {
+                if (_addCommand == null)
+                {
+                    _addCommand = new RelayCommand(
+                        param => this.AddTasks()
+                        );
+                }
+                return _addCommand;
+            }
+        }
+
         #endregion
 
         #region Public Methods
@@ -263,6 +280,30 @@ namespace TaskConqueror
             {
                 _taskData.DeleteTask(_taskData.GetTaskByTaskId(selectedTaskVM.TaskId));
             }
+        }
+
+        /// <summary>
+        /// Launches the add tasks window.
+        /// </summary>
+        public void AddTasks()
+        {
+            AddTasksView window = new AddTasksView();
+
+            var viewModel = new AddTasksViewModel(_taskData);
+
+            // When the ViewModel asks to be closed, 
+            // close the window.
+            EventHandler handler = null;
+            handler = delegate
+            {
+                viewModel.RequestClose -= handler;
+                window.Close();
+            };
+            viewModel.RequestClose += handler;
+
+            window.DataContext = viewModel;
+
+            window.ShowDialog();
         }
 
         #endregion // Public Methods

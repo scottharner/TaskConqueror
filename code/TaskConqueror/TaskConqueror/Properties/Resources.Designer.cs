@@ -70,6 +70,15 @@ namespace TaskConqueror.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Tasks.
+        /// </summary>
+        internal static string Add_Tasks_DisplayName {
+            get {
+                return ResourceManager.GetString("Add_Tasks_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit Task.
         /// </summary>
         internal static string Edit_Task_DisplayName {
@@ -93,6 +102,13 @@ namespace TaskConqueror.Properties {
         internal static string Error_MissingTitle {
             get {
                 return ResourceManager.GetString("Error_MissingTitle", resourceCulture);
+            }
+        }
+        
+        internal static System.Drawing.Bitmap goal {
+            get {
+                object obj = ResourceManager.GetObject("goal", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -123,12 +139,26 @@ namespace TaskConqueror.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap project {
+            get {
+                object obj = ResourceManager.GetObject("project", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Estimated cost is invalid.
         /// </summary>
         internal static string Project_Error_InvalidEstimatedCost {
             get {
                 return ResourceManager.GetString("Project_Error_InvalidEstimatedCost", resourceCulture);
+            }
+        }
+        
+        internal static System.Drawing.Bitmap task {
+            get {
+                object obj = ResourceManager.GetObject("task", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

@@ -16,25 +16,6 @@
         </CollectionViewSource>
 
         <Style x:Key="TaskItemStyle" TargetType="{x:Type ListViewItem}">
-            <!--<Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ListViewItem">
-                        <Grid>
-                            <Border Name="Border" Padding="2" SnapsToDevicePixels="true" Background="Transparent">
-                                <GridViewRowPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                            </Border>
-                            <Rectangle Name="StrikeThrough" HorizontalAlignment="Stretch" VerticalAlignment="Center"
-                                       Height="1" StrokeThickness="1" Stroke="Transparent"/>
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <DataTrigger Binding="{Binding Path=IsCompleted}" Value="True">
-                                <Setter TargetName="Border" Property="Background" Value="LightBlue"/>
-                                <Setter TargetName="StrikeThrough" Property="Stroke" Value="Black"/>
-                            </DataTrigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>-->
 
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             <!-- 
