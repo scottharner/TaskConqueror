@@ -45,13 +45,18 @@ namespace TaskConqueror
             _inactiveTasksByGoals = CreateDataSet();
 
             //todo: setup observable collection of goals containing tasks
-            List<Goal> allGoals = goalData.GetGoals();
+            List<Goal> allGoals = goalData.GetGoalsContainingTasks();
             foreach (Goal goalObj in allGoals)
             {
                 _goals.Add(new GoalTreeNodeViewModel(goalObj, goalData));
             }
 
-            _goals.Add(new UnassignedTreeNodeViewModel(taskData, projectData));
+            UnassignedTreeNodeViewModel unassigned = new UnassignedTreeNodeViewModel(taskData, projectData);
+            if (unassigned.ChildNodes.Count > 0)
+            {
+                _goals.Add(unassigned);
+            }
+
             base.DisplayName = Properties.Resources.Add_Tasks_DisplayName;            
         }
 

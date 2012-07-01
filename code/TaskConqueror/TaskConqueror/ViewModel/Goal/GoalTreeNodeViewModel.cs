@@ -30,7 +30,7 @@ namespace TaskConqueror
 
             _goal = goal;
 
-            List<Project> childProjects = goalData.GetChildProjects(goal.GoalId);
+            List<Project> childProjects = goalData.GetChildProjectsContainingTasks(goal.GoalId);
             ProjectData pData = new ProjectData();
             foreach (Project childProject in childProjects)
             {

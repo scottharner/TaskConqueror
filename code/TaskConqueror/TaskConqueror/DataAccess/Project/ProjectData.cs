@@ -187,6 +187,46 @@ namespace TaskConqueror
         }
 
         /// <summary>
+        /// Returns a shallow-copied list of all projects in the repository that have no associated goal and contain tasks.
+        /// </summary>
+        public List<Project> GetUnassignedProjectsContainingTasks()
+        {
+            List<Data.Project> dbProjects = (from p in _appInfo.GcContext.Projects
+                                             where p.Goals.Count == 0 && p.Tasks.Count > 0
+                                             orderby p.Title
+                                             select p).ToList();
+
+            List<Project> projects = new List<Project>();
+
+            foreach (Data.Project dbProject in dbProjects)
+            {
+                projects.Add(Project.CreateProject(dbProject));
+            }
+
+            return projects;
+        }
+
+        /// <summary>
+        /// Returns a shallow-copied list of all projects that contain tasks.
+        /// </summary>
+        public List<Project> GetProjectsContainingTasks()
+        {
+            List<Data.Project> dbProjects = (from p in _appInfo.GcContext.Projects
+                                       where p.Tasks.Count > 0
+                                       orderby p.Title
+                                       select p).ToList();
+
+            List<Project> projects = new List<Project>();
+
+            foreach (Data.Project dbProject in dbProjects)
+            {
+                projects.Add(Project.CreateProject(dbProject));
+            }
+
+            return projects;
+        }
+
+        /// <summary>
         /// Returns a shallow-copied list of a single project by project id.
         /// </summary>
         public Project GetProjectByProjectId(int projectId)
