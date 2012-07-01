@@ -57,7 +57,7 @@
           </Key>
           <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="100" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
-          <Property Name="CompletedDate" Type="datetime" Nullable="false" />
+          <Property Name="CompletedDate" Type="datetime" />
           <Property Name="CategoryID" Type="int" Nullable="false" />
           <Property Name="StatusID" Type="int" Nullable="false" />
           <Property Name="GoalID" Type="int" Nullable="false" />
@@ -277,7 +277,7 @@
           </Key>
           <Property Name="Title" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" />
-          <Property Name="CompletedDate" Type="DateTime" Nullable="false" />
+          <Property Name="CompletedDate" Type="DateTime" />
           <Property Name="CategoryID" Type="Int32" Nullable="false" />
           <Property Name="StatusID" Type="Int32" Nullable="false" />
           <Property Name="GoalID" Type="Int32" Nullable="false" />

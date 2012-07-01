@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Data;
+using System.Collections.ObjectModel;
 
 namespace TaskConqueror
 {
@@ -29,12 +30,13 @@ namespace TaskConqueror
         string _priorityDescription;
         RelayCommand _toggleCompleteCommand;
         DataSet _inactiveTasksByGoals;
+        ObservableCollection<ITreeNodeContainerViewModel> _goals = new ObservableCollection<ITreeNodeContainerViewModel>();
 
         #endregion // Fields
 
         #region Constructor
 
-        public AddTasksViewModel(TaskData taskData)
+        public AddTasksViewModel(TaskData taskData, ProjectData projectData, GoalData goalData)
         {
             if (taskData == null)
                 throw new ArgumentNullException("taskData");
@@ -42,6 +44,14 @@ namespace TaskConqueror
             _taskData = taskData;
             _inactiveTasksByGoals = CreateDataSet();
 
+            //todo: setup observable collection of goals containing tasks
+            List<Goal> allGoals = goalData.GetGoals();
+            foreach (Goal goalObj in allGoals)
+            {
+                _goals.Add(new GoalTreeNodeViewModel(goalObj, goalData));
+            }
+
+            _goals.Add(new UnassignedTreeNodeViewModel(taskData, projectData));
             base.DisplayName = Properties.Resources.Add_Tasks_DisplayName;            
         }
 
@@ -158,9 +168,9 @@ namespace TaskConqueror
             get { return _task.ParentProject; }
         }
 
-        public DataSet InactiveTasksByGoal
+        public ObservableCollection<ITreeNodeContainerViewModel> InactiveTasksByGoal
         {
-            get { return _inactiveTasksByGoals; }
+            get { return _goals; }
         }
 
         #endregion // Properties

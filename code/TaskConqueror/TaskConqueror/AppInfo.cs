@@ -13,6 +13,7 @@ namespace TaskConqueror
         Data.TaskConquerorEntities _gcContext;
         List<Data.Status> _statusList;
         List<Data.TaskPriority> _priorityList;
+        List<Data.GoalCategory> _categoryList;
 
         /// <summary>
         /// Allocate ourselves. We have a private constructor, so no one else can.
@@ -38,6 +39,11 @@ namespace TaskConqueror
             get { return _priorityList; }
         }
 
+        public List<Data.GoalCategory> CategoryList
+        {
+            get { return _categoryList; }
+        }
+
         public Data.TaskConquerorEntities GcContext
         {
             get { return _gcContext; }
@@ -52,6 +58,7 @@ namespace TaskConqueror
             _gcContext = new Data.TaskConquerorEntities();
             _priorityList = (from p in _gcContext.TaskPriorities select p).ToList();
             _statusList = (from s in _gcContext.Status select s).ToList();
+            _categoryList = (from c in _gcContext.GoalCategories select c).ToList();
         }
     }
 }

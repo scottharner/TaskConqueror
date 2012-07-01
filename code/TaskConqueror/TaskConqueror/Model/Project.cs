@@ -27,6 +27,9 @@ namespace TaskConqueror
 
         public static Project CreateProject(Data.Project dbProject)
         {
+            Data.Goal parentGoal = (from pt in dbProject.Goals
+                                          select pt).FirstOrDefault();
+
             return new Project
             {
                 ProjectId = dbProject.ProjectID,
@@ -34,7 +37,8 @@ namespace TaskConqueror
                 CreatedDate = dbProject.CreatedDate,
                 CompletedDate = dbProject.CompletedDate,
                 EstimatedCost = dbProject.EstimatedCost,
-                StatusId = dbProject.StatusID
+                StatusId = dbProject.StatusID,
+                ParentGoal = parentGoal == null ? null : Goal.CreateGoal(parentGoal)
             };
         }
 
@@ -76,8 +80,10 @@ namespace TaskConqueror
         /// </summary>
         public decimal? EstimatedCost { get; set; }
 
-        //TODO - setup goal class
-        //public Goal ParentGoal { get; set; }
+        /// <summary>
+        /// Gets/sets the project's parent goal.
+        /// </summary>
+        public Goal ParentGoal { get; set; }
 
         #endregion // State Properties
 

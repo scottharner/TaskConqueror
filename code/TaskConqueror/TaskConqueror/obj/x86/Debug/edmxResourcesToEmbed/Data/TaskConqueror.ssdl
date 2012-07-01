@@ -52,7 +52,7 @@
     </Key>
     <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="100" />
     <Property Name="CreatedDate" Type="datetime" Nullable="false" />
-    <Property Name="CompletedDate" Type="datetime" Nullable="false" />
+    <Property Name="CompletedDate" Type="datetime" />
     <Property Name="CategoryID" Type="int" Nullable="false" />
     <Property Name="StatusID" Type="int" Nullable="false" />
     <Property Name="GoalID" Type="int" Nullable="false" />

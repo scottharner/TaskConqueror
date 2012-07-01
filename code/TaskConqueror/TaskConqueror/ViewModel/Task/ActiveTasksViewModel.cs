@@ -289,7 +289,7 @@ namespace TaskConqueror
         {
             AddTasksView window = new AddTasksView();
 
-            var viewModel = new AddTasksViewModel(_taskData);
+            var viewModel = new AddTasksViewModel(_taskData, new ProjectData(), new GoalData());
 
             // When the ViewModel asks to be closed, 
             // close the window.

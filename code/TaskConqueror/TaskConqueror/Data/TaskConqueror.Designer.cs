@@ -246,16 +246,14 @@ namespace TaskConqueror.Data
         /// </summary>
         /// <param name="title">Initial value of the Title property.</param>
         /// <param name="createdDate">Initial value of the CreatedDate property.</param>
-        /// <param name="completedDate">Initial value of the CompletedDate property.</param>
         /// <param name="categoryID">Initial value of the CategoryID property.</param>
         /// <param name="statusID">Initial value of the StatusID property.</param>
         /// <param name="goalID">Initial value of the GoalID property.</param>
-        public static Goal CreateGoal(global::System.String title, global::System.DateTime createdDate, global::System.DateTime completedDate, global::System.Int32 categoryID, global::System.Int32 statusID, global::System.Int32 goalID)
+        public static Goal CreateGoal(global::System.String title, global::System.DateTime createdDate, global::System.Int32 categoryID, global::System.Int32 statusID, global::System.Int32 goalID)
         {
             Goal goal = new Goal();
             goal.Title = title;
             goal.CreatedDate = createdDate;
-            goal.CompletedDate = completedDate;
             goal.CategoryID = categoryID;
             goal.StatusID = statusID;
             goal.GoalID = goalID;
@@ -316,9 +314,9 @@ namespace TaskConqueror.Data
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.DateTime CompletedDate
+        public Nullable<global::System.DateTime> CompletedDate
         {
             get
             {
@@ -333,8 +331,8 @@ namespace TaskConqueror.Data
                 OnCompletedDateChanged();
             }
         }
-        private global::System.DateTime _CompletedDate;
-        partial void OnCompletedDateChanging(global::System.DateTime value);
+        private Nullable<global::System.DateTime> _CompletedDate;
+        partial void OnCompletedDateChanging(Nullable<global::System.DateTime> value);
         partial void OnCompletedDateChanged();
     
         /// <summary>

@@ -29,36 +29,54 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Grid.Resources>
-                <DataTemplate x:Key="DetailTemplate">
-                    <StackPanel Orientation="Horizontal" Margin="2">
-                        <Image Source="pack://application:,,,/TaskConqueror;Component/Assets/Images/project.png"
-                       Width="16"
-                       Height="16"
-                       SnapsToDevicePixels="True"/>
-                        <TextBlock Text="{Binding Path=Info}" Margin="5,0"/>
-                    </StackPanel>
-                </DataTemplate>
-                <HierarchicalDataTemplate x:Key="MasterTemplate"
-                                          ItemsSource="{Binding Master2Detail}"
-                                          ItemTemplate="{StaticResource DetailTemplate}"
-                                          >
-                    <StackPanel Orientation="Horizontal" Margin="2">
-                        <Image Source="pack://application:,,,/TaskConqueror;Component/Assets/Images/goal.png"
-                       Width="16"
-                       Height="16"
-                       SnapsToDevicePixels="True"/>
-                        <TextBlock Text="{Binding Path=Name}" Margin="5,0"/>
-                    </StackPanel>
-                </HierarchicalDataTemplate>
-            </Grid.Resources>
-
-
             <!-- INACTIVE TASKS -->
             <HeaderedContentControl Grid.Row="0" Header="Inactive Tasks">
-                <TreeView DataContext="{Binding InactiveTasksByGoal}" ItemsSource="{Binding Path=Master}"
-                          ItemTemplate="{StaticResource MasterTemplate}"
-                          />
+                <TreeView ItemsSource="{Binding Path=InactiveTasksByGoal}">
+                    <TreeView.Resources>
+                        <DataTemplate DataType="{x:Type tc:TaskTreeNodeViewModel}">
+                            <StackPanel Orientation="Horizontal" Margin="2">
+                                <Image Source="pack://application:,,,/TaskConqueror;Component/Assets/Images/task.png"
+                       Width="16"
+                       Height="16"
+                       SnapsToDevicePixels="True"/>
+                                <TextBlock Text="{Binding Path=Title}" Margin="5,0"/>
+                            </StackPanel>
+                        </DataTemplate>
+                        <HierarchicalDataTemplate DataType="{x:Type tc:GoalTreeNodeViewModel}"
+                                          ItemsSource="{Binding ChildNodes}"
+                                          >
+                            <StackPanel Orientation="Horizontal" Margin="2">
+                                <Image Source="pack://application:,,,/TaskConqueror;Component/Assets/Images/goal.png"
+                       Width="16"
+                       Height="16"
+                       SnapsToDevicePixels="True"/>
+                                <TextBlock Text="{Binding Path=Title}" Margin="5,0"/>
+                            </StackPanel>
+                        </HierarchicalDataTemplate>
+                        <HierarchicalDataTemplate DataType="{x:Type tc:ProjectTreeNodeViewModel}"
+                                          ItemsSource="{Binding ChildNodes}"
+                                          >
+                            <StackPanel Orientation="Horizontal" Margin="2">
+                                <Image Source="pack://application:,,,/TaskConqueror;Component/Assets/Images/project.png"
+                       Width="16"
+                       Height="16"
+                       SnapsToDevicePixels="True"/>
+                                <TextBlock Text="{Binding Path=Title}" Margin="5,0"/>
+                            </StackPanel>
+                        </HierarchicalDataTemplate>
+                        <HierarchicalDataTemplate DataType="{x:Type tc:UnassignedTreeNodeViewModel}"
+                                          ItemsSource="{Binding ChildNodes}"
+                                          >
+                            <StackPanel Orientation="Horizontal" Margin="2">
+                                <Image Source="pack://application:,,,/TaskConqueror;Component/Assets/Images/unassigned.png"
+                       Width="16"
+                       Height="16"
+                       SnapsToDevicePixels="True"/>
+                                <TextBlock Text="{Binding Path=Title}" Margin="5,0"/>
+                            </StackPanel>
+                        </HierarchicalDataTemplate>
+                    </TreeView.Resources>
+                </TreeView>
             </HeaderedContentControl>
             
             <!-- Add and remove buttons -->
@@ -79,9 +97,11 @@
             </StackPanel>
 
             <!-- Selected tasks -->
-            <ListView Grid.Row="2">
-                
-            </ListView>
+            <HeaderedContentControl Header="Selected Tasks" Grid.Row="2">
+                <ListView>
+
+                </ListView>
+            </HeaderedContentControl>
             
             <!-- Ok and cancel buttons -->
             <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
