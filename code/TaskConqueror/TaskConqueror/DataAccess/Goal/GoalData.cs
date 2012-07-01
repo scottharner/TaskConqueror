@@ -169,10 +169,10 @@ namespace TaskConqueror
         /// <summary>
         /// Returns a shallow-copied list of all goals that contain tasks.
         /// </summary>
-        public List<Goal> GetGoalsContainingTasks()
+        public List<Goal> GetGoalsContainingInactiveTasks()
         {
             List<Data.Goal> dbGoals = (from p in _appInfo.GcContext.Projects
-                                       where p.Tasks.Count > 0 && p.Goals.Count > 0
+                                       where p.Tasks.Any(t => t.IsActive == false) && p.Goals.Count > 0
                                        orderby p.Goals.FirstOrDefault().Title
                                        select p.Goals.FirstOrDefault()).Distinct().ToList();
 
@@ -225,11 +225,11 @@ namespace TaskConqueror
         /// <summary>
         /// Returns a child projects that contain tasks for the goal with the provided goal id.
         /// </summary>
-        public List<Project> GetChildProjectsContainingTasks(int goalId)
+        public List<Project> GetChildProjectsContainingInactiveTasks(int goalId)
         {
             List<Project> childProjects = new List<Project>();
             List<Data.Project> requestedDbProjects = (from p in _appInfo.GcContext.Projects
-                                                      where p.Goals.FirstOrDefault().GoalID == goalId && p.Tasks.Count > 0
+                                                      where p.Goals.FirstOrDefault().GoalID == goalId && p.Tasks.Any(t => t.IsActive == false)
                                                       select p).ToList();
 
             foreach (Data.Project childDbProject in requestedDbProjects)

@@ -189,10 +189,10 @@ namespace TaskConqueror
         /// <summary>
         /// Returns a shallow-copied list of all projects in the repository that have no associated goal and contain tasks.
         /// </summary>
-        public List<Project> GetUnassignedProjectsContainingTasks()
+        public List<Project> GetUnassignedProjectsContainingInactiveTasks()
         {
             List<Data.Project> dbProjects = (from p in _appInfo.GcContext.Projects
-                                             where p.Goals.Count == 0 && p.Tasks.Count > 0
+                                             where p.Goals.Count == 0 && p.Tasks.Any(t => t.IsActive == false)
                                              orderby p.Title
                                              select p).ToList();
 

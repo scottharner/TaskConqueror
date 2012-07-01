@@ -27,7 +27,7 @@ namespace TaskConqueror
             if (taskData == null)
                 throw new ArgumentNullException("task data");
 
-            List<Project> unassignedProjects = projectData.GetUnassignedProjectsContainingTasks();
+            List<Project> unassignedProjects = projectData.GetUnassignedProjectsContainingInactiveTasks();
 
             foreach (Project unassignedProject in unassignedProjects)
             {

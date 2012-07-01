@@ -8,15 +8,6 @@
   Title="{Binding Path=DisplayName}"
   >
     <DockPanel Margin="4">
-        <!-- Buttons -->
-        <GroupBox 
-            DockPanel.Dock="Top"
-          Header="View Tasks" HorizontalAlignment="Left" Margin="0,0,0,10">
-            <StackPanel Orientation="Horizontal">
-                <RadioButton GroupName="ViewBy" Content="By Goal" IsChecked="True" Margin="5"/>
-                <RadioButton GroupName="ViewBy" Content="Alphabetically" Margin="5"/>
-            </StackPanel>
-        </GroupBox>
         <Grid DockPanel.Dock="Bottom" Margin="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />

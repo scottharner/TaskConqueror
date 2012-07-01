@@ -45,7 +45,7 @@ namespace TaskConqueror
             _inactiveTasksByGoals = CreateDataSet();
 
             //todo: setup observable collection of goals containing tasks
-            List<Goal> allGoals = goalData.GetGoalsContainingTasks();
+            List<Goal> allGoals = goalData.GetGoalsContainingInactiveTasks();
             foreach (Goal goalObj in allGoals)
             {
                 _goals.Add(new GoalTreeNodeViewModel(goalObj, goalData));
