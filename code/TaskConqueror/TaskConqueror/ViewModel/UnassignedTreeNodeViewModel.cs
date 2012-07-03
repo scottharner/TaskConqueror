@@ -15,7 +15,7 @@ namespace TaskConqueror
     {
         #region Fields
 
-        bool _isSelected;
+        bool _isSelected = false;
         ObservableCollection<ITreeNodeViewModel> _childNodes = new ObservableCollection<ITreeNodeViewModel>();
 
         #endregion // Fields
@@ -71,6 +71,7 @@ namespace TaskConqueror
         public bool IsSelected
         {
             get { return _isSelected; }
+            set { _isSelected = value; }
         }
 
         #endregion // Presentation Properties

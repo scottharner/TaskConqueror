@@ -100,13 +100,11 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <Rectangle Name="StrikeThrough" HorizontalAlignment="Stretch" VerticalAlignment="Center"
-                                       Height="1" StrokeThickness="1" Stroke="Transparent"/>
-                                    <TextBlock Text="{Binding Path=Title}"/>
+                                    <TextBlock Name="TitleText" Text="{Binding Path=Title}"/>
                                 </Grid>
                                 <DataTemplate.Triggers>
                                     <DataTrigger Binding="{Binding Path=IsCompleted}" Value="True">
-                                        <Setter TargetName="StrikeThrough" Property="Stroke" Value="Black"/>
+                                        <Setter TargetName="TitleText" Property="TextDecorations" Value="Strikethrough"/>
                                     </DataTrigger>
                                 </DataTemplate.Triggers>
                             </DataTemplate>
@@ -118,13 +116,11 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <Rectangle Name="StrikeThrough" HorizontalAlignment="Stretch" VerticalAlignment="Center"
-                                       Height="1" StrokeThickness="1" Stroke="Transparent"/>
-                                    <TextBlock Text="{Binding Path=StatusDescription}"/>
+                                    <TextBlock Name="StatusDescriptionText" Text="{Binding Path=StatusDescription}"/>
                                 </Grid>
                                 <DataTemplate.Triggers>
                                     <DataTrigger Binding="{Binding Path=IsCompleted}" Value="True">
-                                        <Setter TargetName="StrikeThrough" Property="Stroke" Value="Black"/>
+                                        <Setter TargetName="StatusDescriptionText" Property="TextDecorations" Value="Strikethrough"/>
                                     </DataTrigger>
                                 </DataTemplate.Triggers>
                             </DataTemplate>
@@ -136,13 +132,11 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <Rectangle Name="StrikeThrough" HorizontalAlignment="Stretch" VerticalAlignment="Center"
-                                       Height="1" StrokeThickness="1" Stroke="Transparent"/>
-                                    <TextBlock Text="{Binding Path=PriorityDescription}"/>
+                                    <TextBlock Name="PriorityDescriptionText" Text="{Binding Path=PriorityDescription}"/>
                                 </Grid>
                                 <DataTemplate.Triggers>
                                     <DataTrigger Binding="{Binding Path=IsCompleted}" Value="True">
-                                        <Setter TargetName="StrikeThrough" Property="Stroke" Value="Black"/>
+                                        <Setter TargetName="PriorityDescriptionText" Property="TextDecorations" Value="Strikethrough"/>
                                     </DataTrigger>
                                 </DataTemplate.Triggers>
                             </DataTemplate>
@@ -153,13 +147,11 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <Rectangle Name="StrikeThrough" HorizontalAlignment="Stretch" VerticalAlignment="Center"
-                                       Height="1" StrokeThickness="1" Stroke="Transparent"/>
-                                    <TextBlock Text="{Binding Path=ProjectTitle}"/>
+                                    <TextBlock Name="ProjectTitleText" Text="{Binding Path=ProjectTitle}"/>
                                 </Grid>
                                 <DataTemplate.Triggers>
                                     <DataTrigger Binding="{Binding Path=IsCompleted}" Value="True">
-                                        <Setter TargetName="StrikeThrough" Property="Stroke" Value="Black"/>
+                                        <Setter TargetName="ProjectTitleText" Property="TextDecorations" Value="Strikethrough"/>
                                     </DataTrigger>
                                 </DataTemplate.Triggers>
                             </DataTemplate>
@@ -170,13 +162,11 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <Rectangle Name="StrikeThrough" HorizontalAlignment="Stretch" VerticalAlignment="Center"
-                                       Height="1" StrokeThickness="1" Stroke="Transparent"/>
-                                    <TextBlock Text="{Binding Path=CreatedDate}"/>
+                                    <TextBlock Name="CreatedDateText" Text="{Binding Path=CreatedDate}"/>
                                 </Grid>
                                 <DataTemplate.Triggers>
                                     <DataTrigger Binding="{Binding Path=IsCompleted}" Value="True">
-                                        <Setter TargetName="StrikeThrough" Property="Stroke" Value="Black"/>
+                                        <Setter TargetName="CreatedDateText" Property="TextDecorations" Value="Strikethrough"/>
                                     </DataTrigger>
                                 </DataTemplate.Triggers>
                             </DataTemplate>
@@ -187,13 +177,11 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <Rectangle Name="StrikeThrough" HorizontalAlignment="Stretch" VerticalAlignment="Center"
-                                       Height="1" StrokeThickness="1" Stroke="Transparent"/>
-                                    <TextBlock Text="{Binding Path=CompletedDate}"/>
+                                    <TextBlock Name="CompletedDateText" Text="{Binding Path=CompletedDate}"/>
                                 </Grid>
                                 <DataTemplate.Triggers>
                                     <DataTrigger Binding="{Binding Path=IsCompleted}" Value="True">
-                                        <Setter TargetName="StrikeThrough" Property="Stroke" Value="Black"/>
+                                        <Setter TargetName="CompletedDateText" Property="TextDecorations" Value="Strikethrough"/>
                                     </DataTrigger>
                                 </DataTemplate.Triggers>
                             </DataTemplate>

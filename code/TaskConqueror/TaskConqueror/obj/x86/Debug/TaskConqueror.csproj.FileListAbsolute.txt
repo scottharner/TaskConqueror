@@ -77,11 +77,20 @@ C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\
 C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\TaskConqueror.Properties.Resources.resources
 C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\GenerateResource.read.1.tlog
 C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\GenerateResource.write.1.tlog
-C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\Controls\CompletableTextBlock.g.cs
-C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\Controls\CompletableTextBlock.baml
 C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\View\Task\AddTasksView.g.cs
 C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\View\Task\AddTasksView.baml
 C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\Controls\CompletableTextBlock.g.cs
 C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\View\Task\AddTasksView.g.cs
 C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\Controls\CompletableTextBlock.baml
 C:\Users\sharner\Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Debug\View\Task\AddTasksView.baml
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\bin\Debug\System.Windows.Interactivity.dll
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\bin\Debug\System.Windows.Interactivity.xml
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\bin\Debug\de\System.Windows.Interactivity.resources.dll
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\bin\Debug\en\System.Windows.Interactivity.resources.dll
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\bin\Debug\es\System.Windows.Interactivity.resources.dll
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\bin\Debug\fr\System.Windows.Interactivity.resources.dll
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\bin\Debug\it\System.Windows.Interactivity.resources.dll
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\bin\Debug\ja\System.Windows.Interactivity.resources.dll
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\bin\Debug\ko\System.Windows.Interactivity.resources.dll
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll

@@ -57,6 +57,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -76,10 +77,6 @@
     </ApplicationDefinition>
     <Compile Include="AppInfo.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="Controls\BoolToTextDecorationConverter.cs" />
-    <Compile Include="Controls\CompletableTextBlock.xaml.cs">
-      <DependentUpon>CompletableTextBlock.xaml</DependentUpon>
-    </Compile>
     <Compile Include="DataAccess\Goal\GoalAddedEventArgs.cs" />
     <Compile Include="DataAccess\Goal\GoalData.cs" />
     <Compile Include="DataAccess\Goal\GoalDeletedEventArgs.cs" />
@@ -116,6 +113,7 @@
     <Compile Include="ViewModel\Task\TaskViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="ViewModel\WorkspaceViewModel.cs" />
+    <Compile Include="View\Behaviors\TreeviewItemChangedCommandBehavior.cs" />
     <Compile Include="View\Task\AllTasksView.xaml.cs">
       <DependentUpon>AllTasksView.xaml</DependentUpon>
     </Compile>
@@ -128,10 +126,6 @@
     <Compile Include="View\Task\TaskView.xaml.cs">
       <DependentUpon>TaskView.xaml</DependentUpon>
     </Compile>
-    <Page Include="Controls\CompletableTextBlock.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

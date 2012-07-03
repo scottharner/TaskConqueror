@@ -53,6 +53,7 @@ namespace TaskConqueror
         public bool IsSelected
         {
             get { return _isSelected; }
+            set { _isSelected = value; }
         }
 
         #endregion // Presentation Properties

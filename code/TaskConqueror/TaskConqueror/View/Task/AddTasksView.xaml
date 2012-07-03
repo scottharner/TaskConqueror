@@ -66,6 +66,18 @@
                                 <TextBlock Text="{Binding Path=Title}" Margin="5,0"/>
                             </StackPanel>
                         </HierarchicalDataTemplate>
+                        <Style
+                            TargetType="TreeViewItem">
+                            <Setter
+                                Property="IsSelected"
+                                Value="{Binding IsSelected}" />
+                            <Setter
+                                Property="tc:TreeviewItemChangedCommandBehavior.Command"
+                                Value="{Binding DataContext.SelectNodeCommand, RelativeSource={RelativeSource AncestorType={x:Type TreeView}}}" />
+                            <Setter
+                                Property="tc:TreeviewItemChangedCommandBehavior.InvokeOnRightClick"
+                                Value="True" />
+                        </Style>
                     </TreeView.Resources>
                 </TreeView>
             </HeaderedContentControl>
