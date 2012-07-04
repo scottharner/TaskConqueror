@@ -291,6 +291,16 @@ namespace TaskConqueror
 
             var viewModel = new AddTasksViewModel(_taskData, new ProjectData(), new GoalData());
 
+            // When the ViewModel asks to be closed, 
+            // close the window.
+            EventHandler handler = null;
+            handler = delegate
+            {
+                viewModel.RequestClose -= handler;
+                window.Close();
+            };
+            viewModel.RequestClose += handler;
+
             window.DataContext = viewModel;
 
             window.ShowDialog();

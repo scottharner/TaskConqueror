@@ -9,49 +9,35 @@ using System.Collections.ObjectModel;
 namespace TaskConqueror
 {
     /// <summary>
-    /// A tree-friendly wrapper for a Project object.
+    /// A tree-friendly wrapper for a root tree node task container.
     /// </summary>
-    public class ProjectTreeNodeViewModel : ITreeNodeContainerViewModel
+    public class RootTreeNodeViewModel : ITreeNodeContainerViewModel
     {
         #region Fields
 
-        readonly Project _project;
-        bool _isSelected;
+        bool _isSelected = false;
         ObservableCollection<ITreeNodeViewModel> _childNodes = new ObservableCollection<ITreeNodeViewModel>();
-        ITreeNodeContainerViewModel _parent;
 
         #endregion // Fields
 
         #region Constructor
 
-        public ProjectTreeNodeViewModel(Project project, ProjectData projectData, ITreeNodeContainerViewModel parent)
+        public RootTreeNodeViewModel()
         {
-            if (project == null)
-                throw new ArgumentNullException("project");
-
-            _project = project;
-
-            List<Task> childTasks = projectData.GetChildTasks(project.ProjectId);
-            foreach (Task childTask in childTasks)
-            {
-                _childNodes.Add(new TaskTreeNodeViewModel(childTask, this));
-            }
-
-            _parent = parent;
         }
 
         #endregion // Constructor
 
-        #region Project Properties
+        #region Root Properties
 
         public int NodeId
         {
-            get { return _project.ProjectId; }
+            get { return -1; }
         }
 
         public string Title
         {
-            get { return _project.Title; }
+            get { return "Root"; }
         }
 
         public ObservableCollection<ITreeNodeViewModel> ChildNodes
@@ -61,7 +47,7 @@ namespace TaskConqueror
 
         public ITreeNodeContainerViewModel Parent
         {
-            get { return _parent; }
+            get { return null; }
         }
 
         #endregion // Properties

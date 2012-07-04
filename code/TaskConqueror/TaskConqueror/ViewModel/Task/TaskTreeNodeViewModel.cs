@@ -16,17 +16,19 @@ namespace TaskConqueror
 
         readonly Task _task;
         bool _isSelected;
+        ITreeNodeContainerViewModel _parent;
 
         #endregion // Fields
 
         #region Constructor
 
-        public TaskTreeNodeViewModel(Task task)
+        public TaskTreeNodeViewModel(Task task, ITreeNodeContainerViewModel parent)
         {
             if (task == null)
                 throw new ArgumentNullException("task");
 
             _task = task;
+            _parent = parent;
         }
 
         #endregion // Constructor
@@ -41,6 +43,11 @@ namespace TaskConqueror
         public string Title
         {
             get { return _task.Title; }
+        }
+
+        public ITreeNodeContainerViewModel Parent
+        {
+            get { return _parent; }
         }
 
         #endregion // Properties

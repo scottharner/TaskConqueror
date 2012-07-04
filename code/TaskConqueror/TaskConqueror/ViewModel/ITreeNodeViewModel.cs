@@ -19,6 +19,8 @@ namespace TaskConqueror
 
         string Title { get; }
 
+        ITreeNodeContainerViewModel Parent { get; }
+
         #endregion // Properties
 
         #region Presentation Properties

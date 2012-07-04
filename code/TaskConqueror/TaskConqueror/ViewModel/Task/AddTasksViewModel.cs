@@ -12,14 +12,16 @@ namespace TaskConqueror
     /// <summary>
     /// Allows addition of a task to the active tasks list.
     /// </summary>
-    public class AddTasksViewModel : ViewModelBase
+    public class AddTasksViewModel : WorkspaceViewModel
     {
         #region Fields
 
         RelayCommand _addCommand;
         RelayCommand<object> _selectNodeCommand;
         object _selectedNode;
-        ObservableCollection<ITreeNodeContainerViewModel> _goals = new ObservableCollection<ITreeNodeContainerViewModel>();
+        RootTreeNodeViewModel _root = new RootTreeNodeViewModel();
+        ObservableCollection<TaskViewModel> _selectedTasks = new ObservableCollection<TaskViewModel>();
+        TaskData _taskData;
 
         #endregion // Fields
 
@@ -39,14 +41,16 @@ namespace TaskConqueror
             List<Goal> allGoals = goalData.GetGoalsContainingInactiveTasks();
             foreach (Goal goalObj in allGoals)
             {
-                _goals.Add(new GoalTreeNodeViewModel(goalObj, goalData));
+                _root.ChildNodes.Add(new GoalTreeNodeViewModel(goalObj, goalData, _root));
             }
 
-            UnassignedTreeNodeViewModel unassigned = new UnassignedTreeNodeViewModel(taskData, projectData);
+            UnassignedTreeNodeViewModel unassigned = new UnassignedTreeNodeViewModel(taskData, projectData, _root);
             if (unassigned.ChildNodes.Count > 0)
             {
-                _goals.Add(unassigned);
+                _root.ChildNodes.Add(unassigned);
             }
+
+            _taskData = taskData;
 
             base.DisplayName = Properties.Resources.Add_Tasks_DisplayName;            
         }
@@ -55,9 +59,9 @@ namespace TaskConqueror
 
         #region Task Properties
 
-        public ObservableCollection<ITreeNodeContainerViewModel> InactiveTasksByGoal
+        public ObservableCollection<ITreeNodeViewModel> InactiveTasksByGoal
         {
-            get { return _goals; }
+            get { return _root.ChildNodes; }
         }
 
         #endregion // Properties
@@ -117,6 +121,23 @@ namespace TaskConqueror
             }
         }
 
+        /// <summary>
+        /// the tasks that have been selected for addition
+        /// </summary>       
+        public ObservableCollection<TaskViewModel> SelectedTasks
+        {
+            get { return _selectedTasks; }
+            set
+            {
+                if (_selectedTasks == value)
+                    return;
+
+                _selectedTasks = value;
+
+                this.OnPropertyChanged("SelectedTasks");
+            }
+        }
+
         #endregion // Presentation Properties
 
         #region Public Methods
@@ -126,7 +147,28 @@ namespace TaskConqueror
         /// </summary>
         public void AddTask()
         {
-            MessageBox.Show("task added");
+            // add the selected task to the collection of selected tasks
+            TaskTreeNodeViewModel taskNodeVM = SelectedNode as TaskTreeNodeViewModel;
+            SelectedTasks.Add(new TaskViewModel(_taskData.GetTaskByTaskId(taskNodeVM.NodeId), _taskData));
+            
+            // remove the node and any empty ancestors from the tree
+            ITreeNodeContainerViewModel parent = taskNodeVM.Parent;
+            if (parent != null)
+            {
+                parent.ChildNodes.Remove(taskNodeVM);
+                while (parent != null && parent.ChildNodes.Count == 0)
+                {
+                    ITreeNodeContainerViewModel child = parent;
+                    parent = child.Parent;
+                    if (parent != null)
+                    {
+                        parent.ChildNodes.Remove(child);
+                    }
+                }
+            }
+
+            // clear the selected node
+            SelectedNode = null;
         }
 
         #endregion // Public Methods

@@ -11,7 +11,7 @@ namespace TaskConqueror
     /// <summary>
     /// A tree-friendly wrapper for a tree node container object.
     /// </summary>
-    public interface ITreeNodeContainerViewModel
+    public interface ITreeNodeContainerViewModel : ITreeNodeViewModel
     {
         #region Properties
 

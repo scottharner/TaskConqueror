@@ -17,12 +17,13 @@ namespace TaskConqueror
 
         bool _isSelected = false;
         ObservableCollection<ITreeNodeViewModel> _childNodes = new ObservableCollection<ITreeNodeViewModel>();
+        ITreeNodeContainerViewModel _parent;
 
         #endregion // Fields
 
         #region Constructor
 
-        public UnassignedTreeNodeViewModel(TaskData taskData, ProjectData projectData)
+        public UnassignedTreeNodeViewModel(TaskData taskData, ProjectData projectData, ITreeNodeContainerViewModel parent)
         {
             if (taskData == null)
                 throw new ArgumentNullException("task data");
@@ -31,15 +32,17 @@ namespace TaskConqueror
 
             foreach (Project unassignedProject in unassignedProjects)
             {
-                _childNodes.Add(new ProjectTreeNodeViewModel(unassignedProject, projectData));
+                _childNodes.Add(new ProjectTreeNodeViewModel(unassignedProject, projectData, this));
             }
             
             List<Task> unassignedTasks = taskData.GetUnassignedTasks();
 
             foreach (Task unassignedTask in unassignedTasks)
             {
-                _childNodes.Add(new TaskTreeNodeViewModel(unassignedTask));
+                _childNodes.Add(new TaskTreeNodeViewModel(unassignedTask, this));
             }
+
+            _parent = parent;
         }
 
         #endregion // Constructor
@@ -59,6 +62,11 @@ namespace TaskConqueror
         public ObservableCollection<ITreeNodeViewModel> ChildNodes
         {
             get { return _childNodes; }
+        }
+
+        public ITreeNodeContainerViewModel Parent
+        {
+            get { return _parent; }
         }
 
         #endregion // Properties

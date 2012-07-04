@@ -11,19 +11,20 @@ namespace TaskConqueror
     /// <summary>
     /// A tree-friendly wrapper for a Goal object.
     /// </summary>
-    public class GoalTreeNodeViewModel : ITreeNodeViewModel, ITreeNodeContainerViewModel
+    public class GoalTreeNodeViewModel : ITreeNodeContainerViewModel
     {
         #region Fields
 
         readonly Goal _goal;
         bool _isSelected = false;
         ObservableCollection<ITreeNodeViewModel> _childNodes = new ObservableCollection<ITreeNodeViewModel>();
+        ITreeNodeContainerViewModel _parent;
 
         #endregion // Fields
 
         #region Constructor
 
-        public GoalTreeNodeViewModel(Goal goal, GoalData goalData)
+        public GoalTreeNodeViewModel(Goal goal, GoalData goalData, ITreeNodeContainerViewModel parent)
         {
             if (goal == null)
                 throw new ArgumentNullException("goal");
@@ -34,8 +35,10 @@ namespace TaskConqueror
             ProjectData pData = new ProjectData();
             foreach (Project childProject in childProjects)
             {
-                _childNodes.Add(new ProjectTreeNodeViewModel(childProject, pData));
+                _childNodes.Add(new ProjectTreeNodeViewModel(childProject, pData, this));
             }
+
+            _parent = parent;
         }
 
         #endregion // Constructor
@@ -55,6 +58,11 @@ namespace TaskConqueror
         public ObservableCollection<ITreeNodeViewModel> ChildNodes
         {
             get { return _childNodes; }
+        }
+
+        public ITreeNodeContainerViewModel Parent
+        {
+            get { return _parent; }
         }
 
         #endregion // Properties
