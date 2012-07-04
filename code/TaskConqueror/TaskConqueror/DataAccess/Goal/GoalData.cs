@@ -172,7 +172,7 @@ namespace TaskConqueror
         public List<Goal> GetGoalsContainingInactiveTasks()
         {
             List<Data.Goal> dbGoals = (from p in _appInfo.GcContext.Projects
-                                       where p.Tasks.Any(t => t.IsActive == false) && p.Goals.Count > 0
+                                       where p.Tasks.Any(t => t.IsActive == false && t.StatusID != Statuses.Completed && t.StatusID != Statuses.Abandoned) && p.Goals.Count > 0
                                        orderby p.Goals.FirstOrDefault().Title
                                        select p.Goals.FirstOrDefault()).Distinct().ToList();
 
@@ -229,7 +229,7 @@ namespace TaskConqueror
         {
             List<Project> childProjects = new List<Project>();
             List<Data.Project> requestedDbProjects = (from p in _appInfo.GcContext.Projects
-                                                      where p.Goals.FirstOrDefault().GoalID == goalId && p.Tasks.Any(t => t.IsActive == false)
+                                                      where p.Goals.FirstOrDefault().GoalID == goalId && p.Tasks.Any(t => t.IsActive == false && t.StatusID != Statuses.Completed && t.StatusID != Statuses.Abandoned)
                                                       select p).ToList();
 
             foreach (Data.Project childDbProject in requestedDbProjects)

@@ -192,7 +192,7 @@ namespace TaskConqueror
         public List<Project> GetUnassignedProjectsContainingInactiveTasks()
         {
             List<Data.Project> dbProjects = (from p in _appInfo.GcContext.Projects
-                                             where p.Goals.Count == 0 && p.Tasks.Any(t => t.IsActive == false)
+                                             where p.Goals.Count == 0 && p.Tasks.Any(t => t.IsActive == false && t.StatusID != Statuses.Completed && t.StatusID != Statuses.Abandoned)
                                              orderby p.Title
                                              select p).ToList();
 

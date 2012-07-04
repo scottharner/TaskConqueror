@@ -35,7 +35,7 @@ namespace TaskConqueror
                 _childNodes.Add(new ProjectTreeNodeViewModel(unassignedProject, projectData, this));
             }
             
-            List<Task> unassignedTasks = taskData.GetUnassignedTasks();
+            List<Task> unassignedTasks = taskData.GetUnassignedInactiveTasks();
 
             foreach (Task unassignedTask in unassignedTasks)
             {

@@ -189,6 +189,26 @@ namespace TaskConqueror
         }
 
         /// <summary>
+        /// Returns a shallow-copied list of all inactive tasks in the repository that are not assigned to a project.
+        /// </summary>
+        public List<Task> GetUnassignedInactiveTasks()
+        {
+            List<Data.Task> dbTasks = (from t in _appInfo.GcContext.Tasks
+                                       where t.Projects.Count == 0 && t.IsActive == false && t.StatusID != Statuses.Completed && t.StatusID != Statuses.Abandoned
+                                       orderby t.Title
+                                       select t).ToList();
+
+            List<Task> tasks = new List<Task>();
+
+            foreach (Data.Task dbTask in dbTasks)
+            {
+                tasks.Add(Task.CreateTask(dbTask));
+            }
+
+            return tasks;
+        }
+
+        /// <summary>
         /// Returns a shallow-copied list of all active tasks in the repository.
         /// </summary>
         public List<Task> GetActiveTasks()
