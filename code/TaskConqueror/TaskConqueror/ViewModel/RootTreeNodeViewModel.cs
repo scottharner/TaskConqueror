@@ -50,6 +50,11 @@ namespace TaskConqueror
             get { return null; }
         }
 
+        public int SortWeight
+        {
+            get { return SortWeights.Root; }
+        }
+
         #endregion // Properties
 
         #region Presentation Properties

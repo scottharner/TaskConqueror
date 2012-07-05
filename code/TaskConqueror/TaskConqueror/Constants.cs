@@ -19,4 +19,13 @@ namespace TaskConqueror
         public static int Medium = 2;
         public static int High = 3;
     }
+
+    public class SortWeights
+    {
+        public static int Root = 1;
+        public static int Goal = 2;
+        public static int Project = 3;
+        public static int Task = 4;
+        public static int Unassigned = 5;
+    }
 }

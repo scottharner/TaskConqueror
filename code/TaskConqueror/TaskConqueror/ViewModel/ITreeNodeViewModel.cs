@@ -21,6 +21,8 @@ namespace TaskConqueror
 
         ITreeNodeContainerViewModel Parent { get; }
 
+        int SortWeight { get; }
+
         #endregion // Properties
 
         #region Presentation Properties

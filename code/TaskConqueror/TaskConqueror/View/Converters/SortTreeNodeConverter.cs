@@ -13,6 +13,7 @@ namespace TaskConqueror
         {
             IEnumerable<ITreeNodeViewModel> treeNodes = value as IEnumerable<ITreeNodeViewModel>;
             ListCollectionView lcv = (ListCollectionView)CollectionViewSource.GetDefaultView(treeNodes);
+            lcv.SortDescriptions.Add(new SortDescription("SortWeight", ListSortDirection.Ascending));
             lcv.SortDescriptions.Add(new SortDescription("Title", ListSortDirection.Ascending));
             return lcv;
         }
