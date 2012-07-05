@@ -8,6 +8,9 @@
   FontFamily="Verdana"
   Title="{Binding Path=DisplayName}"
   >
+    <Window.Resources>
+        <tc:SortTreeNodeConverter x:Key="SortConverter" />
+    </Window.Resources>
     <DockPanel Margin="4">
         <Grid DockPanel.Dock="Bottom" Margin="4">
             <Grid.ColumnDefinitions>
@@ -23,7 +26,7 @@
 
             <!-- INACTIVE TASKS -->
             <HeaderedContentControl Grid.Row="0" Header="Inactive Tasks">
-                <TreeView ItemsSource="{Binding Path=InactiveTasksByGoal}">
+                <TreeView ItemsSource="{Binding Path=InactiveTasksByGoal, Converter={StaticResource SortConverter}}">
                     <TreeView.Resources>
                         <DataTemplate DataType="{x:Type tc:TaskTreeNodeViewModel}">
                             <StackPanel Orientation="Horizontal" Margin="2">
@@ -35,7 +38,7 @@
                             </StackPanel>
                         </DataTemplate>
                         <HierarchicalDataTemplate DataType="{x:Type tc:GoalTreeNodeViewModel}"
-                                          ItemsSource="{Binding ChildNodes}"
+                                          ItemsSource="{Binding Path=ChildNodes, Converter={StaticResource SortConverter}}"
                                           >
                             <StackPanel Orientation="Horizontal" Margin="2">
                                 <Image Source="pack://application:,,,/TaskConqueror;Component/Assets/Images/goal.png"
@@ -46,7 +49,7 @@
                             </StackPanel>
                         </HierarchicalDataTemplate>
                         <HierarchicalDataTemplate DataType="{x:Type tc:ProjectTreeNodeViewModel}"
-                                          ItemsSource="{Binding ChildNodes}"
+                                          ItemsSource="{Binding Path=ChildNodes, Converter={StaticResource SortConverter}}"
                                           >
                             <StackPanel Orientation="Horizontal" Margin="2">
                                 <Image Source="pack://application:,,,/TaskConqueror;Component/Assets/Images/project.png"
@@ -56,9 +59,10 @@
                                 <TextBlock Text="{Binding Path=Title}" Margin="5,0"/>
                             </StackPanel>
                         </HierarchicalDataTemplate>
-                        <HierarchicalDataTemplate DataType="{x:Type tc:UnassignedTreeNodeViewModel}"
-                                          ItemsSource="{Binding ChildNodes}"
-                                          >
+                        <HierarchicalDataTemplate 
+                            DataType="{x:Type tc:UnassignedTreeNodeViewModel}" 
+                            ItemsSource="{Binding ChildNodes, Converter={StaticResource SortConverter}}"
+                            >
                             <StackPanel Orientation="Horizontal" Margin="2">
                                 <Image Source="pack://application:,,,/TaskConqueror;Component/Assets/Images/unassigned.png"
                        Width="16"

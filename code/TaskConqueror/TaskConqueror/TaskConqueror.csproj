@@ -115,6 +115,7 @@
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="ViewModel\WorkspaceViewModel.cs" />
     <Compile Include="View\Behaviors\TreeviewItemChangedCommandBehavior.cs" />
+    <Compile Include="View\Converters\SortTreeNodeConverter.cs" />
     <Compile Include="View\Task\AllTasksView.xaml.cs">
       <DependentUpon>AllTasksView.xaml</DependentUpon>
     </Compile>
