@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+    xmlns:acb="clr-namespace:AttachedCommandBehavior"
     >
     <UserControl.Resources>
         <CollectionViewSource
@@ -16,6 +17,12 @@
         </CollectionViewSource>
 
         <Style x:Key="TaskItemStyle" TargetType="{x:Type ListViewItem}">
+            <Setter Property="acb:CommandBehavior.Event"
+                        Value="MouseDoubleClick" />
+            <Setter Property="acb:CommandBehavior.Command"
+                        Value="{Binding ElementName=ContainingDockPanel, Path=DataContext.EditCommand}" />
+            <Setter Property="acb:CommandBehavior.CommandParameter"
+                        Value="{Binding}" />
 
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             <!-- 
@@ -42,7 +49,7 @@
         </DataTemplate>
     </UserControl.Resources>
 
-    <DockPanel>
+    <DockPanel Name="ContainingDockPanel">
         <!-- Buttons -->
         <GroupBox 
             DockPanel.Dock="Top"
