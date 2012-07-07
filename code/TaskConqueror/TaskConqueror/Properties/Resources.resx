@@ -159,4 +159,22 @@
   <data name="Add_Tasks_DisplayName" xml:space="preserve">
     <value>Add Tasks</value>
   </data>
+  <data name="Delete_Confirm" xml:space="preserve">
+    <value>Confirm Delete</value>
+  </data>
+  <data name="Edit_Project_DisplayName" xml:space="preserve">
+    <value>Edit Project</value>
+  </data>
+  <data name="Projects_Delete_Confirm" xml:space="preserve">
+    <value>Are you sure you want to delete the selected project?</value>
+  </data>
+  <data name="Projects_DisplayName" xml:space="preserve">
+    <value>Projects</value>
+  </data>
+  <data name="ProjectViewModel_Exception_CannotSave" xml:space="preserve">
+    <value>Cannot save an invalid project.</value>
+  </data>
+  <data name="Tasks_Delete_Confirm" xml:space="preserve">
+    <value>Are you sure you want to delete the selected task?</value>
+  </data>
 </root>

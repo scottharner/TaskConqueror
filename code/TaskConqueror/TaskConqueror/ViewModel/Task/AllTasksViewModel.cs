@@ -81,6 +81,8 @@ namespace TaskConqueror
             this.AllTasks.CollectionChanged -= this.OnCollectionChanged;
 
             _taskData.TaskAdded -= this.OnTaskAdded;
+            _taskData.TaskUpdated -= this.OnTaskUpdated;
+            _taskData.TaskDeleted -= this.OnTaskDeleted;
         }
 
         #endregion // Base Class Overrides
@@ -196,19 +198,7 @@ namespace TaskConqueror
 
             var viewModel = new TaskViewModel(Task.CreateNewTask(), _taskData);
 
-            // When the ViewModel asks to be closed, 
-            // close the window.
-            EventHandler handler = null;
-            handler = delegate
-            {
-                viewModel.RequestClose -= handler;
-                window.Close();
-            };
-            viewModel.RequestClose += handler;
-
-            window.DataContext = viewModel;
-
-            window.ShowDialog();
+            this.ShowWorkspaceAsDialog(window, viewModel);
         }
 
         /// <summary>
@@ -222,19 +212,7 @@ namespace TaskConqueror
             
             var viewModel = new TaskViewModel(_taskData.GetTaskByTaskId(selectedTaskVM.TaskId), _taskData);
 
-            // When the ViewModel asks to be closed, 
-            // close the window.
-            EventHandler handler = null;
-            handler = delegate
-            {
-                viewModel.RequestClose -= handler;
-                window.Close();
-            };
-            viewModel.RequestClose += handler;
-
-            window.DataContext = viewModel;
-
-            window.ShowDialog();
+            this.ShowWorkspaceAsDialog(window, viewModel);
         }
 
         /// <summary>
@@ -244,7 +222,7 @@ namespace TaskConqueror
         {
             TaskViewModel selectedTaskVM = AllTasks.FirstOrDefault(t => t.IsSelected == true);
             
-            if (selectedTaskVM != null && MessageBox.Show("Are you sure you want to delete the selected task?", "Confirm Cancel", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            if (selectedTaskVM != null && MessageBox.Show(Properties.Resources.Tasks_Delete_Confirm, Properties.Resources.Delete_Confirm, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 _taskData.DeleteTask(_taskData.GetTaskByTaskId(selectedTaskVM.TaskId));
             }

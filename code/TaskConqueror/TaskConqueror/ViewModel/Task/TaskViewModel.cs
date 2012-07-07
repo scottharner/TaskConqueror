@@ -16,8 +16,6 @@ namespace TaskConqueror
 
         readonly Task _task;
         readonly TaskData _taskData;
-        bool _isSelected;
-        RelayCommand _saveCommand;
         List<Data.Status> _statusOptions;
         List<Data.TaskPriority> _priorityOptions;
         Data.Status _selectedStatus;
@@ -172,23 +170,6 @@ namespace TaskConqueror
         #region Presentation Properties
 
         /// <summary>
-        /// Gets/sets whether this customer is selected in the UI.
-        /// </summary>
-        public bool IsSelected
-        {
-            get { return _isSelected; }
-            set
-            {
-                if (value == _isSelected)
-                    return;
-
-                _isSelected = value;
-
-                base.OnPropertyChanged("IsSelected");
-            }
-        }
-
-        /// <summary>
         /// Gets/sets whether the task is completed.
         /// </summary>
         public bool IsCompleted
@@ -225,24 +206,6 @@ namespace TaskConqueror
                         );
                 }
                 return _toggleCompleteCommand;
-            }
-        }
-
-        /// <summary>
-        /// Returns a command that saves the customer.
-        /// </summary>
-        public ICommand SaveCommand
-        {
-            get
-            {
-                if (_saveCommand == null)
-                {
-                    _saveCommand = new RelayCommand(
-                        param => this.Save(),
-                        param => this.CanSave
-                        );
-                }
-                return _saveCommand;
             }
         }
 
@@ -298,7 +261,7 @@ namespace TaskConqueror
         /// <summary>
         /// Saves the task to the database.  This method is invoked by the SaveCommand.
         /// </summary>
-        public void Save()
+        public override void Save()
         {
             if (!_task.IsValid)
                 throw new InvalidOperationException(Properties.Resources.TaskViewModel_Exception_CannotSave);
@@ -351,7 +314,7 @@ namespace TaskConqueror
         /// <summary>
         /// Returns true if the task is valid and can be saved.
         /// </summary>
-        bool CanSave
+        protected override bool CanSave
         {
             get { return _task.IsValid && (IsNewTask || !IsSaved); }
         }

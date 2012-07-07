@@ -11,6 +11,10 @@ This resource dictionary is used by the MainWindow.
         <tc:AllTasksView />
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type tc:AllProjectsViewModel}">
+        <tc:AllProjectsView />
+    </DataTemplate>
+
     <DataTemplate DataType="{x:Type tc:ActiveTasksViewModel}">
         <tc:ActiveTasksView />
     </DataTemplate>

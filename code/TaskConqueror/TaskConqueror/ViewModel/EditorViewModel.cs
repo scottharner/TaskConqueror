@@ -14,6 +14,8 @@ namespace TaskConqueror
         #region Fields
 
         RelayCommand _cancelCommand;
+        bool _isSelected;
+        RelayCommand _saveCommand;
 
         #endregion // Fields
 
@@ -23,6 +25,25 @@ namespace TaskConqueror
         {
             get;
         }
+
+        /// <summary>
+        /// Gets/sets whether this object is selected in the UI.
+        /// </summary>
+        public virtual bool IsSelected
+        {
+            get { return _isSelected; }
+            set
+            {
+                if (value == _isSelected)
+                    return;
+
+                _isSelected = value;
+
+                base.OnPropertyChanged("IsSelected");
+            }
+        }
+
+        protected abstract bool CanSave { get; }
 
         #endregion
 
@@ -48,8 +69,30 @@ namespace TaskConqueror
             }
         }
 
+        /// <summary>
+        /// Returns a command that saves the object.
+        /// </summary>
+        public ICommand SaveCommand
+        {
+            get
+            {
+                if (_saveCommand == null)
+                {
+                    _saveCommand = new RelayCommand(
+                        param => this.Save(),
+                        param => this.CanSave
+                        );
+                }
+                return _saveCommand;
+            }
+        }
+
         #endregion // Commands
 
+        #region Public Methods
 
+        public abstract void Save();
+
+        #endregion
     }
 }

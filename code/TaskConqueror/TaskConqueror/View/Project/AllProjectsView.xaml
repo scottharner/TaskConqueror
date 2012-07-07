@@ -1,0 +1,119 @@
+﻿<UserControl 
+  x:Class="TaskConqueror.AllProjectsView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+  xmlns:acb="clr-namespace:AttachedCommandBehavior"
+  >
+  <UserControl.Resources>
+    <CollectionViewSource
+      x:Key="ProjectGroups" 
+      Source="{Binding Path=AllProjects}"
+      >
+      <CollectionViewSource.SortDescriptions>
+        <!-- 
+        Sort descending by IsCompany so that the 'True' values appear first,
+        which means that companies will always be listed before people.
+        -->
+        <scm:SortDescription PropertyName="Title" Direction="Ascending" />
+      </CollectionViewSource.SortDescriptions>
+    </CollectionViewSource>
+
+    <Style x:Key="ProjectItemStyle" TargetType="{x:Type ListViewItem}">
+      <!-- 
+      Stretch the content of each cell so that we can 
+      right-align text in the Total Sales column. 
+      -->
+      <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+      <!-- 
+      Bind the IsSelected property of a ListViewItem to the 
+      IsSelected property of a ViewModel object.
+      -->
+      <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
+            <Setter Property="acb:CommandBehavior.Event"
+                        Value="MouseDoubleClick" />
+            <Setter Property="acb:CommandBehavior.Command"
+                        Value="{Binding ElementName=ContainingDockPanel, Path=DataContext.EditCommand}" />
+            <Setter Property="acb:CommandBehavior.CommandParameter"
+                        Value="{Binding}" />
+
+            <Style.Triggers>
+        <MultiTrigger>
+          <MultiTrigger.Conditions>
+            <Condition Property="ItemsControl.AlternationIndex" Value="1" />
+            <Condition Property="IsSelected" Value="False" />
+            <Condition Property="IsMouseOver" Value="False" />
+          </MultiTrigger.Conditions>
+          <Setter Property="Background" Value="#EEEEEEEE" />
+        </MultiTrigger>
+      </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+  <DockPanel Name="ContainingDockPanel">
+        <!-- Buttons -->
+        <GroupBox 
+            DockPanel.Dock="Top"
+          Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="2" Header="Projects" HorizontalAlignment="Left" Margin="0,0,0,10">
+            <StackPanel Orientation="Horizontal">
+                <!-- NEW BUTTON -->
+                <Button 
+      Command="{Binding Path=NewCommand}"
+      Content="_New"
+      Margin="4,2" 
+      MinWidth="60" 
+      />
+                <Button 
+      Command="{Binding Path=EditCommand}"
+      Content="_Edit"
+      Margin="4,2" 
+      MinWidth="60" 
+      />
+                <Button 
+      Command="{Binding Path=DeleteCommand}"
+      Content="_Delete"
+      Margin="4,2" 
+      MinWidth="60" 
+      />
+            </StackPanel>
+        </GroupBox>
+
+        <Grid DockPanel.Dock="Bottom" Margin="0,2,4,2">
+      <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center">
+      </StackPanel>
+    </Grid>
+
+    <ListView 
+      AlternationCount="2" 
+      DataContext="{StaticResource ProjectGroups}" 
+      ItemContainerStyle="{StaticResource ProjectItemStyle}"
+      ItemsSource="{Binding}"
+        SelectionMode="Single"
+      >
+        <ListView.View>
+        <GridView>
+                    <GridViewColumn 
+            Header="Title" 
+            DisplayMemberBinding="{Binding Path=Title}" 
+            />
+                    <GridViewColumn 
+            Header="Status" 
+            DisplayMemberBinding="{Binding Path=StatusDescription}" 
+            />
+          <GridViewColumn
+              Header="Est. Cost"
+              DisplayMemberBinding="{Binding Path=EstimatedCost}"/>
+                    <GridViewColumn
+              Header="Goal"
+              DisplayMemberBinding="{Binding Path=GoalTitle}"/>
+                    <GridViewColumn
+              Header="Date Created"
+              DisplayMemberBinding="{Binding Path=CreatedDate}"/>
+                    <GridViewColumn
+              Header="Date Completed"
+              DisplayMemberBinding="{Binding Path=CompletedDate}"/>
+                </GridView>
+      </ListView.View>
+    </ListView>
+  </DockPanel>
+</UserControl>

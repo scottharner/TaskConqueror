@@ -99,6 +99,8 @@
     <Compile Include="Model\Task.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="ViewModel\CommandViewModel.cs" />
+    <Compile Include="ViewModel\Project\AllProjectsViewModel.cs" />
+    <Compile Include="ViewModel\Project\ProjectViewModel.cs" />
     <Compile Include="ViewModel\RootTreeNodeViewModel.cs" />
     <Compile Include="ViewModel\ITreeNodeContainerViewModel.cs" />
     <Compile Include="ViewModel\EditorViewModel.cs" />
@@ -120,6 +122,12 @@
     <Compile Include="View\Behaviors\ExecutionStrategy.cs" />
     <Compile Include="View\Behaviors\TreeviewItemChangedCommandBehavior.cs" />
     <Compile Include="View\Converters\SortTreeNodeConverter.cs" />
+    <Compile Include="View\Project\AllProjectsView.xaml.cs">
+      <DependentUpon>AllProjectsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Project\ProjectView.xaml.cs">
+      <DependentUpon>ProjectView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Task\AllTasksView.xaml.cs">
       <DependentUpon>AllTasksView.xaml</DependentUpon>
     </Compile>
@@ -145,6 +153,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="MainWindowResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Project\AllProjectsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Project\ProjectView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

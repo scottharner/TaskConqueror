@@ -79,6 +79,24 @@ namespace TaskConqueror.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirm Delete.
+        /// </summary>
+        internal static string Delete_Confirm {
+            get {
+                return ResourceManager.GetString("Delete_Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Project.
+        /// </summary>
+        internal static string Edit_Project_DisplayName {
+            get {
+                return ResourceManager.GetString("Edit_Project_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit Task.
         /// </summary>
         internal static string Edit_Task_DisplayName {
@@ -142,11 +160,47 @@ namespace TaskConqueror.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete the selected project?.
+        /// </summary>
+        internal static string Projects_Delete_Confirm {
+            get {
+                return ResourceManager.GetString("Projects_Delete_Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Projects.
+        /// </summary>
+        internal static string Projects_DisplayName {
+            get {
+                return ResourceManager.GetString("Projects_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot save an invalid project..
+        /// </summary>
+        internal static string ProjectViewModel_Exception_CannotSave {
+            get {
+                return ResourceManager.GetString("ProjectViewModel_Exception_CannotSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Priority is invalid.
         /// </summary>
         internal static string Task_Error_InvalidPriority {
             get {
                 return ResourceManager.GetString("Task_Error_InvalidPriority", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete the selected task?.
+        /// </summary>
+        internal static string Tasks_Delete_Confirm {
+            get {
+                return ResourceManager.GetString("Tasks_Delete_Confirm", resourceCulture);
             }
         }
         

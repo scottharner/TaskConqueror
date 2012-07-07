@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
+using System.Windows;
 
 namespace TaskConqueror
 {
@@ -63,6 +64,21 @@ namespace TaskConqueror
 
         #endregion // RequestClose [event]
 
+        protected void ShowWorkspaceAsDialog(Window view, WorkspaceViewModel viewModel)
+        {
+            // When the ViewModel asks to be closed, 
+            // close the window.
+            EventHandler handler = null;
+            handler = delegate
+            {
+                viewModel.RequestClose -= handler;
+                view.Close();
+            };
+            viewModel.RequestClose += handler;
 
+            view.DataContext = viewModel;
+
+            view.ShowDialog();
+        }
     }
 }
