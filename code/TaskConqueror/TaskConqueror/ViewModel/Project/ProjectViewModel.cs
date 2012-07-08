@@ -17,12 +17,16 @@ namespace TaskConqueror
 
         readonly Project _project;
         readonly ProjectData _projectData;
+        readonly TaskData _taskData;
         List<Data.Status> _statusOptions;
         Data.Status _selectedStatus;
         bool _isSaved;
         string _goalTitle;
         string _statusDescription;
         ObservableCollection<TaskViewModel> _childTaskVMs = new ObservableCollection<TaskViewModel>();
+        RelayCommand _newTaskCommand;
+        RelayCommand _editTaskCommand;
+        RelayCommand _deleteTaskCommand;
 
         #endregion // Fields
 
@@ -38,6 +42,7 @@ namespace TaskConqueror
 
             _project = project;
             _projectData = projectData;
+            _taskData = taskData;
             _statusOptions = AppInfo.Instance.StatusList;
             _selectedStatus = _statusOptions.FirstOrDefault(s => s.StatusID == this.StatusId);
             _isSaved = true;
@@ -48,7 +53,12 @@ namespace TaskConqueror
             {
                 _childTaskVMs.Add(new TaskViewModel(childTask, taskData));
             }
-            
+
+            // Subscribe for notifications of when a new task is saved.
+            _taskData.TaskAdded += this.OnTaskAdded;
+            _taskData.TaskUpdated += this.OnTaskUpdated;
+            _taskData.TaskDeleted += this.OnTaskDeleted;
+
             base.DisplayName = Properties.Resources.Edit_Project_DisplayName;            
         }
 
@@ -208,6 +218,45 @@ namespace TaskConqueror
             _isSaved = true;
         }
 
+        /// <summary>
+        /// Launches the new task window.
+        /// </summary>
+        public void CreateTask()
+        {
+            TaskView window = new TaskView();
+
+            var viewModel = new TaskViewModel(Task.CreateNewTask(this.ProjectId), _taskData);
+
+            this.ShowWorkspaceAsDialog(window, viewModel);
+        }
+
+        /// <summary>
+        /// Launches the edit task window.
+        /// </summary>
+        public void EditTask()
+        {
+            TaskView window = new TaskView();
+
+            TaskViewModel selectedTaskVM = ChildTasks.FirstOrDefault(t => t.IsSelected == true);
+
+            var viewModel = new TaskViewModel(_taskData.GetTaskByTaskId(selectedTaskVM.TaskId), _taskData);
+
+            this.ShowWorkspaceAsDialog(window, viewModel);
+        }
+
+        /// <summary>
+        /// Launches the delete task window.
+        /// </summary>
+        public void DeleteTask()
+        {
+            TaskViewModel selectedTaskVM = ChildTasks.FirstOrDefault(t => t.IsSelected == true);
+
+            if (selectedTaskVM != null && MessageBox.Show(Properties.Resources.Tasks_Delete_Confirm, Properties.Resources.Delete_Confirm, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                _taskData.DeleteTask(_taskData.GetTaskByTaskId(selectedTaskVM.TaskId));
+            }
+        }
+
         #endregion // Public Methods
 
         #region Private Helpers
@@ -235,6 +284,16 @@ namespace TaskConqueror
         protected override bool CanSave
         {
             get { return _project.IsValid && (IsNewProject || !IsSaved); }
+        }
+
+        bool CanEditTask()
+        {
+            return ChildTasks.Count(t => t.IsSelected == true) == 1;
+        }
+
+        bool CanDeleteTask()
+        {
+            return ChildTasks.Count(t => t.IsSelected == true) == 1;
         }
 
         #endregion // Private Helpers
@@ -267,6 +326,82 @@ namespace TaskConqueror
 
         #region Event Handling Methods
 
+        void OnTaskAdded(object sender, TaskAddedEventArgs e)
+        {
+            var viewModel = new TaskViewModel(e.NewTask, _taskData);
+            this.ChildTasks.Add(viewModel);
+        }
+
+        void OnTaskUpdated(object sender, TaskUpdatedEventArgs e)
+        {
+            this.ChildTasks.Remove(this.ChildTasks.FirstOrDefault(t => t.TaskId == e.UpdatedTask.TaskId));
+            var viewModel = new TaskViewModel(e.UpdatedTask, _taskData);
+            this.ChildTasks.Add(viewModel);
+        }
+
+        void OnTaskDeleted(object sender, TaskDeletedEventArgs e)
+        {
+            this.ChildTasks.Remove(this.ChildTasks.FirstOrDefault(t => t.TaskId == e.DeletedTask.TaskId));
+        }
+
         #endregion
+
+        #region Commands
+        
+        /// <summary>
+        /// Returns a command that creates a new task.
+        /// </summary>
+        public ICommand NewTaskCommand
+        {
+            get
+            {
+                if (_newTaskCommand == null)
+                {
+                    _newTaskCommand = new RelayCommand(
+                        param => this.CreateTask()
+                        );
+                }
+                return _newTaskCommand;
+            }
+        }
+
+        /// <summary>
+        /// Returns a command that edits an existing task.
+        /// </summary>
+        public ICommand EditTaskCommand
+        {
+            get
+            {
+                if (_editTaskCommand == null)
+                {
+                    _editTaskCommand = new RelayCommand(
+                        param => this.EditTask(),
+                        param => this.CanEditTask()
+                        );
+                }
+                return _editTaskCommand;
+            }
+        }
+
+        /// <summary>
+        /// Returns a command that deletes an existing task.
+        /// </summary>
+        public ICommand DeleteTaskCommand
+        {
+            get
+            {
+                if (_deleteTaskCommand == null)
+                {
+                    _deleteTaskCommand = new RelayCommand(
+                        param => this.DeleteTask(),
+                        param => this.CanDeleteTask()
+                        );
+                }
+                return _deleteTaskCommand;
+            }
+        }
+
+        #endregion
+
     }
 }

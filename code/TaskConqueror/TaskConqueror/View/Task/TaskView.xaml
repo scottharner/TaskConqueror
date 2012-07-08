@@ -91,7 +91,7 @@
             <Label 
       x:Name="projectLbl"
       Grid.Row="2" Grid.Column="2" 
-      Content="{Binding Path=Project}" 
+      Content="{Binding Path=ProjectTitle}" 
       Validation.ErrorTemplate="{x:Null}"
       />
 

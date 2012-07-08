@@ -16,14 +16,22 @@ namespace TaskConqueror
     {
         #region Creation
 
-        public static Task CreateNewTask()
+        public static Task CreateNewTask(int? projectId = null)
         {
-            return new Task()
+            Task newTask = new Task()
             {
                 IsActive = false,
                 StatusId = (int)Statuses.New,
                 PriorityId = (int)TaskPriorities.Medium
             };
+
+            if (projectId.HasValue)
+            {
+                ProjectData projectData = new ProjectData();
+                newTask.ParentProject = projectData.GetProjectByProjectId(projectId.Value);
+            }
+
+            return newTask;
         }
 
         public static Task CreateTask(Data.Task dbTask)

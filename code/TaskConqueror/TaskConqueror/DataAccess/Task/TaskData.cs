@@ -56,6 +56,12 @@ namespace TaskConqueror
             dbTask.CreatedDate = task.CreatedDate;
             dbTask.CompletedDate = task.CompletedDate;
             dbTask.Title = task.Title;
+            if (task.ParentProject != null)
+            {
+                dbTask.Projects.Add((from p in _appInfo.GcContext.Projects
+                                        where p.ProjectID == task.ParentProject.ProjectId
+                                        select p).FirstOrDefault());
+            }
 
             _appInfo.GcContext.AddToTasks(dbTask);
             _appInfo.GcContext.SaveChanges();
