@@ -19,6 +19,7 @@ namespace TaskConqueror
         #region Fields
 
         readonly ProjectData _projectData;
+        readonly TaskData _taskData;
         RelayCommand _newCommand;
         RelayCommand _editCommand;
         RelayCommand _deleteCommand;
@@ -27,7 +28,7 @@ namespace TaskConqueror
 
         #region Constructor
 
-        public AllProjectsViewModel(ProjectData projectData)
+        public AllProjectsViewModel(ProjectData projectData, TaskData taskData)
         {
             if (projectData == null)
                 throw new ArgumentNullException("projectData");
@@ -35,6 +36,7 @@ namespace TaskConqueror
             base.DisplayName = Properties.Resources.Projects_DisplayName;            
 
             _projectData = projectData;
+            _taskData = taskData;
 
             // Subscribe for notifications of when a new project is saved.
             _projectData.ProjectAdded += this.OnProjectAdded;
@@ -49,7 +51,7 @@ namespace TaskConqueror
         {
             List<ProjectViewModel> all =
                 (from project in _projectData.GetProjects()
-                 select new ProjectViewModel(project, _projectData)).ToList();
+                 select new ProjectViewModel(project, _projectData, _taskData)).ToList();
 
             foreach (ProjectViewModel pvm in all)
                 pvm.PropertyChanged += this.OnProjectViewModelPropertyChanged;
@@ -111,14 +113,14 @@ namespace TaskConqueror
 
         void OnProjectAdded(object sender, ProjectAddedEventArgs e)
         {
-            var viewModel = new ProjectViewModel(e.NewProject, _projectData);
+            var viewModel = new ProjectViewModel(e.NewProject, _projectData, _taskData);
             this.AllProjects.Add(viewModel);
         }
 
         void OnProjectUpdated(object sender, ProjectUpdatedEventArgs e)
         {
             this.AllProjects.Remove(this.AllProjects.FirstOrDefault(p => p.ProjectId == e.UpdatedProject.ProjectId));
-            var viewModel = new ProjectViewModel(e.UpdatedProject, _projectData);
+            var viewModel = new ProjectViewModel(e.UpdatedProject, _projectData, _taskData);
             this.AllProjects.Add(viewModel);
         }
 
@@ -195,7 +197,7 @@ namespace TaskConqueror
         {
             ProjectView window = new ProjectView();
 
-            var viewModel = new ProjectViewModel(Project.CreateNewProject(), _projectData);
+            var viewModel = new ProjectViewModel(Project.CreateNewProject(), _projectData, _taskData);
 
             this.ShowWorkspaceAsDialog(window, viewModel);
         }
@@ -209,7 +211,7 @@ namespace TaskConqueror
 
             ProjectViewModel selectedProjectVM = AllProjects.FirstOrDefault(p => p.IsSelected == true);
             
-            var viewModel = new ProjectViewModel(_projectData.GetProjectByProjectId(selectedProjectVM.ProjectId), _projectData);
+            var viewModel = new ProjectViewModel(_projectData.GetProjectByProjectId(selectedProjectVM.ProjectId), _projectData, _taskData);
 
             this.ShowWorkspaceAsDialog(window, viewModel);
         }

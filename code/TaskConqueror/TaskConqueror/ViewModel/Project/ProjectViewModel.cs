@@ -22,13 +22,13 @@ namespace TaskConqueror
         bool _isSaved;
         string _goalTitle;
         string _statusDescription;
-        ObservableCollection<Task> _childTasks = new ObservableCollection<Task>();
+        ObservableCollection<TaskViewModel> _childTaskVMs = new ObservableCollection<TaskViewModel>();
 
         #endregion // Fields
 
         #region Constructor
 
-        public ProjectViewModel(Project project, ProjectData projectData)
+        public ProjectViewModel(Project project, ProjectData projectData, TaskData taskData)
         {
             if (project == null)
                 throw new ArgumentNullException("project");
@@ -43,7 +43,11 @@ namespace TaskConqueror
             _isSaved = true;
             _goalTitle = _project.ParentGoal == null ? null : _project.ParentGoal.Title;
             _statusDescription = _statusOptions.FirstOrDefault(s => s.StatusID == this.StatusId).Description;
-            _childTasks = new ObservableCollection<Task>(_projectData.GetChildTasks(_project.ProjectId));
+            List<Task> childTasks = _projectData.GetChildTasks(_project.ProjectId);
+            foreach (Task childTask in childTasks)
+            {
+                _childTaskVMs.Add(new TaskViewModel(childTask, taskData));
+            }
             
             base.DisplayName = Properties.Resources.Edit_Project_DisplayName;            
         }
@@ -145,9 +149,9 @@ namespace TaskConqueror
             get { return _project.ParentGoal; }
         }
 
-        public ObservableCollection<Task> ChildTasks
+        public ObservableCollection<TaskViewModel> ChildTasks
         {
-            get { return _childTasks; }
+            get { return _childTaskVMs; }
         }
 
         #endregion // Properties

@@ -123,7 +123,7 @@ namespace TaskConqueror
         WorkspaceViewModel ListProjects()
         {
             ProjectData projectData = _projectData;
-            AllProjectsViewModel workspace = new AllProjectsViewModel(projectData);
+            AllProjectsViewModel workspace = new AllProjectsViewModel(projectData, _taskData);
             this.Workspaces.Add(workspace);
             return workspace;
         }
