@@ -100,9 +100,15 @@
             Header="Status" 
             DisplayMemberBinding="{Binding Path=StatusDescription}" 
             />
-          <GridViewColumn
-              Header="Est. Cost"
-              DisplayMemberBinding="{Binding Path=EstimatedCost}"/>
+                    <GridViewColumn Header="Est. Cost">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextAlignment="Right"
+                       Text="{Binding Path=EstimatedCost, StringFormat='{}{0:C}'}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
                     <GridViewColumn
               Header="Goal"
               DisplayMemberBinding="{Binding Path=GoalTitle}"/>

@@ -4,6 +4,7 @@ using System.Windows.Input;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Collections.ObjectModel;
 
 namespace TaskConqueror
 {
@@ -21,6 +22,7 @@ namespace TaskConqueror
         bool _isSaved;
         string _goalTitle;
         string _statusDescription;
+        ObservableCollection<Task> _childTasks = new ObservableCollection<Task>();
 
         #endregion // Fields
 
@@ -41,7 +43,8 @@ namespace TaskConqueror
             _isSaved = true;
             _goalTitle = _project.ParentGoal == null ? null : _project.ParentGoal.Title;
             _statusDescription = _statusOptions.FirstOrDefault(s => s.StatusID == this.StatusId).Description;
-
+            _childTasks = new ObservableCollection<Task>(_projectData.GetChildTasks(_project.ProjectId));
+            
             base.DisplayName = Properties.Resources.Edit_Project_DisplayName;            
         }
 
@@ -140,6 +143,11 @@ namespace TaskConqueror
         public Goal ParentGoal
         {
             get { return _project.ParentGoal; }
+        }
+
+        public ObservableCollection<Task> ChildTasks
+        {
+            get { return _childTasks; }
         }
 
         #endregion // Properties
