@@ -1,0 +1,151 @@
+﻿<Window 
+  x:Class="TaskConqueror.AddChildTasksView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:tc="clr-namespace:TaskConqueror"
+  xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+  FontSize="13" 
+  FontFamily="Verdana"
+  Title="{Binding Path=DisplayName}"
+  >
+    <Window.Resources>
+        <ResourceDictionary Source="/WorkspaceResources.xaml" />
+    </Window.Resources>
+    <DockPanel Margin="4">
+        <Grid DockPanel.Dock="Bottom" Margin="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!-- UNASSIGNED TASKS -->
+            <HeaderedContentControl Grid.Row="0" Header="Unassigned Tasks">
+                <HeaderedContentControl.Resources>
+                    <CollectionViewSource
+      x:Key="UnassignedTaskGroups" 
+      Source="{Binding Path=UnassignedTasks}"
+      >
+                        <CollectionViewSource.SortDescriptions>
+                            <scm:SortDescription PropertyName="PriorityId" Direction="Descending" />
+                            <scm:SortDescription PropertyName="Title" Direction="Ascending" />
+                        </CollectionViewSource.SortDescriptions>
+                    </CollectionViewSource>
+                </HeaderedContentControl.Resources>
+                <ListView 
+      AlternationCount="2" 
+      DataContext="{StaticResource UnassignedTaskGroups}" 
+      ItemContainerStyle="{StaticResource TaskItemStyle}"
+      ItemsSource="{Binding}"
+        SelectionMode="Single"
+      >
+
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn 
+            Header="Title" 
+            DisplayMemberBinding="{Binding Path=Title}" 
+            />
+                            <GridViewColumn 
+            Header="Status" 
+            DisplayMemberBinding="{Binding Path=StatusDescription}" 
+            />
+                            <GridViewColumn
+              Header="Priority"
+              DisplayMemberBinding="{Binding Path=PriorityDescription}"/>
+                            <GridViewColumn
+              Header="Date Created"
+              DisplayMemberBinding="{Binding Path=CreatedDate}"/>
+                            <GridViewColumn
+              Header="Date Completed"
+              DisplayMemberBinding="{Binding Path=CompletedDate}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </HeaderedContentControl>
+            
+            <!-- Add and remove buttons -->
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <!-- SAVE BUTTON -->
+                <Button 
+      Command="{Binding Path=AddCommand}"
+      Content="_Add"
+      Margin="4,2" 
+      MinWidth="60" 
+      />
+                <Button 
+      Command="{Binding Path=RemoveCommand}"
+      Content="_Remove"
+      Margin="4,2" 
+      MinWidth="60" 
+      />
+            </StackPanel>
+
+            <!-- Selected tasks -->
+            <HeaderedContentControl Header="Selected Tasks" Grid.Row="2">
+                <HeaderedContentControl.Resources>
+                    <CollectionViewSource
+      x:Key="SelectedTaskGroups" 
+      Source="{Binding Path=SelectedTasks}"
+      >
+                        <CollectionViewSource.SortDescriptions>
+                            <scm:SortDescription PropertyName="PriorityId" Direction="Descending" />
+                            <scm:SortDescription PropertyName="Title" Direction="Ascending" />
+                        </CollectionViewSource.SortDescriptions>
+                    </CollectionViewSource>
+                </HeaderedContentControl.Resources>
+                <ListView 
+      AlternationCount="2" 
+      DataContext="{StaticResource SelectedTaskGroups}" 
+      ItemContainerStyle="{StaticResource TaskItemStyle}"
+      ItemsSource="{Binding}"
+        SelectionMode="Single"
+      >
+
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn 
+            Header="Title" 
+            DisplayMemberBinding="{Binding Path=Title}" 
+            />
+                            <GridViewColumn 
+            Header="Status" 
+            DisplayMemberBinding="{Binding Path=StatusDescription}" 
+            />
+                            <GridViewColumn
+              Header="Priority"
+              DisplayMemberBinding="{Binding Path=PriorityDescription}"/>
+                            <GridViewColumn
+              Header="Date Created"
+              DisplayMemberBinding="{Binding Path=CreatedDate}"/>
+                            <GridViewColumn
+              Header="Date Completed"
+              DisplayMemberBinding="{Binding Path=CompletedDate}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </HeaderedContentControl>
+            
+            <!-- Ok and cancel buttons -->
+            <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button 
+      Command="{Binding Path=OkCommand}"
+      Content="_OK"
+      Margin="4,2" 
+      MinWidth="60" 
+      />
+                <Button 
+      Command="{Binding Path=CloseCommand}"
+      Content="_Cancel"
+      Margin="4,2" 
+      MinWidth="60" 
+      />
+            </StackPanel>
+        </Grid>
+    </DockPanel>
+</Window>

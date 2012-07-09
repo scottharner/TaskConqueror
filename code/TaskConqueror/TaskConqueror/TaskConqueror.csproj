@@ -104,6 +104,7 @@
     <Compile Include="ViewModel\RootTreeNodeViewModel.cs" />
     <Compile Include="ViewModel\ITreeNodeContainerViewModel.cs" />
     <Compile Include="ViewModel\EditorViewModel.cs" />
+    <Compile Include="ViewModel\Task\AddChildTasksViewModel.cs" />
     <Compile Include="ViewModel\UnassignedTreeNodeViewModel.cs" />
     <Compile Include="ViewModel\ITreeNodeViewModel.cs" />
     <Compile Include="ViewModel\Goal\GoalTreeNodeViewModel.cs" />
@@ -137,9 +138,16 @@
     <Compile Include="View\Task\AddTasksView.xaml.cs">
       <DependentUpon>AddTasksView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Task\AddChildTasksView.xaml.cs">
+      <DependentUpon>AddChildTasksView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Task\TaskView.xaml.cs">
       <DependentUpon>TaskView.xaml</DependentUpon>
     </Compile>
+    <Page Include="WorkspaceResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -173,6 +181,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Task\AddTasksView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Task\AddChildTasksView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

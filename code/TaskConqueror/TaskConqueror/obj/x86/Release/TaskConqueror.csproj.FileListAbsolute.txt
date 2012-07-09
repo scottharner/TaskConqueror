@@ -67,3 +67,6 @@ C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConque
 C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Release\View\Project\AllProjectsView.g.cs
 C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Release\View\Project\ProjectView.g.cs
 C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Release\View\Project\AllProjectsView.baml
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Release\View\Task\AddChildTasksView.g.cs
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Release\View\Task\AddChildTasksView.baml
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Release\WorkspaceResources.baml

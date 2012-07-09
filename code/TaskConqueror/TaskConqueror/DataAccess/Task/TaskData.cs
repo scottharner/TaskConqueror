@@ -252,6 +252,26 @@ namespace TaskConqueror
             return requestedTask;
         }
 
+        public void AddTasksToProject(Project parentProject, List<int> childTaskIds)
+        {
+            // add tasks to project
+            Data.Project parentDbProject = (from p in _appInfo.GcContext.Projects
+                                            where p.ProjectID == parentProject.ProjectId
+                                            select p).FirstOrDefault();
+            foreach (int taskId in childTaskIds)
+            {
+                Data.Task childDbTask = (from t in _appInfo.GcContext.Tasks
+                                         where t.TaskID == taskId
+                                         select t).FirstOrDefault();
+                parentDbProject.Tasks.Add(childDbTask);
+
+                _appInfo.GcContext.SaveChanges();
+
+                if (this.TaskUpdated != null)
+                    this.TaskUpdated(this, new TaskUpdatedEventArgs(Task.CreateTask(childDbTask)));
+            }
+        }
+
         #endregion // Public Interface
 
         #region Private Helpers

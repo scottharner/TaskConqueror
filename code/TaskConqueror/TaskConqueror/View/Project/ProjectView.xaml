@@ -38,7 +38,7 @@
                 <StackPanel Orientation="Horizontal">
                     <!-- ADD BUTTON -->
                     <Button 
-      Command="{Binding Path=AddTaskCommand}"
+      Command="{Binding Path=AddTasksCommand}"
       Content="Add"
       Margin="4,2" 
       MinWidth="60" 
@@ -87,7 +87,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="30" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="75" />
             </Grid.RowDefinitions>
 
             <Grid.Resources>

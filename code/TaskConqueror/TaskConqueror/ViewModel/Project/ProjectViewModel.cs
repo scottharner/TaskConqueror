@@ -27,6 +27,7 @@ namespace TaskConqueror
         RelayCommand _newTaskCommand;
         RelayCommand _editTaskCommand;
         RelayCommand _deleteTaskCommand;
+        RelayCommand _addTasksCommand;
 
         #endregion // Fields
 
@@ -257,6 +258,18 @@ namespace TaskConqueror
             }
         }
 
+        /// <summary>
+        /// Launches the add tasks window.
+        /// </summary>
+        public void AddTasks()
+        {
+            AddChildTasksView window = new AddChildTasksView();
+
+            var viewModel = new AddChildTasksViewModel(_taskData, _project, new ProjectData());
+
+            this.ShowWorkspaceAsDialog(window, viewModel);
+        }
+
         #endregion // Public Methods
 
         #region Private Helpers
@@ -398,6 +411,23 @@ namespace TaskConqueror
                         );
                 }
                 return _deleteTaskCommand;
+            }
+        }
+
+        /// <summary>
+        /// Returns a command that adds tasks to the project.
+        /// </summary>
+        public ICommand AddTasksCommand
+        {
+            get
+            {
+                if (_addTasksCommand == null)
+                {
+                    _addTasksCommand = new RelayCommand(
+                        param => this.AddTasks()
+                        );
+                }
+                return _addTasksCommand;
             }
         }
 

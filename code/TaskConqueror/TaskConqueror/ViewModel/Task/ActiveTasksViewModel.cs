@@ -254,19 +254,7 @@ namespace TaskConqueror
             
             var viewModel = new TaskViewModel(_taskData.GetTaskByTaskId(selectedTaskVM.TaskId), _taskData);
 
-            // When the ViewModel asks to be closed, 
-            // close the window.
-            EventHandler handler = null;
-            handler = delegate
-            {
-                viewModel.RequestClose -= handler;
-                window.Close();
-            };
-            viewModel.RequestClose += handler;
-
-            window.DataContext = viewModel;
-
-            window.ShowDialog();
+            this.ShowWorkspaceAsDialog(window, viewModel);
         }
 
         /// <summary>
@@ -291,19 +279,7 @@ namespace TaskConqueror
 
             var viewModel = new AddTasksViewModel(_taskData, new ProjectData(), new GoalData());
 
-            // When the ViewModel asks to be closed, 
-            // close the window.
-            EventHandler handler = null;
-            handler = delegate
-            {
-                viewModel.RequestClose -= handler;
-                window.Close();
-            };
-            viewModel.RequestClose += handler;
-
-            window.DataContext = viewModel;
-
-            window.ShowDialog();
+            this.ShowWorkspaceAsDialog(window, viewModel);
         }
 
         #endregion // Public Methods
