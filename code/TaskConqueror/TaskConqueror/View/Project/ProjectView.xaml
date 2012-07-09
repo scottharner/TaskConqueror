@@ -3,12 +3,14 @@
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
-  xmlns:acb="clr-namespace:AttachedCommandBehavior"
   FontSize="13" 
   FontFamily="Verdana"
   Title="{Binding Path=DisplayName}"
   >
-    <DockPanel Margin="4">
+    <DockPanel Name="ContainingDockPanel" Margin="4">
+        <DockPanel.Resources>
+            <ResourceDictionary Source="/WorkspaceResources.xaml" />
+        </DockPanel.Resources>
         <StackPanel 
     Orientation="Horizontal"
     DockPanel.Dock="Top">
@@ -51,7 +53,7 @@
       MinWidth="60" 
       />
                     <Button 
-      Command="{Binding Path=EditTaskCommand}"
+      Command="{Binding Path=EditCommand}"
       Content="Edit"
       Margin="4,2" 
       MinWidth="60" 
@@ -114,35 +116,6 @@
                     </CollectionViewSource.SortDescriptions>
                 </CollectionViewSource>
 
-                <Style x:Key="TaskItemStyle" TargetType="{x:Type ListViewItem}">
-                    <!-- 
-      Stretch the content of each cell so that we can 
-      right-align text in the Total Sales column. 
-      -->
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                    <!-- 
-      Bind the IsSelected property of a ListViewItem to the 
-      IsSelected property of a CustomerViewModel object.
-      -->
-                    <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
-                    <Setter Property="acb:CommandBehavior.Event"
-                        Value="MouseDoubleClick" />
-                    <Setter Property="acb:CommandBehavior.Command"
-                        Value="{Binding ElementName=ContainingDockPanel, Path=DataContext.EditCommand}" />
-                    <Setter Property="acb:CommandBehavior.CommandParameter"
-                        Value="{Binding}" />
-
-                    <Style.Triggers>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="ItemsControl.AlternationIndex" Value="1" />
-                                <Condition Property="IsSelected" Value="False" />
-                                <Condition Property="IsMouseOver" Value="False" />
-                            </MultiTrigger.Conditions>
-                            <Setter Property="Background" Value="#EEEEEEEE" />
-                        </MultiTrigger>
-                    </Style.Triggers>
-                </Style>
             </Grid.Resources>
 
 
@@ -257,7 +230,7 @@
                 Grid.Row="13"
                 Grid.ColumnSpan="3"
       DataContext="{StaticResource TaskGroups}" 
-      ItemContainerStyle="{StaticResource TaskItemStyle}"
+      ItemContainerStyle="{StaticResource TaskItemDoubleClickStyle}"
       ItemsSource="{Binding}"
         SelectionMode="Single"
       >

@@ -11,8 +11,11 @@
     <Window.Resources>
         <tc:SortTreeNodeConverter x:Key="SortConverter" />
     </Window.Resources>
-    <DockPanel Margin="4">
-        <Grid DockPanel.Dock="Bottom" Margin="4">
+    <DockPanel Margin="4" Name="ContainingDockPanel">
+        <DockPanel.Resources>
+            <ResourceDictionary Source="/WorkspaceResources.xaml" />
+        </DockPanel.Resources>
+            <Grid DockPanel.Dock="Bottom" Margin="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
@@ -117,24 +120,6 @@
                         </CollectionViewSource.SortDescriptions>
                     </CollectionViewSource>
 
-                    <Style x:Key="TaskItemStyle" TargetType="{x:Type ListViewItem}">
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                        <!-- 
-                            Bind the IsSelected property of a ListViewItem to the 
-                            IsSelected property of a CustomerViewModel object.
-                        -->
-                        <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
-                        <Style.Triggers>
-                            <MultiTrigger>
-                                <MultiTrigger.Conditions>
-                                    <Condition Property="ItemsControl.AlternationIndex" Value="1" />
-                                    <Condition Property="IsSelected" Value="False" />
-                                    <Condition Property="IsMouseOver" Value="False" />
-                                </MultiTrigger.Conditions>
-                                <Setter Property="Background" Value="#EEEEEEEE" />
-                            </MultiTrigger>
-                        </Style.Triggers>
-                    </Style>
                 </HeaderedContentControl.Resources>
                 <ListView 
       AlternationCount="2" 

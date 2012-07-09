@@ -381,7 +381,7 @@ namespace TaskConqueror
         /// <summary>
         /// Returns a command that edits an existing task.
         /// </summary>
-        public ICommand EditTaskCommand
+        public ICommand EditCommand
         {
             get
             {
