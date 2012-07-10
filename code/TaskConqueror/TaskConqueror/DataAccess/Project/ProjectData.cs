@@ -116,7 +116,7 @@ namespace TaskConqueror
         /// If the project is not already in the repository, an
         /// exception is thrown.
         /// </summary>
-        public void DeleteProject(Project project)
+        public void DeleteProject(Project project, TaskData taskData)
         {
             if (project == null)
                 throw new ArgumentNullException("project");
@@ -127,7 +127,17 @@ namespace TaskConqueror
             var query = (from p in _appInfo.GcContext.Projects
                          where p.ProjectID == project.ProjectId
                          select p).First();
-            
+
+            Project requestedProject = Project.CreateProject(query);
+
+            // delete child tasks first
+            List<Task> childTasks = this.GetChildTasks(requestedProject.ProjectId);
+
+            foreach (Task childTask in childTasks)
+            {
+                taskData.DeleteTask(childTask);
+            }
+
             _appInfo.GcContext.DeleteObject(query);
             _appInfo.GcContext.SaveChanges();
 
@@ -279,6 +289,34 @@ namespace TaskConqueror
 
                 if (this.ProjectUpdated != null)
                     this.ProjectUpdated(this, new ProjectUpdatedEventArgs(Project.CreateProject(childDbProject)));
+            }
+        }
+
+        public void PurgeAbandonedProjects(TaskData taskData)
+        {
+            List<Data.Project> abandonedDbProjects = (from p in _appInfo.GcContext.Projects
+                                                where p.StatusID == Statuses.Abandoned
+                                                select p).ToList();
+
+            foreach (Data.Project abandonedDbProject in abandonedDbProjects)
+            {
+                Project abandonedProject = Project.CreateProject(abandonedDbProject);
+
+                this.DeleteProject(abandonedProject, taskData);
+            }
+        }
+
+        public void PurgeCompletedProjects(TaskData taskData)
+        {
+            List<Data.Project> completedDbProjects = (from p in _appInfo.GcContext.Projects
+                                                where p.StatusID == Statuses.Completed
+                                                select p).ToList();
+
+            foreach (Data.Project completedDbProject in completedDbProjects)
+            {
+                Project completedProject = Project.CreateProject(completedDbProject);
+
+                this.DeleteProject(completedProject, taskData);
             }
         }
 

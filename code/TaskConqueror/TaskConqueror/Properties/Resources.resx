@@ -166,7 +166,7 @@
     <value>Edit Project</value>
   </data>
   <data name="Projects_Delete_Confirm" xml:space="preserve">
-    <value>Are you sure you want to delete the selected project?</value>
+    <value>Are you sure you want to delete the selected project and its children?</value>
   </data>
   <data name="Projects_DisplayName" xml:space="preserve">
     <value>Projects</value>
@@ -187,12 +187,21 @@
     <value>Category is invalid</value>
   </data>
   <data name="Goals_Delete_Confirm" xml:space="preserve">
-    <value>Are you sure you want to delete the selected goal?</value>
+    <value>Are you sure you want to delete the selected goal and its descendents?</value>
   </data>
   <data name="Goals_DisplayName" xml:space="preserve">
     <value>Goals</value>
   </data>
   <data name="GoalViewModel_Exception_CannotSave" xml:space="preserve">
     <value>Cannot save an invalid goal.</value>
+  </data>
+  <data name="Admin_DisplayName" xml:space="preserve">
+    <value>Administrative</value>
+  </data>
+  <data name="Objects_Purge_Confirm" xml:space="preserve">
+    <value>Are you sure you want to purge the selected object type and its descendents?</value>
+  </data>
+  <data name="Purge_Confirm" xml:space="preserve">
+    <value>Confirm Purge</value>
   </data>
 </root>

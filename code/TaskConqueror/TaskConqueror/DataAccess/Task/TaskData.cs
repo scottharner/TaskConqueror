@@ -272,6 +272,44 @@ namespace TaskConqueror
             }
         }
 
+        public void PurgeAbandonedTasks()
+        {
+            List<Data.Task> abandonedDbTasks = (from t in _appInfo.GcContext.Tasks
+                                              where t.StatusID == Statuses.Abandoned
+                                                select t).ToList();
+
+            foreach (Data.Task abandonedDbTask in abandonedDbTasks)
+            {
+                Task abandonedTask = Task.CreateTask(abandonedDbTask);
+                
+                _appInfo.GcContext.DeleteObject(abandonedDbTask);
+
+                _appInfo.GcContext.SaveChanges();
+
+                if (this.TaskDeleted != null)
+                    this.TaskDeleted(this, new TaskDeletedEventArgs(abandonedTask));
+            }
+        }
+
+        public void PurgeCompletedTasks()
+        {
+            List<Data.Task> completedDbTasks = (from t in _appInfo.GcContext.Tasks
+                                                where t.StatusID == Statuses.Completed
+                                                select t).ToList();
+
+            foreach (Data.Task completedDbTask in completedDbTasks)
+            {
+                Task completedTask = Task.CreateTask(completedDbTask);
+
+                _appInfo.GcContext.DeleteObject(completedDbTask);
+
+                _appInfo.GcContext.SaveChanges();
+
+                if (this.TaskDeleted != null)
+                    this.TaskDeleted(this, new TaskDeletedEventArgs(completedTask));
+            }
+        }
+
         #endregion // Public Interface
 
         #region Private Helpers

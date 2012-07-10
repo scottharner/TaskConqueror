@@ -22,6 +22,11 @@ This resource dictionary is used by the MainWindow.
     <DataTemplate DataType="{x:Type tc:ActiveTasksViewModel}">
         <tc:ActiveTasksView />
     </DataTemplate>
+
+    <DataTemplate DataType="{x:Type tc:AdminViewModel}">
+        <tc:AdminView />
+    </DataTemplate>
+
     <!-- 
   This style configures both of the main content areas in the main window.
   -->

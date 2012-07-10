@@ -70,3 +70,11 @@ C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConque
 C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Release\View\Task\AddChildTasksView.g.cs
 C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Release\View\Task\AddChildTasksView.baml
 C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Release\WorkspaceResources.baml
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Release\View\Admin\AdminView.baml
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Release\View\Goal\AllGoalsView.baml
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Release\View\Goal\GoalView.baml
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Release\View\Admin\AdminView.g.cs
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Release\View\Goal\AllGoalsView.g.cs
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Release\View\Goal\GoalView.g.cs
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Release\View\Project\AddChildProjectsView.g.cs
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Release\View\Project\AddChildProjectsView.baml

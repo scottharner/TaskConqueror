@@ -88,6 +88,15 @@ namespace TaskConqueror.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Administrative.
+        /// </summary>
+        internal static string Admin_DisplayName {
+            get {
+                return ResourceManager.GetString("Admin_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirm Delete.
         /// </summary>
         internal static string Delete_Confirm {
@@ -151,7 +160,7 @@ namespace TaskConqueror.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to delete the selected goal?.
+        ///   Looks up a localized string similar to Are you sure you want to delete the selected goal and its descendents?.
         /// </summary>
         internal static string Goals_Delete_Confirm {
             get {
@@ -205,6 +214,15 @@ namespace TaskConqueror.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to purge the selected object type and its descendents?.
+        /// </summary>
+        internal static string Objects_Purge_Confirm {
+            get {
+                return ResourceManager.GetString("Objects_Purge_Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Estimated cost is invalid.
         /// </summary>
         internal static string Project_Error_InvalidEstimatedCost {
@@ -214,7 +232,7 @@ namespace TaskConqueror.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to delete the selected project?.
+        ///   Looks up a localized string similar to Are you sure you want to delete the selected project and its children?.
         /// </summary>
         internal static string Projects_Delete_Confirm {
             get {
@@ -237,6 +255,15 @@ namespace TaskConqueror.Properties {
         internal static string ProjectViewModel_Exception_CannotSave {
             get {
                 return ResourceManager.GetString("ProjectViewModel_Exception_CannotSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm Purge.
+        /// </summary>
+        internal static string Purge_Confirm {
+            get {
+                return ResourceManager.GetString("Purge_Confirm", resourceCulture);
             }
         }
         

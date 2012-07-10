@@ -277,7 +277,7 @@ namespace TaskConqueror
 
             if (selectedProjectVM != null && MessageBox.Show(Properties.Resources.Projects_Delete_Confirm, Properties.Resources.Delete_Confirm, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-                _projectData.DeleteProject(_projectData.GetProjectByProjectId(selectedProjectVM.ProjectId));
+                _projectData.DeleteProject(_projectData.GetProjectByProjectId(selectedProjectVM.ProjectId), _taskData);
             }
         }
 

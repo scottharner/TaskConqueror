@@ -1,0 +1,65 @@
+﻿<UserControl 
+  x:Class="TaskConqueror.AdminView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+  >
+  <DockPanel Name="ContainingDockPanel">
+        <!-- Buttons -->
+        <GroupBox 
+            DockPanel.Dock="Top"
+          Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="2" Header="Objects" HorizontalAlignment="Left" Margin="0,0,0,10">
+            <StackPanel Orientation="Horizontal">
+                <!-- PURGE BUTTON -->
+                <Button 
+      Command="{Binding Path=PurgeCommand}"
+      Content="_Purge"
+      Margin="4,2" 
+      MinWidth="60" 
+      />
+            </StackPanel>
+        </GroupBox>
+
+        <Grid DockPanel.Dock="Bottom" Margin="0,2,4,2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="6" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="30" />
+            </Grid.RowDefinitions>
+
+
+
+            <Label 
+      Grid.Row="0" Grid.Column="0" 
+      Content="_Object Type:" 
+      HorizontalAlignment="Right"
+      Target="{Binding ElementName=objectTypeCbo}"
+      />
+            <ComboBox 
+      x:Name="objectTypeCbo"
+      Grid.Row="0" Grid.Column="2" 
+      ItemsSource="{Binding Path=ObjectTypeOptions}"
+      SelectedItem="{Binding Path=SelectedObjectType}"
+      />
+            <Label 
+      Grid.Row="2" Grid.Column="0" 
+      Content="_Status:" 
+      HorizontalAlignment="Right"
+      Target="{Binding ElementName=objectTypeCbo}"
+      />
+            <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                <CheckBox Margin="4,2" Name="abandonedChk" IsChecked="{Binding Path=IncludeAbandoned}">Abandoned</CheckBox>
+                <CheckBox Margin="4,2" Name="completedChk" IsChecked="{Binding Path=IncludeCompleted}">Completed</CheckBox>
+            </StackPanel>
+        </Grid>
+
+    
+  </DockPanel>
+</UserControl>

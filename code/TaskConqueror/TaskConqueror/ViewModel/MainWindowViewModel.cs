@@ -36,6 +36,7 @@ namespace TaskConqueror
             ListTasks();
             ListProjects();
             ListGoals();
+            ShowAdminOptions();
             this.SetActiveWorkspace(activeVM);
         }
 
@@ -134,6 +135,13 @@ namespace TaskConqueror
         WorkspaceViewModel ListGoals()
         {
             AllGoalsViewModel workspace = new AllGoalsViewModel(_goalData, _projectData, _taskData);
+            this.Workspaces.Add(workspace);
+            return workspace;
+        }
+
+        WorkspaceViewModel ShowAdminOptions()
+        {
+            AdminViewModel workspace = new AdminViewModel(_taskData, _projectData, _goalData);
             this.Workspaces.Add(workspace);
             return workspace;
         }

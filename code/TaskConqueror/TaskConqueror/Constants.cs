@@ -38,4 +38,12 @@ namespace TaskConqueror
         public static int Task = 4;
         public static int Unassigned = 5;
     }
+
+    public class ObjectTypes
+    {
+        public static string Any = "Any";
+        public static string Goal = "Goal";
+        public static string Project = "Project";
+        public static string Task = "Task";
+    }
 }

@@ -112,11 +112,11 @@ namespace TaskConqueror
         public event EventHandler<GoalDeletedEventArgs> GoalDeleted;
 
         /// <summary>
-        /// Delete the specified goal from the db.
+        /// Delete the specified goal and descendents from the db.
         /// If the goal is not already in the repository, an
         /// exception is thrown.
         /// </summary>
-        public void DeleteGoal(Goal goal)
+        public void DeleteGoal(Goal goal, ProjectData projectData, TaskData taskData)
         {
             if (goal == null)
                 throw new ArgumentNullException("goal");
@@ -127,7 +127,17 @@ namespace TaskConqueror
             var query = (from g in _appInfo.GcContext.Goals
                          where g.GoalID == goal.GoalId
                          select g).First();
-            
+
+            Goal requestedGoal = Goal.CreateGoal(query);
+
+            // delete child projects first
+            List<Project> childProjects = this.GetChildProjects(requestedGoal.GoalId);
+
+            foreach (Project childProject in childProjects)
+            {
+                projectData.DeleteProject(childProject, taskData);
+            }
+
             _appInfo.GcContext.DeleteObject(query);
             _appInfo.GcContext.SaveChanges();
 
@@ -238,6 +248,34 @@ namespace TaskConqueror
             }
 
             return childProjects;
+        }
+
+        public void PurgeAbandonedGoals(ProjectData projectData, TaskData taskData)
+        {
+            List<Data.Goal> abandonedDbGoals = (from g in _appInfo.GcContext.Goals
+                                                      where g.StatusID == Statuses.Abandoned
+                                                      select g).ToList();
+
+            foreach (Data.Goal abandonedDbGoal in abandonedDbGoals)
+            {
+                Goal abandonedGoal = Goal.CreateGoal(abandonedDbGoal);
+
+                this.DeleteGoal(abandonedGoal, projectData, taskData);
+            }
+        }
+
+        public void PurgeCompletedGoals(ProjectData projectData, TaskData taskData)
+        {
+            List<Data.Goal> completedDbGoals = (from g in _appInfo.GcContext.Goals
+                                                      where g.StatusID == Statuses.Completed
+                                                      select g).ToList();
+
+            foreach (Data.Goal completedDbGoal in completedDbGoals)
+            {
+                Goal completedGoal = Goal.CreateGoal(completedDbGoal);
+
+                this.DeleteGoal(completedGoal, projectData, taskData);
+            }
         }
 
         #endregion // Public Interface

@@ -235,7 +235,7 @@ namespace TaskConqueror
             
             if (selectedGoalVM != null && MessageBox.Show(Properties.Resources.Goals_Delete_Confirm, Properties.Resources.Delete_Confirm, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-                _goalData.DeleteGoal(_goalData.GetGoalByGoalId(selectedGoalVM.GoalId));
+                _goalData.DeleteGoal(_goalData.GetGoalByGoalId(selectedGoalVM.GoalId), _projectData, _taskData);
             }
         }
 
