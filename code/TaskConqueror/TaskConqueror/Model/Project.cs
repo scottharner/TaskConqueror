@@ -17,12 +17,20 @@ namespace TaskConqueror
     {
         #region Creation
 
-        public static Project CreateNewProject()
+        public static Project CreateNewProject(int? goalId = null)
         {
-            return new Project()
+            Project newProject = new Project()
             {
-                StatusId = (int)Statuses.New,
+                StatusId = (int)Statuses.New
             };
+
+            if (goalId.HasValue)
+            {
+                GoalData goalData = new GoalData();
+                newProject.ParentGoal = goalData.GetGoalByGoalId(goalId.Value);
+            }
+
+            return newProject;
         }
 
         public static Project CreateProject(Data.Project dbProject)

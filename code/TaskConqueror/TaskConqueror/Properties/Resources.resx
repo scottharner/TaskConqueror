@@ -177,4 +177,22 @@
   <data name="Tasks_Delete_Confirm" xml:space="preserve">
     <value>Are you sure you want to delete the selected task?</value>
   </data>
+  <data name="Add_Projects_DisplayName" xml:space="preserve">
+    <value>Add Projects</value>
+  </data>
+  <data name="Edit_Goal_DisplayName" xml:space="preserve">
+    <value>Edit Goal</value>
+  </data>
+  <data name="Error_InvalidCategory" xml:space="preserve">
+    <value>Category is invalid</value>
+  </data>
+  <data name="Goals_Delete_Confirm" xml:space="preserve">
+    <value>Are you sure you want to delete the selected goal?</value>
+  </data>
+  <data name="Goals_DisplayName" xml:space="preserve">
+    <value>Goals</value>
+  </data>
+  <data name="GoalViewModel_Exception_CannotSave" xml:space="preserve">
+    <value>Cannot save an invalid goal.</value>
+  </data>
 </root>

@@ -20,6 +20,7 @@ namespace TaskConqueror
         ObservableCollection<WorkspaceViewModel> _workspaces;
         TaskData _taskData;
         ProjectData _projectData;
+        GoalData _goalData;
 
         #endregion // Fields
 
@@ -30,9 +31,11 @@ namespace TaskConqueror
             base.DisplayName = Properties.Resources.MainWindowViewModel_DisplayName;
             _taskData = new TaskData();
             _projectData = new ProjectData();
+            _goalData = new GoalData();
             WorkspaceViewModel activeVM = ListActiveTasks();
             ListTasks();
             ListProjects();
+            ListGoals();
             this.SetActiveWorkspace(activeVM);
         }
 
@@ -124,6 +127,13 @@ namespace TaskConqueror
         {
             ProjectData projectData = _projectData;
             AllProjectsViewModel workspace = new AllProjectsViewModel(projectData, _taskData);
+            this.Workspaces.Add(workspace);
+            return workspace;
+        }
+
+        WorkspaceViewModel ListGoals()
+        {
+            AllGoalsViewModel workspace = new AllGoalsViewModel(_goalData, _projectData, _taskData);
             this.Workspaces.Add(workspace);
             return workspace;
         }

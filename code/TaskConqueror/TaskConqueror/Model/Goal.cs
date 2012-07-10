@@ -22,6 +22,7 @@ namespace TaskConqueror
             return new Goal()
             {
                 StatusId = (int)Statuses.New,
+                CategoryId = (int)GoalCategories.Other
             };
         }
 
@@ -167,7 +168,7 @@ namespace TaskConqueror
             AppInfo appInfo = AppInfo.Instance;
             if (appInfo.CategoryList.FirstOrDefault(c => c.CategoryID == this.CategoryId) == null)
             {
-                return Properties.Resources.Error_InvalidStatus;
+                return Properties.Resources.Error_InvalidCategory;
             }
 
             return null;

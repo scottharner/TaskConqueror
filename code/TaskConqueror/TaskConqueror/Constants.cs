@@ -20,6 +20,16 @@ namespace TaskConqueror
         public static int High = 3;
     }
 
+    public class GoalCategories
+    {
+        public static int Physical = 1;
+        public static int Career = 2;
+        public static int Financial = 3;
+        public static int Relational = 4;
+        public static int Spiritual = 5;
+        public static int Other = 6;
+    }
+
     public class SortWeights
     {
         public static int Root = 1;

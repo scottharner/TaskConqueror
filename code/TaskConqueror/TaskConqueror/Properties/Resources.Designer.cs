@@ -70,6 +70,15 @@ namespace TaskConqueror.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Projects.
+        /// </summary>
+        internal static string Add_Projects_DisplayName {
+            get {
+                return ResourceManager.GetString("Add_Projects_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Tasks.
         /// </summary>
         internal static string Add_Tasks_DisplayName {
@@ -84,6 +93,15 @@ namespace TaskConqueror.Properties {
         internal static string Delete_Confirm {
             get {
                 return ResourceManager.GetString("Delete_Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Goal.
+        /// </summary>
+        internal static string Edit_Goal_DisplayName {
+            get {
+                return ResourceManager.GetString("Edit_Goal_DisplayName", resourceCulture);
             }
         }
         
@@ -106,6 +124,15 @@ namespace TaskConqueror.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Category is invalid.
+        /// </summary>
+        internal static string Error_InvalidCategory {
+            get {
+                return ResourceManager.GetString("Error_InvalidCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Status is invalid.
         /// </summary>
         internal static string Error_InvalidStatus {
@@ -120,6 +147,33 @@ namespace TaskConqueror.Properties {
         internal static string Error_MissingTitle {
             get {
                 return ResourceManager.GetString("Error_MissingTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete the selected goal?.
+        /// </summary>
+        internal static string Goals_Delete_Confirm {
+            get {
+                return ResourceManager.GetString("Goals_Delete_Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Goals.
+        /// </summary>
+        internal static string Goals_DisplayName {
+            get {
+                return ResourceManager.GetString("Goals_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot save an invalid goal..
+        /// </summary>
+        internal static string GoalViewModel_Exception_CannotSave {
+            get {
+                return ResourceManager.GetString("GoalViewModel_Exception_CannotSave", resourceCulture);
             }
         }
         

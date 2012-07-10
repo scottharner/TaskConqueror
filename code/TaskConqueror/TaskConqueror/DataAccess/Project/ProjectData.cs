@@ -262,6 +262,26 @@ namespace TaskConqueror
             return childTasks;
         }
 
+        public void AddProjectsToGoal(Goal parentGoal, List<int> childProjectIds)
+        {
+            // add projects to goal
+            Data.Goal parentDbGoal = (from g in _appInfo.GcContext.Goals
+                                            where g.GoalID == parentGoal.GoalId
+                                            select g).FirstOrDefault();
+            foreach (int projectId in childProjectIds)
+            {
+                Data.Project childDbProject = (from p in _appInfo.GcContext.Projects
+                                         where p.ProjectID == projectId
+                                         select p).FirstOrDefault();
+                parentDbGoal.Projects.Add(childDbProject);
+
+                _appInfo.GcContext.SaveChanges();
+
+                if (this.ProjectUpdated != null)
+                    this.ProjectUpdated(this, new ProjectUpdatedEventArgs(Project.CreateProject(childDbProject)));
+            }
+        }
+
         #endregion // Public Interface
 
         #region Private Helpers

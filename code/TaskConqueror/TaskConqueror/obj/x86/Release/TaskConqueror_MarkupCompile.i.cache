@@ -10,11 +10,11 @@ none
 false
 TRACE
 C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\App.xaml
-10-841031116
+12-699504609
 1-982053785
-57-2114539978
+621639749285
 17-187923622
-WorkspaceResources.xaml;MainWindow.xaml;MainWindowResources.xaml;View\Project\AllProjectsView.xaml;View\Project\ProjectView.xaml;View\Task\AllTasksView.xaml;View\Task\ActiveTasksView.xaml;View\Task\AddTasksView.xaml;View\Task\AddChildTasksView.xaml;View\Task\TaskView.xaml;
+View\Goal\AllGoalsView.xaml;View\Goal\GoalView.xaml;WorkspaceResources.xaml;MainWindow.xaml;MainWindowResources.xaml;View\Project\AllProjectsView.xaml;View\Project\ProjectView.xaml;View\Task\AllTasksView.xaml;View\Task\ActiveTasksView.xaml;View\Task\AddTasksView.xaml;View\Task\AddChildTasksView.xaml;View\Task\TaskView.xaml;
 
 True
 
