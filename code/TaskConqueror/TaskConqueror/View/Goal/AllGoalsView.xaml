@@ -59,7 +59,7 @@
     <ListView 
       AlternationCount="2" 
       DataContext="{StaticResource GoalGroups}" 
-      ItemContainerStyle="{StaticResource TaskItemStyle}"
+      ItemContainerStyle="{StaticResource TaskItemDoubleClickStyle}"
       ItemsSource="{Binding}"
         SelectionMode="Single"
       >

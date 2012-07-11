@@ -163,6 +163,8 @@ namespace TaskConqueror
                         _taskData.PurgeCompletedTasks();
                     }
                 }
+
+                MessageBox.Show(Properties.Resources.Objects_Purge_Success, Properties.Resources.Action_Success);
             }
         }
 

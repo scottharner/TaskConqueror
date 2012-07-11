@@ -204,4 +204,10 @@
   <data name="Purge_Confirm" xml:space="preserve">
     <value>Confirm Purge</value>
   </data>
+  <data name="Action_Success" xml:space="preserve">
+    <value>Action Success</value>
+  </data>
+  <data name="Objects_Purge_Success" xml:space="preserve">
+    <value>Objects have been successfully purged.</value>
+  </data>
 </root>

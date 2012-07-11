@@ -61,6 +61,15 @@ namespace TaskConqueror.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Action Success.
+        /// </summary>
+        internal static string Action_Success {
+            get {
+                return ResourceManager.GetString("Action_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Active Task List.
         /// </summary>
         internal static string Active_Tasks_DisplayName {
@@ -219,6 +228,15 @@ namespace TaskConqueror.Properties {
         internal static string Objects_Purge_Confirm {
             get {
                 return ResourceManager.GetString("Objects_Purge_Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Objects have been successfully purged..
+        /// </summary>
+        internal static string Objects_Purge_Success {
+            get {
+                return ResourceManager.GetString("Objects_Purge_Success", resourceCulture);
             }
         }
         
