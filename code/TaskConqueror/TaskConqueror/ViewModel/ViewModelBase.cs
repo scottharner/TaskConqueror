@@ -30,6 +30,17 @@ namespace TaskConqueror
 
         #endregion // DisplayName
 
+        #region DisplayImage
+
+        /// <summary>
+        /// Returns the image source for an icon representing this object.
+        /// Child classes can set this property to a new value,
+        /// or override it to determine the value on-demand.
+        /// </summary>
+        public virtual string DisplayImage { get; protected set; }
+
+        #endregion // DisplayImage
+
         #region Debugging Aides
 
         /// <summary>

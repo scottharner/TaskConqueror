@@ -40,7 +40,8 @@ namespace TaskConqueror
             if (taskData == null)
                 throw new ArgumentNullException("taskData");
 
-            base.DisplayName = Properties.Resources.Goals_DisplayName;            
+            base.DisplayName = Properties.Resources.Goals_DisplayName;
+            base.DisplayImage = "pack://application:,,,/TaskConqueror;Component/Assets/Images/goal.png";
 
             _goalData = goalData;
             _projectData = projectData;

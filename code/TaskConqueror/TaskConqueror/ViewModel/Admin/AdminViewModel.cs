@@ -43,7 +43,8 @@ namespace TaskConqueror
             _goalData = goalData;
             _selectedObjectType = ObjectTypes.Any;
 
-            base.DisplayName = Properties.Resources.Admin_DisplayName;            
+            base.DisplayName = Properties.Resources.Admin_DisplayName;
+            base.DisplayImage = "pack://application:,,,/TaskConqueror;Component/Assets/Images/admin.png";
         }
 
         #endregion // Constructor

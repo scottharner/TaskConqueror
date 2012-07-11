@@ -292,6 +292,8 @@
     <Resource Include="Assets\Images\project.png" />
     <Resource Include="Assets\Images\task.png" />
     <Resource Include="Assets\Images\unassigned.png" />
+    <Resource Include="Assets\Images\admin.png" />
+    <Resource Include="Assets\Images\task_list.png" />
     <Content Include="TaskConqueror.sdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

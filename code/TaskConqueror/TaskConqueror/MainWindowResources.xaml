@@ -84,12 +84,20 @@ This resource dictionary is used by the MainWindow.
   a tab item with a close button.
   -->
   <DataTemplate x:Key="TabItemTemplate">
-    <DockPanel Width="120">
-      <ContentPresenter 
-        Content="{Binding Path=DisplayName}" 
-        VerticalAlignment="Center" 
-        />
-    </DockPanel>
+    <DockPanel Width="130">
+            <ContentPresenter
+        VerticalAlignment="Center" >
+                <ContentPresenter.Content>
+                    <StackPanel Orientation="Horizontal" Margin="2">
+                        <Image Source="{Binding Path=DisplayImage}"
+                       Width="16"
+                       Height="16"
+                       SnapsToDevicePixels="True"/>
+                        <TextBlock Text="{Binding Path=DisplayName}" Margin="5,0"/>
+                    </StackPanel>
+                </ContentPresenter.Content>
+            </ContentPresenter>
+        </DockPanel>
   </DataTemplate>
 
   <!--

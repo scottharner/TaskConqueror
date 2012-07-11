@@ -72,7 +72,7 @@ namespace TaskConqueror
             _projectData.ProjectUpdated += this.OnProjectUpdated;
             _projectData.ProjectDeleted += this.OnProjectDeleted;
 
-            base.DisplayName = Properties.Resources.Edit_Goal_DisplayName;            
+            base.DisplayName = Properties.Resources.Edit_Goal_DisplayName;
         }
 
         #endregion // Constructor
