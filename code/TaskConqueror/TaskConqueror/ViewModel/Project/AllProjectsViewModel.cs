@@ -127,7 +127,10 @@ namespace TaskConqueror
 
         void OnProjectDeleted(object sender, ProjectDeletedEventArgs e)
         {
-            this.AllProjects.Remove(this.AllProjects.FirstOrDefault(p => p.ProjectId == e.DeletedProject.ProjectId));
+            using (var viewModel = this.AllProjects.FirstOrDefault(p => p.ProjectId == e.DeletedProject.ProjectId))
+            {
+                this.AllProjects.Remove(viewModel);
+            }
         }
 
         #endregion // Event Handling Methods
@@ -198,9 +201,10 @@ namespace TaskConqueror
         {
             ProjectView window = new ProjectView();
 
-            var viewModel = new ProjectViewModel(Project.CreateNewProject(), _projectData, _taskData);
-
-            this.ShowWorkspaceAsDialog(window, viewModel);
+            using (var viewModel = new ProjectViewModel(Project.CreateNewProject(), _projectData, _taskData))
+            {
+                this.ShowWorkspaceAsDialog(window, viewModel);
+            }
         }
 
         /// <summary>
@@ -211,10 +215,11 @@ namespace TaskConqueror
             ProjectView window = new ProjectView();
 
             ProjectViewModel selectedProjectVM = AllProjects.FirstOrDefault(p => p.IsSelected == true);
-            
-            var viewModel = new ProjectViewModel(_projectData.GetProjectByProjectId(selectedProjectVM.ProjectId), _projectData, _taskData);
 
-            this.ShowWorkspaceAsDialog(window, viewModel);
+            using (var viewModel = new ProjectViewModel(_projectData.GetProjectByProjectId(selectedProjectVM.ProjectId), _projectData, _taskData))
+            {
+                this.ShowWorkspaceAsDialog(window, viewModel);
+            }
         }
 
         /// <summary>
@@ -227,6 +232,7 @@ namespace TaskConqueror
             if (selectedProjectVM != null && MessageBox.Show(Properties.Resources.Projects_Delete_Confirm, Properties.Resources.Delete_Confirm, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 _projectData.DeleteProject(_projectData.GetProjectByProjectId(selectedProjectVM.ProjectId), _taskData);
+                selectedProjectVM.Dispose();
             }
         }
 

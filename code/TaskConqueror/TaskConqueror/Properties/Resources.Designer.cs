@@ -286,6 +286,15 @@ namespace TaskConqueror.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reports.
+        /// </summary>
+        internal static string Reports_DisplayName {
+            get {
+                return ResourceManager.GetString("Reports_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Priority is invalid.
         /// </summary>
         internal static string Task_Error_InvalidPriority {

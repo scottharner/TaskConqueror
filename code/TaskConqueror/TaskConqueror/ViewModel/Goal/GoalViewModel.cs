@@ -249,9 +249,10 @@ namespace TaskConqueror
         {
             ProjectView window = new ProjectView();
 
-            var viewModel = new ProjectViewModel(Project.CreateNewProject(this.GoalId), _projectData, _taskData);
-
-            this.ShowWorkspaceAsDialog(window, viewModel);
+            using (var viewModel = new ProjectViewModel(Project.CreateNewProject(this.GoalId), _projectData, _taskData))
+            {
+                this.ShowWorkspaceAsDialog(window, viewModel);
+            }
         }
 
         /// <summary>
@@ -263,9 +264,10 @@ namespace TaskConqueror
 
             ProjectViewModel selectedProjectVM = ChildProjects.FirstOrDefault(p => p.IsSelected == true);
 
-            var viewModel = new ProjectViewModel(_projectData.GetProjectByProjectId(selectedProjectVM.ProjectId), _projectData, _taskData);
-
-            this.ShowWorkspaceAsDialog(window, viewModel);
+            using (var viewModel = new ProjectViewModel(_projectData.GetProjectByProjectId(selectedProjectVM.ProjectId), _projectData, _taskData))
+            {
+                this.ShowWorkspaceAsDialog(window, viewModel);
+            }
         }
 
         /// <summary>
@@ -278,6 +280,7 @@ namespace TaskConqueror
             if (selectedProjectVM != null && MessageBox.Show(Properties.Resources.Projects_Delete_Confirm, Properties.Resources.Delete_Confirm, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 _projectData.DeleteProject(_projectData.GetProjectByProjectId(selectedProjectVM.ProjectId), _taskData);
+                selectedProjectVM.Dispose();
             }
         }
 
@@ -288,9 +291,10 @@ namespace TaskConqueror
         {
             AddChildProjectsView window = new AddChildProjectsView();
 
-            var viewModel = new AddChildProjectsViewModel(_projectData, _goal, _goalData, _taskData);
-
-            this.ShowWorkspaceAsDialog(window, viewModel);
+            using (var viewModel = new AddChildProjectsViewModel(_projectData, _goal, _goalData, _taskData))
+            {
+                this.ShowWorkspaceAsDialog(window, viewModel);
+            }
         }
 
         #endregion // Public Methods
@@ -377,7 +381,10 @@ namespace TaskConqueror
 
         void OnProjectDeleted(object sender, ProjectDeletedEventArgs e)
         {
-            this.ChildProjects.Remove(this.ChildProjects.FirstOrDefault(p => p.ProjectId == e.DeletedProject.ProjectId));
+            using (var projectVM = this.ChildProjects.FirstOrDefault(p => p.ProjectId == e.DeletedProject.ProjectId))
+            {
+                this.ChildProjects.Remove(projectVM);
+            }
         }
 
         #endregion
@@ -456,5 +463,20 @@ namespace TaskConqueror
 
         #endregion
 
+        #region  Base Class Overrides
+
+        protected override void OnDispose()
+        {
+            foreach (ProjectViewModel projectVM in this.ChildProjects)
+                projectVM.Dispose();
+
+            this.ChildProjects.Clear();
+
+            _projectData.ProjectAdded -= this.OnProjectAdded;
+            _projectData.ProjectUpdated -= this.OnProjectUpdated;
+            _projectData.ProjectDeleted -= this.OnProjectDeleted;
+        }
+
+        #endregion // Base Class Overrides
     }
 }

@@ -229,27 +229,28 @@ namespace TaskConqueror
         /// </summary>
         public void RemoveTask()
         {
-            TaskViewModel selectedTaskVM = SelectedTasks.FirstOrDefault(t => t.IsSelected == true);
-            
-            // add the task and missing ancestors back into the tree
-            ITreeNodeViewModel child = _removedNodes[selectedTaskVM];
-            ITreeNodeContainerViewModel parent = child.Parent;
-            bool inParentCollection = parent.ChildNodes.Contains(child);
-
-            while (parent != null && !inParentCollection)
+            using (TaskViewModel selectedTaskVM = SelectedTasks.FirstOrDefault(t => t.IsSelected == true))
             {
-                parent.ChildNodes.Add(child);
-                parent.ChildNodes.OrderBy(n => n.Title);
-                SelectedNode = child;
-                child = parent;
-                parent = child.Parent;
-                if (parent != null)
-                {
-                    inParentCollection = parent.ChildNodes.Contains(child);
-                }
-            }
+                // add the task and missing ancestors back into the tree
+                ITreeNodeViewModel child = _removedNodes[selectedTaskVM];
+                ITreeNodeContainerViewModel parent = child.Parent;
+                bool inParentCollection = parent.ChildNodes.Contains(child);
 
-            SelectedTasks.Remove(selectedTaskVM);
+                while (parent != null && !inParentCollection)
+                {
+                    parent.ChildNodes.Add(child);
+                    parent.ChildNodes.OrderBy(n => n.Title);
+                    SelectedNode = child;
+                    child = parent;
+                    parent = child.Parent;
+                    if (parent != null)
+                    {
+                        inParentCollection = parent.ChildNodes.Contains(child);
+                    }
+                }
+
+                SelectedTasks.Remove(selectedTaskVM);
+            }
         }
 
         #endregion // Public Methods
@@ -288,5 +289,17 @@ namespace TaskConqueror
         }
 
         #endregion // Private Helpers
+
+        #region  Base Class Overrides
+
+        protected override void OnDispose()
+        {
+            foreach (TaskViewModel taskVM in this.SelectedTasks)
+                taskVM.Dispose();
+
+            this.SelectedTasks.Clear();
+        }
+
+        #endregion // Base Class Overrides
     }
 }

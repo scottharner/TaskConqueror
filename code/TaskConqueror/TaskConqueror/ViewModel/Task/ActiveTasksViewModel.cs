@@ -83,6 +83,8 @@ namespace TaskConqueror
             this.ActiveTasks.CollectionChanged -= this.OnCollectionChanged;
 
             _taskData.TaskAdded -= this.OnTaskAdded;
+            _taskData.TaskUpdated -= this.OnTaskUpdated;
+            _taskData.TaskDeleted -= this.OnTaskDeleted;
         }
 
         #endregion // Base Class Overrides
@@ -131,7 +133,10 @@ namespace TaskConqueror
 
         void OnTaskDeleted(object sender, TaskDeletedEventArgs e)
         {
-            this.ActiveTasks.Remove(this.ActiveTasks.FirstOrDefault(t => t.TaskId == e.DeletedTask.TaskId));
+            using (var taskVm = this.ActiveTasks.FirstOrDefault(t => t.TaskId == e.DeletedTask.TaskId))
+            {
+                this.ActiveTasks.Remove(taskVm);
+            }
         }
 
         #endregion // Event Handling Methods
@@ -252,10 +257,11 @@ namespace TaskConqueror
             TaskView window = new TaskView();
 
             TaskViewModel selectedTaskVM = ActiveTasks.FirstOrDefault(t => t.IsSelected == true);
-            
-            var viewModel = new TaskViewModel(_taskData.GetTaskByTaskId(selectedTaskVM.TaskId), _taskData);
 
-            this.ShowWorkspaceAsDialog(window, viewModel);
+            using (var viewModel = new TaskViewModel(_taskData.GetTaskByTaskId(selectedTaskVM.TaskId), _taskData))
+            {
+                this.ShowWorkspaceAsDialog(window, viewModel);
+            }
         }
 
         /// <summary>
@@ -268,6 +274,7 @@ namespace TaskConqueror
             if (selectedTaskVM != null && MessageBox.Show("Are you sure you want to delete the selected task?", "Confirm Cancel", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 _taskData.DeleteTask(_taskData.GetTaskByTaskId(selectedTaskVM.TaskId));
+                selectedTaskVM.Dispose();
             }
         }
 
@@ -278,9 +285,10 @@ namespace TaskConqueror
         {
             AddTasksView window = new AddTasksView();
 
-            var viewModel = new AddTasksViewModel(_taskData, new ProjectData(), new GoalData());
-
-            this.ShowWorkspaceAsDialog(window, viewModel);
+            using (var viewModel = new AddTasksViewModel(_taskData, new ProjectData(), new GoalData()))
+            {
+                this.ShowWorkspaceAsDialog(window, viewModel);
+            }
         }
 
         #endregion // Public Methods

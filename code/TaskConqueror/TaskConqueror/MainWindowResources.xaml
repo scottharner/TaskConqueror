@@ -23,6 +23,10 @@ This resource dictionary is used by the MainWindow.
         <tc:ActiveTasksView />
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type tc:AllReportsViewModel}">
+        <tc:AllReportsView />
+    </DataTemplate>
+
     <DataTemplate DataType="{x:Type tc:AdminViewModel}">
         <tc:AdminView />
     </DataTemplate>
@@ -84,7 +88,7 @@ This resource dictionary is used by the MainWindow.
   a tab item with a close button.
   -->
   <DataTemplate x:Key="TabItemTemplate">
-    <DockPanel Width="130">
+    <DockPanel Width="125">
             <ContentPresenter
         VerticalAlignment="Center" >
                 <ContentPresenter.Content>

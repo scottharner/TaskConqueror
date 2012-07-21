@@ -217,5 +217,22 @@ namespace TaskConqueror
         }
 
         #endregion // Private Helpers
+
+        #region  Base Class Overrides
+
+        protected override void OnDispose()
+        {
+            foreach (TaskViewModel taskVM in this.SelectedTasks)
+                taskVM.Dispose();
+
+            this.SelectedTasks.Clear();
+
+            foreach (TaskViewModel taskVM in this.UnassignedTasks)
+                taskVM.Dispose();
+
+            this.UnassignedTasks.Clear();
+        }
+
+        #endregion // Base Class Overrides
     }
 }

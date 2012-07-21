@@ -59,4 +59,33 @@ This resource dictionary is used by the Worskpaces.
             </MultiTrigger>
         </Style.Triggers>
     </Style>
+    <Style x:Key="ReportItemDoubleClickStyle" TargetType="{x:Type ListViewItem}">
+        <!-- 
+      Stretch the content of each cell so that we can 
+      right-align text in the Total Sales column. 
+      -->
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <!-- 
+      Bind the IsSelected property of a ListViewItem to the 
+      IsSelected property of a CustomerViewModel object.
+      -->
+        <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
+        <Setter Property="acb:CommandBehavior.Event"
+                        Value="MouseDoubleClick" />
+        <Setter Property="acb:CommandBehavior.Command"
+                        Value="{Binding ElementName=ContainingDockPanel, Path=DataContext.RunCommand}" />
+        <Setter Property="acb:CommandBehavior.CommandParameter"
+                        Value="{Binding}" />
+
+        <Style.Triggers>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="ItemsControl.AlternationIndex" Value="1" />
+                    <Condition Property="IsSelected" Value="False" />
+                    <Condition Property="IsMouseOver" Value="False" />
+                </MultiTrigger.Conditions>
+                <Setter Property="Background" Value="#EEEEEEEE" />
+            </MultiTrigger>
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>

@@ -126,7 +126,9 @@ namespace TaskConqueror
 
         void OnTaskDeleted(object sender, TaskDeletedEventArgs e)
         {
-            this.AllTasks.Remove(this.AllTasks.FirstOrDefault(t => t.TaskId == e.DeletedTask.TaskId));
+            TaskViewModel taskVM = this.AllTasks.FirstOrDefault(t => t.TaskId == e.DeletedTask.TaskId);
+            this.AllTasks.Remove(taskVM);
+            taskVM.Dispose();
         }
 
         #endregion // Event Handling Methods
@@ -197,9 +199,10 @@ namespace TaskConqueror
         {
             TaskView window = new TaskView();
 
-            var viewModel = new TaskViewModel(Task.CreateNewTask(), _taskData);
-
-            this.ShowWorkspaceAsDialog(window, viewModel);
+            using (var viewModel = new TaskViewModel(Task.CreateNewTask(), _taskData))
+            {
+                this.ShowWorkspaceAsDialog(window, viewModel);
+            }
         }
 
         /// <summary>
@@ -210,10 +213,11 @@ namespace TaskConqueror
             TaskView window = new TaskView();
 
             TaskViewModel selectedTaskVM = AllTasks.FirstOrDefault(t => t.IsSelected == true);
-            
-            var viewModel = new TaskViewModel(_taskData.GetTaskByTaskId(selectedTaskVM.TaskId), _taskData);
 
-            this.ShowWorkspaceAsDialog(window, viewModel);
+            using (var viewModel = new TaskViewModel(_taskData.GetTaskByTaskId(selectedTaskVM.TaskId), _taskData))
+            {
+                this.ShowWorkspaceAsDialog(window, viewModel);
+            }
         }
 
         /// <summary>
@@ -221,11 +225,12 @@ namespace TaskConqueror
         /// </summary>
         public void DeleteTask()
         {
-            TaskViewModel selectedTaskVM = AllTasks.FirstOrDefault(t => t.IsSelected == true);
-            
-            if (selectedTaskVM != null && MessageBox.Show(Properties.Resources.Tasks_Delete_Confirm, Properties.Resources.Delete_Confirm, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            using (TaskViewModel selectedTaskVM = AllTasks.FirstOrDefault(t => t.IsSelected == true))
             {
-                _taskData.DeleteTask(_taskData.GetTaskByTaskId(selectedTaskVM.TaskId));
+                if (selectedTaskVM != null && MessageBox.Show(Properties.Resources.Tasks_Delete_Confirm, Properties.Resources.Delete_Confirm, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    _taskData.DeleteTask(_taskData.GetTaskByTaskId(selectedTaskVM.TaskId));
+                }
             }
         }
 

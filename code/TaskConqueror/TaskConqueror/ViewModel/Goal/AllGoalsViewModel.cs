@@ -90,8 +90,6 @@ namespace TaskConqueror
             this.AllGoals.Clear();
             this.AllGoals.CollectionChanged -= this.OnCollectionChanged;
 
-            // todo: dispose of child project vms
-
             _goalData.GoalAdded -= this.OnGoalAdded;
             _goalData.GoalUpdated -= this.OnGoalUpdated;
             _goalData.GoalDeleted -= this.OnGoalDeleted;
@@ -137,7 +135,9 @@ namespace TaskConqueror
 
         void OnGoalDeleted(object sender, GoalDeletedEventArgs e)
         {
-            this.AllGoals.Remove(this.AllGoals.FirstOrDefault(g => g.GoalId == e.DeletedGoal.GoalId));
+            GoalViewModel goalVM = this.AllGoals.FirstOrDefault(g => g.GoalId == e.DeletedGoal.GoalId);
+            this.AllGoals.Remove(goalVM);
+            goalVM.Dispose();
         }
 
         #endregion // Event Handling Methods
@@ -208,9 +208,10 @@ namespace TaskConqueror
         {
             GoalView window = new GoalView();
 
-            var viewModel = new GoalViewModel(Goal.CreateNewGoal(), _goalData, _projectData, _taskData);
-
-            this.ShowWorkspaceAsDialog(window, viewModel);
+            using (var viewModel = new GoalViewModel(Goal.CreateNewGoal(), _goalData, _projectData, _taskData))
+            {
+                this.ShowWorkspaceAsDialog(window, viewModel);
+            }
         }
 
         /// <summary>
@@ -221,10 +222,11 @@ namespace TaskConqueror
             GoalView window = new GoalView();
 
             GoalViewModel selectedGoalVM = AllGoals.FirstOrDefault(g => g.IsSelected == true);
-            
-            var viewModel = new GoalViewModel(_goalData.GetGoalByGoalId(selectedGoalVM.GoalId), _goalData, _projectData, _taskData);
 
-            this.ShowWorkspaceAsDialog(window, viewModel);
+            using (var viewModel = new GoalViewModel(_goalData.GetGoalByGoalId(selectedGoalVM.GoalId), _goalData, _projectData, _taskData))
+            {
+                this.ShowWorkspaceAsDialog(window, viewModel);
+            }
         }
 
         /// <summary>
@@ -237,6 +239,7 @@ namespace TaskConqueror
             if (selectedGoalVM != null && MessageBox.Show(Properties.Resources.Goals_Delete_Confirm, Properties.Resources.Delete_Confirm, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 _goalData.DeleteGoal(_goalData.GetGoalByGoalId(selectedGoalVM.GoalId), _projectData, _taskData);
+                selectedGoalVM.Dispose();
             }
         }
 

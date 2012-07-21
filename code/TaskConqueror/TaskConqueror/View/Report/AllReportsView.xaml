@@ -1,0 +1,63 @@
+﻿<UserControl 
+  x:Class="TaskConqueror.AllReportsView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+  >
+    <UserControl.Resources>
+        <CollectionViewSource
+      x:Key="ReportGroups" 
+      Source="{Binding Path=AllReports}"
+      >
+            <CollectionViewSource.SortDescriptions>
+                <!-- 
+        Sort descending by IsCompany so that the 'True' values appear first,
+        which means that companies will always be listed before people.
+        -->
+                <scm:SortDescription PropertyName="Title" Direction="Ascending" />
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+    </UserControl.Resources>
+
+    <DockPanel Name="ContainingDockPanel">
+        <DockPanel.Resources>
+            <ResourceDictionary Source="/WorkspaceResources.xaml" />
+        </DockPanel.Resources>
+        <!-- Buttons -->
+        <GroupBox 
+            DockPanel.Dock="Top"
+          Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="2" Header="Reports" HorizontalAlignment="Left" Margin="0,0,0,10">
+            <StackPanel Orientation="Horizontal">
+                <!-- NEW BUTTON -->
+                <Button 
+      Command="{Binding Path=RunCommand}"
+      Content="_Run"
+      Margin="4,2" 
+      MinWidth="60" 
+      />
+            </StackPanel>
+        </GroupBox>
+
+        <Grid DockPanel.Dock="Bottom" Margin="0,2,4,2">
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center">
+            </StackPanel>
+        </Grid>
+        <ListView 
+            AlternationCount="2" 
+            DataContext="{StaticResource ReportGroups}" 
+            ItemContainerStyle="{StaticResource ReportItemDoubleClickStyle}"
+            ItemsSource="{Binding}"
+            SelectionMode="Single"
+            DockPanel.Dock="Top"
+        >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn 
+                        Header="Title" 
+                        DisplayMemberBinding="{Binding Path=Title}" 
+                    />
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </DockPanel>
+</UserControl>

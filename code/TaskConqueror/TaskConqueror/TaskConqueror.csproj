@@ -96,6 +96,14 @@
     </Compile>
     <Compile Include="Model\Goal.cs" />
     <Compile Include="Model\Project.cs" />
+    <Compile Include="Model\Report\ActiveTasksReport.cs" />
+    <Compile Include="Model\Report\CompletedTasksReport.cs" />
+    <Compile Include="Model\Report\CompletedProjectsReport.cs" />
+    <Compile Include="Model\Report\CompletedGoalsReport.cs" />
+    <Compile Include="Model\Report\IReport.cs" />
+    <Compile Include="Model\Report\GoalProgressReport.cs" />
+    <Compile Include="Model\Report\ProjectProgressReport.cs" />
+    <Compile Include="Model\Report\ReportBase.cs" />
     <Compile Include="Model\Task.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="ViewModel\Admin\AdminViewModel.cs" />
@@ -105,6 +113,8 @@
     <Compile Include="ViewModel\Project\AddChildProjectsViewModel.cs" />
     <Compile Include="ViewModel\Project\AllProjectsViewModel.cs" />
     <Compile Include="ViewModel\Project\ProjectViewModel.cs" />
+    <Compile Include="ViewModel\Report\AllReportsViewModel.cs" />
+    <Compile Include="ViewModel\Report\ReportViewModel.cs" />
     <Compile Include="ViewModel\RootTreeNodeViewModel.cs" />
     <Compile Include="ViewModel\ITreeNodeContainerViewModel.cs" />
     <Compile Include="ViewModel\EditorViewModel.cs" />
@@ -129,6 +139,7 @@
     <Compile Include="View\Behaviors\EventHandlerGenerator.cs" />
     <Compile Include="View\Behaviors\ExecutionStrategy.cs" />
     <Compile Include="View\Behaviors\TreeviewItemChangedCommandBehavior.cs" />
+    <Compile Include="View\Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="View\Converters\SortTreeNodeConverter.cs" />
     <Compile Include="View\Goal\AllGoalsView.xaml.cs">
       <DependentUpon>AllGoalsView.xaml</DependentUpon>
@@ -144,6 +155,9 @@
     </Compile>
     <Compile Include="View\Project\ProjectView.xaml.cs">
       <DependentUpon>ProjectView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Report\AllReportsView.xaml.cs">
+      <DependentUpon>AllReportsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Task\AllTasksView.xaml.cs">
       <DependentUpon>AllTasksView.xaml</DependentUpon>
@@ -173,6 +187,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Project\AddChildProjectsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Report\AllReportsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -294,6 +312,7 @@
     <Resource Include="Assets\Images\unassigned.png" />
     <Resource Include="Assets\Images\admin.png" />
     <Resource Include="Assets\Images\task_list.png" />
+    <Resource Include="Assets\Images\report.png" />
     <Content Include="TaskConqueror.sdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

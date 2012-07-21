@@ -210,4 +210,7 @@
   <data name="Objects_Purge_Success" xml:space="preserve">
     <value>Objects have been successfully purged.</value>
   </data>
+  <data name="Reports_DisplayName" xml:space="preserve">
+    <value>Reports</value>
+  </data>
 </root>

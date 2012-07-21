@@ -5,6 +5,21 @@ using System.Text;
 
 namespace TaskConqueror
 {
+    // todo - check for proper use of constants
+
+    public class Constants
+    {
+        public static List<Tuple<string, Type>> Reports = new List<Tuple<string, Type>>()
+        {
+            new Tuple<string, Type>("Active Tasks", typeof(ActiveTasksReport)),
+            new Tuple<string, Type>("Completed Goals", typeof(CompletedGoalsReport)),
+            new Tuple<string, Type>("Completed Projects", typeof(CompletedProjectsReport)),
+            new Tuple<string, Type>("Completed Tasks", typeof(CompletedTasksReport)),
+            new Tuple<string, Type>("Goal Progress", typeof(GoalProgressReport)),
+            new Tuple<string, Type>("Project Progress", typeof(ProjectProgressReport)),
+        };
+    }
+
     public class Statuses
     {
         public static int New = 1;

@@ -226,9 +226,10 @@ namespace TaskConqueror
         {
             TaskView window = new TaskView();
 
-            var viewModel = new TaskViewModel(Task.CreateNewTask(this.ProjectId), _taskData);
-
-            this.ShowWorkspaceAsDialog(window, viewModel);
+            using (var viewModel = new TaskViewModel(Task.CreateNewTask(this.ProjectId), _taskData))
+            {
+                this.ShowWorkspaceAsDialog(window, viewModel);
+            }
         }
 
         /// <summary>
@@ -237,12 +238,12 @@ namespace TaskConqueror
         public void EditTask()
         {
             TaskView window = new TaskView();
-
             TaskViewModel selectedTaskVM = ChildTasks.FirstOrDefault(t => t.IsSelected == true);
 
-            var viewModel = new TaskViewModel(_taskData.GetTaskByTaskId(selectedTaskVM.TaskId), _taskData);
-
-            this.ShowWorkspaceAsDialog(window, viewModel);
+            using (var viewModel = new TaskViewModel(_taskData.GetTaskByTaskId(selectedTaskVM.TaskId), _taskData))
+            {
+                this.ShowWorkspaceAsDialog(window, viewModel);
+            }
         }
 
         /// <summary>
@@ -255,6 +256,7 @@ namespace TaskConqueror
             if (selectedTaskVM != null && MessageBox.Show(Properties.Resources.Tasks_Delete_Confirm, Properties.Resources.Delete_Confirm, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 _taskData.DeleteTask(_taskData.GetTaskByTaskId(selectedTaskVM.TaskId));
+                selectedTaskVM.Dispose();
             }
         }
 
@@ -265,9 +267,10 @@ namespace TaskConqueror
         {
             AddChildTasksView window = new AddChildTasksView();
 
-            var viewModel = new AddChildTasksViewModel(_taskData, _project, new ProjectData());
-
-            this.ShowWorkspaceAsDialog(window, viewModel);
+            using (var viewModel = new AddChildTasksViewModel(_taskData, _project, new ProjectData()))
+            {
+                this.ShowWorkspaceAsDialog(window, viewModel);
+            }
         }
 
         #endregion // Public Methods
@@ -354,7 +357,10 @@ namespace TaskConqueror
 
         void OnTaskDeleted(object sender, TaskDeletedEventArgs e)
         {
-            this.ChildTasks.Remove(this.ChildTasks.FirstOrDefault(t => t.TaskId == e.DeletedTask.TaskId));
+            using (var taskVM = this.ChildTasks.FirstOrDefault(t => t.TaskId == e.DeletedTask.TaskId))
+            {
+                this.ChildTasks.Remove(taskVM);
+            }
         }
 
         #endregion
@@ -432,6 +438,22 @@ namespace TaskConqueror
         }
 
         #endregion
+
+        #region  Base Class Overrides
+
+        protected override void OnDispose()
+        {
+            foreach (TaskViewModel taskVM in this.ChildTasks)
+                taskVM.Dispose();
+
+            this.ChildTasks.Clear();
+
+            _taskData.TaskAdded -= this.OnTaskAdded;
+            _taskData.TaskUpdated -= this.OnTaskUpdated;
+            _taskData.TaskDeleted -= this.OnTaskDeleted;
+        }
+
+        #endregion // Base Class Overrides
 
     }
 }
