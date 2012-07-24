@@ -18,7 +18,7 @@ namespace TaskConqueror
             set { _content = value; }
         }
 
-        public string Title
+        public virtual string Title
         {
             get { return "Report"; }
         }
@@ -29,16 +29,21 @@ namespace TaskConqueror
 
         public virtual void Run()
         {
-            FlowDocument flowDocument = new FlowDocument();
-            Paragraph paragraph = new Paragraph();
-            paragraph.Inlines.Add("This is a paragraph.");
-            flowDocument.Blocks.Add(paragraph);
-
-            flowDocument.Blocks.Add(paragraph);
-
-            Content = flowDocument;
+            Content = Build();
 
             Display();
+        }
+
+        public virtual FlowDocument Build()
+        {
+            FlowDocument flowDocument = new FlowDocument();
+            Paragraph paragraph = new Paragraph();
+            paragraph.Inlines.Add("Report not implemented.");
+            flowDocument.Blocks.Add(paragraph);
+
+            flowDocument.Blocks.Add(paragraph);
+
+            return flowDocument;
         }
 
         public void Display()
