@@ -213,4 +213,10 @@
   <data name="Reports_DisplayName" xml:space="preserve">
     <value>Reports</value>
   </data>
+  <data name="CannotPrint" xml:space="preserve">
+    <value>Unable to print report:</value>
+  </data>
+  <data name="Error_Encountered" xml:space="preserve">
+    <value>Error Encountered</value>
+  </data>
 </root>

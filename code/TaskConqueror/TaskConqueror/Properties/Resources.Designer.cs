@@ -106,6 +106,15 @@ namespace TaskConqueror.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to print report:.
+        /// </summary>
+        internal static string CannotPrint {
+            get {
+                return ResourceManager.GetString("CannotPrint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirm Delete.
         /// </summary>
         internal static string Delete_Confirm {
@@ -138,6 +147,15 @@ namespace TaskConqueror.Properties {
         internal static string Edit_Task_DisplayName {
             get {
                 return ResourceManager.GetString("Edit_Task_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error Encountered.
+        /// </summary>
+        internal static string Error_Encountered {
+            get {
+                return ResourceManager.GetString("Error_Encountered", resourceCulture);
             }
         }
         

@@ -113,6 +113,7 @@
     <Compile Include="ViewModel\Project\AddChildProjectsViewModel.cs" />
     <Compile Include="ViewModel\Project\AllProjectsViewModel.cs" />
     <Compile Include="ViewModel\Project\ProjectViewModel.cs" />
+    <Compile Include="ViewModel\Report\ReportViewerViewModel.cs" />
     <Compile Include="ViewModel\Report\AllReportsViewModel.cs" />
     <Compile Include="ViewModel\Report\ReportViewModel.cs" />
     <Compile Include="ViewModel\RootTreeNodeViewModel.cs" />
@@ -156,6 +157,9 @@
     <Compile Include="View\Project\ProjectView.xaml.cs">
       <DependentUpon>ProjectView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Report\ReportViewerView.xaml.cs">
+      <DependentUpon>ReportViewerView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Report\AllReportsView.xaml.cs">
       <DependentUpon>AllReportsView.xaml</DependentUpon>
     </Compile>
@@ -187,6 +191,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Project\AddChildProjectsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Report\ReportViewerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
