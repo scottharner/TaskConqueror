@@ -100,6 +100,7 @@
     <Compile Include="Model\Report\CompletedTasksReport.cs" />
     <Compile Include="Model\Report\CompletedProjectsReport.cs" />
     <Compile Include="Model\Report\CompletedGoalsReport.cs" />
+    <Compile Include="Model\Report\FlowDocumentHelper.cs" />
     <Compile Include="Model\Report\IReport.cs" />
     <Compile Include="Model\Report\GoalProgressReport.cs" />
     <Compile Include="Model\Report\ProjectProgressReport.cs" />
