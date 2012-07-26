@@ -26,6 +26,8 @@ namespace TaskConqueror
         {
             FlowDocument flowDocument = new FlowDocument();
 
+            flowDocument.Blocks.Add(FlowDocumentHelper.BuildTitle(Title));
+            
             Dictionary<string, string> columnDefinitions = new Dictionary<string,string>()
             {
                 {"Title", "Title"},

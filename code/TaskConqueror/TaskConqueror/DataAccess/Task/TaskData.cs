@@ -235,6 +235,28 @@ namespace TaskConqueror
         }
 
         /// <summary>
+        /// Returns a shallow-copied list of all completed tasks within the given date range.
+        /// </summary>
+        public List<Task> GetCompletedTasksByDate(DateTime startDate, DateTime endDate)
+        {
+            List<Data.Task> dbTasks = (from t in _appInfo.GcContext.Tasks
+                                       orderby t.Title
+                                       where t.StatusID == Statuses.Completed && 
+                                       t.CompletedDate >= startDate && 
+                                       t.CompletedDate <= endDate
+                                       select t).ToList();
+
+            List<Task> tasks = new List<Task>();
+
+            foreach (Data.Task dbTask in dbTasks)
+            {
+                tasks.Add(Task.CreateTask(dbTask));
+            }
+
+            return tasks;
+        }
+
+        /// <summary>
         /// Returns a shallow-copied list of a single task by task id.
         /// </summary>
         public Task GetTaskByTaskId(int taskId)

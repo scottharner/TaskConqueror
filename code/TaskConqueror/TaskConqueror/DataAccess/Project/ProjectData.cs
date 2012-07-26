@@ -197,6 +197,29 @@ namespace TaskConqueror
         }
 
         /// <summary>
+        /// Returns a shallow-copied list of all completed projects within the specified date range.
+        /// </summary>
+        public List<Project> GetCompletedProjectsByDate(DateTime startDate, DateTime endDate)
+        {
+            //todo - fix bug whereby completed date is not getting set
+            List<Data.Project> dbProjects = (from p in _appInfo.GcContext.Projects
+                                             where p.StatusID == Statuses.Completed && 
+                                             p.CompletedDate >= startDate && 
+                                             p.CompletedDate <= endDate
+                                             orderby p.Title
+                                             select p).ToList();
+
+            List<Project> projects = new List<Project>();
+
+            foreach (Data.Project dbProject in dbProjects)
+            {
+                projects.Add(Project.CreateProject(dbProject));
+            }
+
+            return projects;
+        }
+
+        /// <summary>
         /// Returns a shallow-copied list of all projects in the repository that have no associated goal and contain tasks.
         /// </summary>
         public List<Project> GetUnassignedProjectsContainingInactiveTasks()

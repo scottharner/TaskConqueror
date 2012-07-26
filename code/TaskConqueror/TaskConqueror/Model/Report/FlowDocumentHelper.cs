@@ -9,6 +9,16 @@ namespace TaskConqueror
 {
     public class FlowDocumentHelper
     {
+        public static Paragraph BuildTitle(string title)
+        {
+            Paragraph titlePara = new Paragraph();
+            titlePara.Inlines.Add(title);
+            titlePara.FontSize = 24;
+            titlePara.FontWeight = FontWeights.Bold;
+
+            return titlePara;
+        }
+
         public static Table BuildTable<T>(Dictionary<string, string> columnDefinitions, List<T> rowRecords)
         {
             Table flowTable = new Table();
@@ -30,7 +40,7 @@ namespace TaskConqueror
             TableRow currentRow = flowTable.RowGroups[0].Rows[0];
 
             // Global formatting for the header row.
-            currentRow.FontSize = 18;
+            currentRow.FontSize = 12;
             currentRow.FontWeight = FontWeights.Bold;
 
             // Add cells with content to the second row.
