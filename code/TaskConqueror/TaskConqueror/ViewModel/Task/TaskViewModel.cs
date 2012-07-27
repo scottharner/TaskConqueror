@@ -25,6 +25,7 @@ namespace TaskConqueror
         string _statusDescription;
         string _priorityDescription;
         RelayCommand _toggleCompleteCommand;
+        int _originalStatusId;
 
         #endregion // Fields
 
@@ -48,6 +49,7 @@ namespace TaskConqueror
             _projectTitle = _task.ParentProject == null ? null : _task.ParentProject.Title;
             _statusDescription = _statusOptions.FirstOrDefault(s => s.StatusID == this.StatusId).Description;
             _priorityDescription = _priorityOptions.FirstOrDefault(p => p.PriorityID == this.PriorityId).Description;
+            _originalStatusId = StatusId;
 
             base.DisplayName = Properties.Resources.Edit_Task_DisplayName;            
         }
@@ -269,13 +271,27 @@ namespace TaskConqueror
             if (this.IsNewTask)
             {
                 CreatedDate = DateTime.Now;
+                
+                if (StatusId == Statuses.Completed)
+                    CompletedDate = DateTime.Now;
+                
                 TaskId = _taskData.AddTask(_task);
             }
             else
             {
+                if (StatusId != _originalStatusId && StatusId == Statuses.Completed)
+                {
+                    CompletedDate = DateTime.Now;
+                }
+                else if (StatusId != Statuses.Completed && _originalStatusId == Statuses.Completed)
+                {
+                    CompletedDate = null;
+                }
+
                 _taskData.UpdateTask(_task);
             }
 
+            _originalStatusId = StatusId;
             _isSaved = true;
         }
 

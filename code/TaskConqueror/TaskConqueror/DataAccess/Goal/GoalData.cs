@@ -197,6 +197,28 @@ namespace TaskConqueror
         }
 
         /// <summary>
+        /// Returns a shallow-copied list of all completed goals within the given date range.
+        /// </summary>
+        public List<Goal> GetCompletedGoalsByDate(DateTime startDate, DateTime endDate)
+        {
+            List<Data.Goal> dbGoals = (from g in _appInfo.GcContext.Goals
+                                       where g.StatusID == Statuses.Completed && 
+                                        g.CompletedDate >= startDate && 
+                                        g.CompletedDate <= endDate
+                                       orderby g.Title
+                                       select g).ToList();
+
+            List<Goal> goals = new List<Goal>();
+
+            foreach (Data.Goal dbGoal in dbGoals)
+            {
+                goals.Add(Goal.CreateGoal(dbGoal));
+            }
+
+            return goals;
+        }
+
+        /// <summary>
         /// Returns a shallow-copied list of a single goal by goal id.
         /// </summary>
         public Goal GetGoalByGoalId(int goalId)

@@ -31,6 +31,7 @@ namespace TaskConqueror
         RelayCommand _editProjectCommand;
         RelayCommand _deleteProjectCommand;
         RelayCommand _addProjectsCommand;
+        int _originalStatusId;
 
         #endregion // Fields
 
@@ -66,6 +67,8 @@ namespace TaskConqueror
             {
                 _childProjectVMs.Add(new ProjectViewModel(childProject, projectData, taskData));
             }
+
+            _originalStatusId = StatusId;
 
             // Subscribe for notifications of when a new project is saved.
             _projectData.ProjectAdded += this.OnProjectAdded;
@@ -232,13 +235,27 @@ namespace TaskConqueror
             if (this.IsNewGoal)
             {
                 CreatedDate = DateTime.Now;
+
+                if (StatusId == Statuses.Completed)
+                    CompletedDate = DateTime.Now;
+
                 GoalId = _goalData.AddGoal(_goal);
             }
             else
             {
+                if (StatusId != _originalStatusId && StatusId == Statuses.Completed)
+                {
+                    CompletedDate = DateTime.Now;
+                }
+                else if (StatusId != Statuses.Completed && _originalStatusId == Statuses.Completed)
+                {
+                    CompletedDate = null;
+                }
+                
                 _goalData.UpdateGoal(_goal);
             }
 
+            _originalStatusId = StatusId;
             _isSaved = true;
         }
 
