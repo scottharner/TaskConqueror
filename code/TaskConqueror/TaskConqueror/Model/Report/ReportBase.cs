@@ -29,9 +29,18 @@ namespace TaskConqueror
 
         public virtual void Run()
         {
-            Content = Build();
+            bool? criteriaResult = GatherCriteria();
 
-            Display();
+            if (criteriaResult.HasValue && criteriaResult.Value == true)
+            {
+                Content = Build();
+                Display();
+            }
+        }
+
+        public virtual bool? GatherCriteria()
+        {
+            return true;
         }
 
         public virtual FlowDocument Build()

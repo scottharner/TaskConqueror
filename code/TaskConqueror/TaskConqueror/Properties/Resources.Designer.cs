@@ -115,6 +115,15 @@ namespace TaskConqueror.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Completed Goals Report.
+        /// </summary>
+        internal static string CompletedGoalsReport_DisplayName {
+            get {
+                return ResourceManager.GetString("CompletedGoalsReport_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirm Delete.
         /// </summary>
         internal static string Delete_Confirm {
@@ -151,11 +160,29 @@ namespace TaskConqueror.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to End Date cannot be earlier than Start Date.
+        /// </summary>
+        internal static string Error_EarlyEndDate {
+            get {
+                return ResourceManager.GetString("Error_EarlyEndDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error Encountered.
         /// </summary>
         internal static string Error_Encountered {
             get {
                 return ResourceManager.GetString("Error_Encountered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start Date cannot be in the future.
+        /// </summary>
+        internal static string Error_FutureStartDate {
+            get {
+                return ResourceManager.GetString("Error_FutureStartDate", resourceCulture);
             }
         }
         
@@ -178,11 +205,38 @@ namespace TaskConqueror.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to End Date is missing.
+        /// </summary>
+        internal static string Error_MissingEndDate {
+            get {
+                return ResourceManager.GetString("Error_MissingEndDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start Date is missing.
+        /// </summary>
+        internal static string Error_MissingStartDate {
+            get {
+                return ResourceManager.GetString("Error_MissingStartDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Title is missing.
         /// </summary>
         internal static string Error_MissingTitle {
             get {
                 return ResourceManager.GetString("Error_MissingTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot run report with invalid criteria..
+        /// </summary>
+        internal static string Exception_CannotRunReport {
+            get {
+                return ResourceManager.GetString("Exception_CannotRunReport", resourceCulture);
             }
         }
         

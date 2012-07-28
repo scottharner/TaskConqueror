@@ -117,6 +117,7 @@
     <Compile Include="ViewModel\Report\ReportViewerViewModel.cs" />
     <Compile Include="ViewModel\Report\AllReportsViewModel.cs" />
     <Compile Include="ViewModel\Report\ReportViewModel.cs" />
+    <Compile Include="ViewModel\Report\CompletedGoalsReportViewModel.cs" />
     <Compile Include="ViewModel\RootTreeNodeViewModel.cs" />
     <Compile Include="ViewModel\ITreeNodeContainerViewModel.cs" />
     <Compile Include="ViewModel\EditorViewModel.cs" />
@@ -138,6 +139,7 @@
     </Compile>
     <Compile Include="View\Behaviors\CommandBehavior.cs" />
     <Compile Include="View\Behaviors\CommandBehaviorBinding.cs" />
+    <Compile Include="View\Behaviors\DialogCloser.cs" />
     <Compile Include="View\Behaviors\EventHandlerGenerator.cs" />
     <Compile Include="View\Behaviors\ExecutionStrategy.cs" />
     <Compile Include="View\Behaviors\TreeviewItemChangedCommandBehavior.cs" />
@@ -163,6 +165,9 @@
     </Compile>
     <Compile Include="View\Report\AllReportsView.xaml.cs">
       <DependentUpon>AllReportsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Report\CompletedGoalsReportView.xaml.cs">
+      <DependentUpon>CompletedGoalsReportView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Task\AllTasksView.xaml.cs">
       <DependentUpon>AllTasksView.xaml</DependentUpon>
@@ -200,6 +205,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Report\AllReportsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Report\CompletedGoalsReportView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

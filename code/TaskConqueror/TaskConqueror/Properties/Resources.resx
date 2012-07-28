@@ -219,4 +219,22 @@
   <data name="Error_Encountered" xml:space="preserve">
     <value>Error Encountered</value>
   </data>
+  <data name="Error_EarlyEndDate" xml:space="preserve">
+    <value>End Date cannot be earlier than Start Date</value>
+  </data>
+  <data name="Error_FutureStartDate" xml:space="preserve">
+    <value>Start Date cannot be in the future</value>
+  </data>
+  <data name="Error_MissingEndDate" xml:space="preserve">
+    <value>End Date is missing</value>
+  </data>
+  <data name="Error_MissingStartDate" xml:space="preserve">
+    <value>Start Date is missing</value>
+  </data>
+  <data name="CompletedGoalsReport_DisplayName" xml:space="preserve">
+    <value>Completed Goals Report</value>
+  </data>
+  <data name="Exception_CannotRunReport" xml:space="preserve">
+    <value>Cannot run report with invalid criteria.</value>
+  </data>
 </root>

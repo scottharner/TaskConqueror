@@ -82,3 +82,5 @@ C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConque
 C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Release\View\Report\AllReportsView.g.cs
 C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Release\View\Report\ReportViewerView.g.cs
 C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Release\View\Report\ReportViewerView.baml
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Release\View\Report\CompletedGoalsReportView.baml
+C:\Documents and Settings\scott\My Documents\repos\taskconqueror\code\TaskConqueror\TaskConqueror\obj\x86\Release\View\Report\CompletedGoalsReportView.g.cs

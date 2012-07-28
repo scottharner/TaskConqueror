@@ -91,7 +91,6 @@ namespace TaskConqueror
         {
             ReportViewModel selectedReportVM = AllReports.FirstOrDefault(r => r.IsSelected == true);
 
-            // todo - instantiate an object based on the selected report vm's type
             IReport selectedReport = (IReport)Activator.CreateInstance(selectedReportVM.ReportType);
             selectedReport.Run();
         }

@@ -20,5 +20,9 @@ namespace TaskConqueror
         }
         
         void Run();
+
+        FlowDocument Build();
+
+        bool? GatherCriteria();
     }
 }
