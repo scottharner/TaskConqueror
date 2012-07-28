@@ -8,13 +8,13 @@ using System.Windows;
 namespace TaskConqueror
 {
     /// <summary>
-    /// A UI-friendly wrapper for a Task object.
+    /// A UI-friendly wrapper for a DateRangeReportBase object.
     /// </summary>
-    public class CompletedGoalsReportViewModel : EditorViewModel, IDataErrorInfo
+    public class DateRangeReportViewModel : EditorViewModel, IDataErrorInfo
     {
         #region Fields
 
-        readonly CompletedGoalsReport _completedGoalsReport;
+        readonly DateRangeReportBase _dateRangeReport;
         RelayCommand _runCommand;
         bool? _dialogResult;
 
@@ -22,29 +22,29 @@ namespace TaskConqueror
 
         #region Constructor
 
-        public CompletedGoalsReportViewModel(CompletedGoalsReport completedGoalsReport)
+        public DateRangeReportViewModel(DateRangeReportBase dateRangeReport)
         {
-            if (completedGoalsReport == null)
-                throw new ArgumentNullException("completedGoalsReport");
+            if (dateRangeReport == null)
+                throw new ArgumentNullException("dateRangeReport");
 
-            _completedGoalsReport = completedGoalsReport;
+            _dateRangeReport = dateRangeReport;
 
-            base.DisplayName = Properties.Resources.CompletedGoalsReport_DisplayName;            
+            base.DisplayName = dateRangeReport.Title;            
         }
 
         #endregion // Constructor
 
-        #region Completed Goals Properties
+        #region Date Range Report Properties
 
         public DateTime StartDate
         {
-            get { return _completedGoalsReport.StartDate; }
+            get { return _dateRangeReport.StartDate; }
             set
             {
-                if (value == _completedGoalsReport.StartDate)
+                if (value == _dateRangeReport.StartDate)
                     return;
 
-                _completedGoalsReport.StartDate = value;
+                _dateRangeReport.StartDate = value;
 
                 base.OnPropertyChanged("StartDate");
             }
@@ -52,13 +52,13 @@ namespace TaskConqueror
 
         public DateTime EndDate
         {
-            get { return _completedGoalsReport.EndDate; }
+            get { return _dateRangeReport.EndDate; }
             set
             {
-                if (value == _completedGoalsReport.EndDate)
+                if (value == _dateRangeReport.EndDate)
                     return;
 
-                _completedGoalsReport.EndDate = value;
+                _dateRangeReport.EndDate = value;
 
                 base.OnPropertyChanged("EndDate");
             }
@@ -77,7 +77,7 @@ namespace TaskConqueror
         /// </summary>
         public void RunReport()
         {
-            if (!_completedGoalsReport.IsValid)
+            if (!_dateRangeReport.IsValid)
                 throw new InvalidOperationException(Properties.Resources.Exception_CannotRunReport);
 
             DialogResult = true;
@@ -91,7 +91,7 @@ namespace TaskConqueror
 
         string IDataErrorInfo.Error
         {
-            get { return (_completedGoalsReport as IDataErrorInfo).Error; }
+            get { return (_dateRangeReport as IDataErrorInfo).Error; }
         }
 
         string IDataErrorInfo.this[string propertyName]
@@ -100,7 +100,7 @@ namespace TaskConqueror
             {
                 string error = null;
 
-                error = (_completedGoalsReport as IDataErrorInfo)[propertyName];
+                error = (_dateRangeReport as IDataErrorInfo)[propertyName];
 
                 // Dirty the commands registered with CommandManager,
                 // such as our Save command, so that they are queried
@@ -160,7 +160,7 @@ namespace TaskConqueror
         /// </summary>
         protected bool CanRunReport
         {
-            get { return _completedGoalsReport.IsValid; }
+            get { return _dateRangeReport.IsValid; }
         }
 
         protected override bool CanSave

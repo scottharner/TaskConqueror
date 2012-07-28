@@ -100,6 +100,7 @@
     <Compile Include="Model\Report\CompletedTasksReport.cs" />
     <Compile Include="Model\Report\CompletedProjectsReport.cs" />
     <Compile Include="Model\Report\CompletedGoalsReport.cs" />
+    <Compile Include="Model\Report\DateRangeReportBase.cs" />
     <Compile Include="Model\Report\FlowDocumentHelper.cs" />
     <Compile Include="Model\Report\IReport.cs" />
     <Compile Include="Model\Report\GoalProgressReport.cs" />
@@ -114,10 +115,10 @@
     <Compile Include="ViewModel\Project\AddChildProjectsViewModel.cs" />
     <Compile Include="ViewModel\Project\AllProjectsViewModel.cs" />
     <Compile Include="ViewModel\Project\ProjectViewModel.cs" />
+    <Compile Include="ViewModel\Report\DateRangeReportViewModel.cs" />
     <Compile Include="ViewModel\Report\ReportViewerViewModel.cs" />
     <Compile Include="ViewModel\Report\AllReportsViewModel.cs" />
     <Compile Include="ViewModel\Report\ReportViewModel.cs" />
-    <Compile Include="ViewModel\Report\CompletedGoalsReportViewModel.cs" />
     <Compile Include="ViewModel\RootTreeNodeViewModel.cs" />
     <Compile Include="ViewModel\ITreeNodeContainerViewModel.cs" />
     <Compile Include="ViewModel\EditorViewModel.cs" />
@@ -160,14 +161,14 @@
     <Compile Include="View\Project\ProjectView.xaml.cs">
       <DependentUpon>ProjectView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Report\DateRangeReportView.xaml.cs">
+      <DependentUpon>DateRangeReportView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Report\ReportViewerView.xaml.cs">
       <DependentUpon>ReportViewerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Report\AllReportsView.xaml.cs">
       <DependentUpon>AllReportsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Report\CompletedGoalsReportView.xaml.cs">
-      <DependentUpon>CompletedGoalsReportView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Task\AllTasksView.xaml.cs">
       <DependentUpon>AllTasksView.xaml</DependentUpon>
@@ -200,15 +201,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="View\Report\DateRangeReportView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\Report\ReportViewerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Report\AllReportsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\Report\CompletedGoalsReportView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

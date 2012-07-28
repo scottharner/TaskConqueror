@@ -1,9 +1,9 @@
 ﻿using System.Windows;
 namespace TaskConqueror
 {
-    public partial class CompletedGoalsReportView : Window
+    public partial class DateRangeReportView : Window
     {
-        public CompletedGoalsReportView()
+        public DateRangeReportView()
         {
             InitializeComponent();
         }
