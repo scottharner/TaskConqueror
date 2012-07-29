@@ -214,6 +214,15 @@ namespace TaskConqueror.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Goal is missing.
+        /// </summary>
+        internal static string Error_MissingSelectedGoal {
+            get {
+                return ResourceManager.GetString("Error_MissingSelectedGoal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Start Date is missing.
         /// </summary>
         internal static string Error_MissingStartDate {

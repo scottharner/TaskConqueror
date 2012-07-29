@@ -237,4 +237,7 @@
   <data name="Exception_CannotRunReport" xml:space="preserve">
     <value>Cannot run report with invalid criteria.</value>
   </data>
+  <data name="Error_MissingSelectedGoal" xml:space="preserve">
+    <value>Goal is missing</value>
+  </data>
 </root>

@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Windows.Documents;
 using System.Windows;
+using System.ComponentModel;
+using System.Diagnostics;
 
 namespace TaskConqueror
 {
-    public class GoalProgressReport : ReportBase
+    public class GoalProgressReport : ReportBase, IDataErrorInfo
     {        
         #region Fields
 
@@ -20,7 +22,6 @@ namespace TaskConqueror
         public GoalProgressReport()
         {
             _gData = new GoalData();
-            SelectedGoal = _gData.GetGoals().FirstOrDefault();
         }
 
         #endregion
@@ -88,6 +89,98 @@ namespace TaskConqueror
             return flowDocument;
         }
 
+        public override bool? GatherCriteria()
+        {
+            bool? criteriaResult = false;
+
+            GoalProgressReportView window = new GoalProgressReportView();
+
+            using (var viewModel = new GoalProgressReportViewModel(this))
+            {
+                // When the ViewModel asks to be closed, 
+                // close the window.
+                EventHandler handler = null;
+                handler = delegate
+                {
+                    viewModel.RequestClose -= handler;
+                    window.Close();
+                };
+                viewModel.RequestClose += handler;
+
+                window.DataContext = viewModel;
+
+                criteriaResult = window.ShowDialog();
+            }
+
+            return criteriaResult;
+        }
+
         #endregion
+
+        #region IDataErrorInfo Members
+
+        string IDataErrorInfo.Error { get { return null; } }
+
+        string IDataErrorInfo.this[string propertyName]
+        {
+            get { return this.GetValidationError(propertyName); }
+        }
+
+        #endregion // IDataErrorInfo Members
+
+        #region Validation
+
+        /// <summary>
+        /// Returns true if this object has no validation errors.
+        /// </summary>
+        public bool IsValid
+        {
+            get
+            {
+                foreach (string property in ValidatedProperties)
+                    if (GetValidationError(property) != null)
+                        return false;
+
+                return true;
+            }
+        }
+
+        static readonly string[] ValidatedProperties = 
+        { 
+            "SelectedGoal"
+        };
+
+        string GetValidationError(string propertyName)
+        {
+            if (Array.IndexOf(ValidatedProperties, propertyName) < 0)
+                return null;
+
+            string error = null;
+
+            switch (propertyName)
+            {
+                case "SelectedGoal":
+                    error = this.ValidateSelectedGoal();
+                    break;
+
+                default:
+                    Debug.Fail("Unexpected property being validated on Report: " + propertyName);
+                    break;
+            }
+
+            return error;
+        }
+
+        string ValidateSelectedGoal()
+        {
+            if (this.SelectedGoal == null)
+            {
+                return Properties.Resources.Error_MissingSelectedGoal;
+            }
+
+            return null;
+        }
+
+        #endregion // Validation
     }
 }

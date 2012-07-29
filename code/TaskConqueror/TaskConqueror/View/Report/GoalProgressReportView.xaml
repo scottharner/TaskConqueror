@@ -1,0 +1,74 @@
+﻿<Window 
+  x:Class="TaskConqueror.GoalProgressReportView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:tc="clr-namespace:TaskConqueror"
+  FontSize="13" 
+  FontFamily="Verdana"
+  Title="{Binding Path=DisplayName}"
+  tc:DialogCloser.DialogResult="{Binding DialogResult}"
+  >
+    <DockPanel Margin="4">
+        <!-- Buttons -->
+        <GroupBox 
+            DockPanel.Dock="Top"
+          Header="Report" HorizontalAlignment="Left" Margin="0,0,0,10">
+            <StackPanel Orientation="Horizontal">
+                <!-- RUN BUTTON -->
+                <Button 
+      Command="{Binding Path=RunCommand}"
+      Content="_Run"
+      Margin="4,2" 
+      MinWidth="60" 
+      />
+            </StackPanel>
+        </GroupBox>
+        <Grid DockPanel.Dock="Bottom" Margin="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="6" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="30" />
+            </Grid.RowDefinitions>
+
+            <Grid.Resources>
+                <DataTemplate DataType="{x:Type ValidationError}">
+                    <TextBlock 
+          FontStyle="Italic"
+          Foreground="Red"
+          HorizontalAlignment="Right"
+          Margin="0,1"
+          Text="{Binding Path=ErrorContent}" 
+          />
+                </DataTemplate>
+            </Grid.Resources>
+
+
+            <!-- Goal -->
+            <Label 
+      Grid.Row="0" Grid.Column="0" 
+      Content="_Goal:" 
+      HorizontalAlignment="Right"
+      Target="{Binding ElementName=goalCbo}"
+      />
+            <ComboBox 
+      x:Name="goalCbo"
+      Grid.Row="0" Grid.Column="2" 
+      ItemsSource="{Binding Path=GoalOptions}"
+      SelectedItem="{Binding Path=SelectedGoal, ValidatesOnDataErrors=True}"
+      Validation.ErrorTemplate="{x:Null}"
+      DisplayMemberPath="Title"
+      SelectedValuePath="GoalID"
+      />
+            <ContentPresenter 
+      Grid.Row="1" Grid.Column="2"
+      Content="{Binding ElementName=goalCbo, Path=(Validation.Errors).CurrentItem}"
+      />
+
+        </Grid>
+    </DockPanel>
+</Window>
