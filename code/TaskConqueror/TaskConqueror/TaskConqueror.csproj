@@ -115,6 +115,7 @@
     <Compile Include="ViewModel\Project\AddChildProjectsViewModel.cs" />
     <Compile Include="ViewModel\Project\AllProjectsViewModel.cs" />
     <Compile Include="ViewModel\Project\ProjectViewModel.cs" />
+    <Compile Include="ViewModel\Report\ProjectProgressReportViewModel.cs" />
     <Compile Include="ViewModel\Report\GoalProgressReportViewModel.cs" />
     <Compile Include="ViewModel\Report\DateRangeReportViewModel.cs" />
     <Compile Include="ViewModel\Report\ReportViewerViewModel.cs" />
@@ -162,6 +163,9 @@
     <Compile Include="View\Project\ProjectView.xaml.cs">
       <DependentUpon>ProjectView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Report\ProjectProgressReportView.xaml.cs">
+      <DependentUpon>ProjectProgressReportView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Report\GoalProgressReportView.xaml.cs">
       <DependentUpon>GoalProgressReportView.xaml</DependentUpon>
     </Compile>
@@ -202,6 +206,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Project\AddChildProjectsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Report\ProjectProgressReportView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

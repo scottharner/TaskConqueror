@@ -223,6 +223,15 @@ namespace TaskConqueror.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Project is missing.
+        /// </summary>
+        internal static string Error_MissingSelectedProject {
+            get {
+                return ResourceManager.GetString("Error_MissingSelectedProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Start Date is missing.
         /// </summary>
         internal static string Error_MissingStartDate {

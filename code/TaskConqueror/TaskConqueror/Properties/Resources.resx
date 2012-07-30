@@ -240,4 +240,7 @@
   <data name="Error_MissingSelectedGoal" xml:space="preserve">
     <value>Goal is missing</value>
   </data>
+  <data name="Error_MissingSelectedProject" xml:space="preserve">
+    <value>Project is missing</value>
+  </data>
 </root>
