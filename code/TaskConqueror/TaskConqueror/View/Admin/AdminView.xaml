@@ -3,6 +3,7 @@
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+  xmlns:tc="clr-namespace:TaskConqueror"
   >
   <DockPanel Name="ContainingDockPanel">
         <!-- Buttons -->
@@ -11,12 +12,11 @@
           Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="2" Header="Objects" HorizontalAlignment="Left" Margin="0,0,0,10">
             <StackPanel Orientation="Horizontal">
                 <!-- PURGE BUTTON -->
-                <Button 
-      Command="{Binding Path=PurgeCommand}"
-      Content="_Purge"
-      Margin="4,2" 
-      MinWidth="60" 
-      />
+                <tc:ImageButton 
+                    Text="Purge" 
+                    Image="pack://application:,,,/TaskConqueror;Component/Assets/Images/purge.png"
+                    Command="{Binding Path=PurgeCommand}"
+                    />
             </StackPanel>
         </GroupBox>
 

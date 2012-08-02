@@ -154,6 +154,9 @@
     <Compile Include="View\Goal\GoalView.xaml.cs">
       <DependentUpon>GoalView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ImageButton.xaml.cs">
+      <DependentUpon>ImageButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Project\AddChildProjectsView.xaml.cs">
       <DependentUpon>AddChildProjectsView.xaml</DependentUpon>
     </Compile>
@@ -204,6 +207,10 @@
     <Page Include="View\Goal\GoalView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\ImageButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Project\AddChildProjectsView.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -348,6 +355,15 @@
     <Resource Include="Assets\Images\admin.png" />
     <Resource Include="Assets\Images\task_list.png" />
     <Resource Include="Assets\Images\report.png" />
+    <Resource Include="Assets\Images\add.png" />
+    <Resource Include="Assets\Images\delete.png" />
+    <Resource Include="Assets\Images\edit.png" />
+    <Resource Include="Assets\Images\remove.png" />
+    <Resource Include="Assets\Images\new.png" />
+    <Resource Include="Assets\Images\purge.png" />
+    <Resource Include="Assets\Images\close.png" />
+    <Resource Include="Assets\Images\save.png" />
+    <Resource Include="Assets\Images\run.png" />
     <Content Include="TaskConqueror.sdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
