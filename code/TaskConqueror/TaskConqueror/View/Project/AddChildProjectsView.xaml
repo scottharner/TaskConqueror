@@ -71,18 +71,16 @@
             <!-- Add and remove buttons -->
             <StackPanel Grid.Row="1" Orientation="Horizontal">
                 <!-- SAVE BUTTON -->
-                <Button 
-      Command="{Binding Path=AddCommand}"
-      Content="_Add"
-      Margin="4,2" 
-      MinWidth="60" 
-      />
-                <Button 
-      Command="{Binding Path=RemoveCommand}"
-      Content="_Remove"
-      Margin="4,2" 
-      MinWidth="60" 
-      />
+                <tc:ImageButton 
+                    Text="Add" 
+                    Image="pack://application:,,,/TaskConqueror;Component/Assets/Images/add.png"
+                    Command="{Binding Path=AddCommand}"
+                    />
+                <tc:ImageButton 
+                    Text="Remove" 
+                    Image="pack://application:,,,/TaskConqueror;Component/Assets/Images/remove.png"
+                    Command="{Binding Path=RemoveCommand}"
+                    />
             </StackPanel>
 
             <!-- Selected tasks -->
@@ -131,18 +129,16 @@
             
             <!-- Ok and cancel buttons -->
             <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button 
-      Command="{Binding Path=OkCommand}"
-      Content="_OK"
-      Margin="4,2" 
-      MinWidth="60" 
-      />
-                <Button 
-      Command="{Binding Path=CloseCommand}"
-      Content="_Cancel"
-      Margin="4,2" 
-      MinWidth="60" 
-      />
+                <tc:ImageButton 
+                    Text="OK" 
+                    Image="pack://application:,,,/TaskConqueror;Component/Assets/Images/ok.png"
+                    Command="{Binding Path=OkCommand}"
+                    />
+                <tc:ImageButton 
+                    Text="Cancel" 
+                    Image="pack://application:,,,/TaskConqueror;Component/Assets/Images/close.png"
+                    Command="{Binding Path=CloseCommand}"
+                    />
             </StackPanel>
         </Grid>
     </DockPanel>

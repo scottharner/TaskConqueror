@@ -15,12 +15,11 @@
           Header="Report" HorizontalAlignment="Left" Margin="0,0,0,10">
             <StackPanel Orientation="Horizontal">
                 <!-- RUN BUTTON -->
-                <Button 
-      Command="{Binding Path=RunCommand}"
-      Content="_Run"
-      Margin="4,2" 
-      MinWidth="60" 
-      />
+                <tc:ImageButton 
+                    Text="Run" 
+                    Image="pack://application:,,,/TaskConqueror;Component/Assets/Images/run.png"
+                    Command="{Binding Path=RunCommand}"
+                    />
             </StackPanel>
         </GroupBox>
         <Grid DockPanel.Dock="Bottom" Margin="4">
