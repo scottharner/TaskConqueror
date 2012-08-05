@@ -63,7 +63,8 @@ namespace TaskConqueror
             _taskData.TaskUpdated += this.OnTaskUpdated;
             _taskData.TaskDeleted += this.OnTaskDeleted;
 
-            base.DisplayName = Properties.Resources.Edit_Project_DisplayName;            
+            base.DisplayName = Properties.Resources.Edit_Project_DisplayName;
+            base.DisplayImage = "pack://application:,,,/TaskConqueror;Component/Assets/Images/project.png";
         }
 
         #endregion // Constructor

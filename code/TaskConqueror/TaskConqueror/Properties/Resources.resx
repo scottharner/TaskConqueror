@@ -135,7 +135,7 @@
   <data name="MainWindowViewModel_Command_ListTasks" xml:space="preserve">
     <value>List tasks</value>
   </data>
-  <data name="MainWindowViewModel_DisplayName" xml:space="preserve">
+  <data name="AppName" xml:space="preserve">
     <value>Task Conqueror</value>
     <comment>Title of the main window</comment>
   </data>

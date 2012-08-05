@@ -33,7 +33,8 @@ namespace TaskConqueror
             ProjectData pData = new ProjectData();
             _projectOptions = pData.GetProjects();
 
-            base.DisplayName = projectProgressReport.Title;            
+            base.DisplayName = projectProgressReport.Title;
+            base.DisplayImage = "pack://application:,,,/TaskConqueror;Component/Assets/Images/report.png";
         }
 
         #endregion // Constructor

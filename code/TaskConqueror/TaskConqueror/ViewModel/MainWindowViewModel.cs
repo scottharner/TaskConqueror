@@ -28,7 +28,7 @@ namespace TaskConqueror
 
         public MainWindowViewModel()
         {
-            base.DisplayName = Properties.Resources.MainWindowViewModel_DisplayName;
+            base.DisplayName = Properties.Resources.AppName;
             _taskData = new TaskData();
             _projectData = new ProjectData();
             _goalData = new GoalData();

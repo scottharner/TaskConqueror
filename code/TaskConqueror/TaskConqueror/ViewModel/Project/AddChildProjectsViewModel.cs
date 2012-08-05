@@ -50,7 +50,8 @@ namespace TaskConqueror
             _goalData = goalData;
             _projectData = projectData;
 
-            base.DisplayName = Properties.Resources.Add_Projects_DisplayName;            
+            base.DisplayName = Properties.Resources.Add_Projects_DisplayName;
+            base.DisplayImage = "pack://application:,,,/TaskConqueror;Component/Assets/Images/project.png";
         }
 
         #endregion // Constructor

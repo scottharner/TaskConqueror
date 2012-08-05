@@ -106,6 +106,15 @@ namespace TaskConqueror.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Task Conqueror.
+        /// </summary>
+        internal static string AppName {
+            get {
+                return ResourceManager.GetString("AppName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to print report:.
         /// </summary>
         internal static string CannotPrint {
@@ -300,15 +309,6 @@ namespace TaskConqueror.Properties {
         internal static string MainWindowViewModel_Command_ListTasks {
             get {
                 return ResourceManager.GetString("MainWindowViewModel_Command_ListTasks", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Task Conqueror.
-        /// </summary>
-        internal static string MainWindowViewModel_DisplayName {
-            get {
-                return ResourceManager.GetString("MainWindowViewModel_DisplayName", resourceCulture);
             }
         }
         

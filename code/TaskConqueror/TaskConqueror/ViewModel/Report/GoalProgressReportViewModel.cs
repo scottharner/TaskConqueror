@@ -33,7 +33,8 @@ namespace TaskConqueror
             GoalData gData = new GoalData();
             _goalOptions = gData.GetGoals();
 
-            base.DisplayName = goalProgressReport.Title;            
+            base.DisplayName = goalProgressReport.Title;
+            base.DisplayImage = "pack://application:,,,/TaskConqueror;Component/Assets/Images/report.png";
         }
 
         #endregion // Constructor

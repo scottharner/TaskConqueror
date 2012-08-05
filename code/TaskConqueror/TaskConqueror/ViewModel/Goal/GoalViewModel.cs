@@ -76,6 +76,7 @@ namespace TaskConqueror
             _projectData.ProjectDeleted += this.OnProjectDeleted;
 
             base.DisplayName = Properties.Resources.Edit_Goal_DisplayName;
+            base.DisplayImage = "pack://application:,,,/TaskConqueror;Component/Assets/Images/goal.png";
         }
 
         #endregion // Constructor

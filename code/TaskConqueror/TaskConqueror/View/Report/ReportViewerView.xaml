@@ -6,33 +6,37 @@
   xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
   FontSize="13" 
   FontFamily="Verdana"
-  Title="{Binding Path=DisplayName}"
+  Title="{Binding Path=AppDisplayName}"
   >
     <Window.Resources>
         <ResourceDictionary Source="/WorkspaceResources.xaml" />
     </Window.Resources>
-    <DockPanel Name="ContainingDockPanel" Margin="4" >
-        <DockPanel.Resources>
-            <ResourceDictionary Source="/WorkspaceResources.xaml" />
-        </DockPanel.Resources>
-        <!-- Buttons -->
-        <GroupBox 
+    <TabControl Margin="4">
+        <TabItem HeaderTemplate="{StaticResource TabItemHeaderTemplate}">
+            <DockPanel Name="ContainingDockPanel" Margin="4" >
+                <DockPanel.Resources>
+                    <ResourceDictionary Source="/WorkspaceResources.xaml" />
+                </DockPanel.Resources>
+                <!-- Buttons -->
+                <GroupBox 
             DockPanel.Dock="Top"
           Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="2" Header="Report" HorizontalAlignment="Left" Margin="0,0,0,10">
-            <StackPanel Orientation="Horizontal">
-                <!-- NEW BUTTON -->
-                <tc:ImageButton 
+                    <StackPanel Orientation="Horizontal">
+                        <!-- NEW BUTTON -->
+                        <tc:ImageButton 
                     Text="Print" 
                     Image="pack://application:,,,/TaskConqueror;Component/Assets/Images/print.png"
                     Command="{Binding Path=PrintCommand}"
                     />
-            </StackPanel>
-        </GroupBox>
+                    </StackPanel>
+                </GroupBox>
 
-        <Grid DockPanel.Dock="Bottom" Margin="0,2,4,2">
-            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center">
-            </StackPanel>
-        </Grid>
-        <FlowDocumentScrollViewer DockPanel.Dock="Top" Document="{Binding Path=Content}"/>
-    </DockPanel>
+                <Grid DockPanel.Dock="Bottom" Margin="0,2,4,2">
+                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center">
+                    </StackPanel>
+                </Grid>
+                <FlowDocumentScrollViewer DockPanel.Dock="Top" Document="{Binding Path=Content}"/>
+            </DockPanel>
+        </TabItem>
+    </TabControl>
 </Window>

@@ -6,133 +6,138 @@
   xmlns:tc="clr-namespace:TaskConqueror"
   FontSize="13" 
   FontFamily="Verdana"
-  Title="{Binding Path=DisplayName}"
+  Title="{Binding Path=AppDisplayName}"
   >
-    <DockPanel Name="ContainingDockPanel" Margin="4">
-        <DockPanel.Resources>
-            <ResourceDictionary Source="/WorkspaceResources.xaml" />
-        </DockPanel.Resources>
-        <StackPanel 
+    <Window.Resources>
+        <ResourceDictionary Source="/WorkspaceResources.xaml" />
+    </Window.Resources>
+    <TabControl Margin="4">
+        <TabItem HeaderTemplate="{StaticResource TabItemHeaderTemplate}">
+            <DockPanel Name="ContainingDockPanel" Margin="4">
+                <DockPanel.Resources>
+                    <ResourceDictionary Source="/WorkspaceResources.xaml" />
+                </DockPanel.Resources>
+                <StackPanel 
     Orientation="Horizontal"
     DockPanel.Dock="Top">
-            <!-- Buttons -->
-            <GroupBox 
+                    <!-- Buttons -->
+                    <GroupBox 
           Header="File" HorizontalAlignment="Left" Margin="0,0,2,10">
-                <StackPanel Orientation="Horizontal">
-                    <!-- SAVE BUTTON -->
-                    <tc:ImageButton 
+                        <StackPanel Orientation="Horizontal">
+                            <!-- SAVE BUTTON -->
+                            <tc:ImageButton 
                     Text="Save" 
                     Image="pack://application:,,,/TaskConqueror;Component/Assets/Images/save.png"
                     Command="{Binding Path=SaveCommand}"
                     />
-                    <tc:ImageButton 
+                            <tc:ImageButton 
                     Text="Close" 
                     Image="pack://application:,,,/TaskConqueror;Component/Assets/Images/close.png"
                     Command="{Binding Path=CancelCommand}"
                     />
-                </StackPanel>
-            </GroupBox>
+                        </StackPanel>
+                    </GroupBox>
 
-            <!-- Buttons -->
-            <GroupBox 
+                    <!-- Buttons -->
+                    <GroupBox 
           Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="2" Header="Projects" HorizontalAlignment="Left" Margin="2,0,0,10">
-                <StackPanel Orientation="Horizontal">
-                    <!-- ADD BUTTON -->
-                    <tc:ImageButton 
+                        <StackPanel Orientation="Horizontal">
+                            <!-- ADD BUTTON -->
+                            <tc:ImageButton 
                     Text="Add" 
                     Image="pack://application:,,,/TaskConqueror;Component/Assets/Images/add.png"
                     Command="{Binding Path=AddProjectsCommand}"
                     />
-                    <!-- NEW BUTTON -->
-                    <tc:ImageButton 
+                            <!-- NEW BUTTON -->
+                            <tc:ImageButton 
                     Text="New" 
                     Image="pack://application:,,,/TaskConqueror;Component/Assets/Images/new.png"
                     Command="{Binding Path=NewProjectCommand}"
                     />
-                    <tc:ImageButton 
+                            <tc:ImageButton 
                     Text="Edit" 
                     Image="pack://application:,,,/TaskConqueror;Component/Assets/Images/edit.png"
                     Command="{Binding Path=EditCommand}"
                     />
-                    <tc:ImageButton 
+                            <tc:ImageButton 
                     Text="Delete" 
                     Image="pack://application:,,,/TaskConqueror;Component/Assets/Images/delete.png"
                     Command="{Binding Path=DeleteProjectCommand}"
                     />
+                        </StackPanel>
+                    </GroupBox>
                 </StackPanel>
-            </GroupBox>
-        </StackPanel>
 
-        <Grid DockPanel.Dock="Bottom" Margin="4">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="6" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+                <Grid DockPanel.Dock="Bottom" Margin="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="6" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="30" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="30" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="30" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="30" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="30" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="75" />
-            </Grid.RowDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="75" />
+                    </Grid.RowDefinitions>
 
-            <Grid.Resources>
-                <DataTemplate DataType="{x:Type ValidationError}">
-                    <TextBlock 
+                    <Grid.Resources>
+                        <DataTemplate DataType="{x:Type ValidationError}">
+                            <TextBlock 
           FontStyle="Italic"
           Foreground="Red"
           HorizontalAlignment="Right"
           Margin="0,1"
           Text="{Binding Path=ErrorContent}" 
           />
-                </DataTemplate>
-                <CollectionViewSource
+                        </DataTemplate>
+                        <CollectionViewSource
       x:Key="ProjectGroups" 
       Source="{Binding Path=ChildProjects}"
       >
-                    <CollectionViewSource.SortDescriptions>
-                        <scm:SortDescription PropertyName="Title" Direction="Ascending" />
-                    </CollectionViewSource.SortDescriptions>
-                </CollectionViewSource>
+                            <CollectionViewSource.SortDescriptions>
+                                <scm:SortDescription PropertyName="Title" Direction="Ascending" />
+                            </CollectionViewSource.SortDescriptions>
+                        </CollectionViewSource>
 
-            </Grid.Resources>
+                    </Grid.Resources>
 
 
-            <!-- TITLE -->
-            <Label 
+                    <!-- TITLE -->
+                    <Label 
       Grid.Row="0" Grid.Column="0" 
       Content="_Title:" 
       HorizontalAlignment="Right"
       Target="{Binding ElementName=titleTxt}"
       />
-            <TextBox 
+                    <TextBox 
       x:Name="titleTxt"
       Grid.Row="0" Grid.Column="2" 
       Text="{Binding Path=Title, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
       Validation.ErrorTemplate="{x:Null}"
       />
-            <ContentPresenter 
+                    <ContentPresenter 
       Grid.Row="1" Grid.Column="2"
       Content="{Binding ElementName=titleTxt, Path=(Validation.Errors).CurrentItem}"
       />
 
-            <!-- Status -->
-            <Label 
+                    <!-- Status -->
+                    <Label 
       Grid.Row="2" Grid.Column="0" 
       Content="_Status:" 
       HorizontalAlignment="Right"
       Target="{Binding ElementName=statusCmb}" 
       />
-            <ComboBox 
+                    <ComboBox 
       x:Name="statusCmb"
       Grid.Row="2" Grid.Column="2" 
       ItemsSource="{Binding Path=StatusOptions}"
@@ -141,19 +146,19 @@
       DisplayMemberPath="Description"
       SelectedValuePath="StatusID"
       />
-            <ContentPresenter 
+                    <ContentPresenter 
       Grid.Row="3" Grid.Column="2"
       Content="{Binding ElementName=statusCmb, Path=(Validation.Errors).CurrentItem}"
       />
 
-            <!-- Category -->
-            <Label 
+                    <!-- Category -->
+                    <Label 
       Grid.Row="4" Grid.Column="0" 
       Content="_Category:" 
       HorizontalAlignment="Right"
       Target="{Binding ElementName=categoryCmb}" 
       />
-            <ComboBox 
+                    <ComboBox 
       x:Name="categoryCmb"
       Grid.Row="4" Grid.Column="2" 
       ItemsSource="{Binding Path=CategoryOptions}"
@@ -162,82 +167,84 @@
       DisplayMemberPath="Description"
       SelectedValuePath="CategoryID"
       />
-            <ContentPresenter 
+                    <ContentPresenter 
       Grid.Row="5" Grid.Column="2"
       Content="{Binding ElementName=categoryCmb, Path=(Validation.Errors).CurrentItem}"
       />
 
-            <!-- Date Created -->
-            <Label 
+                    <!-- Date Created -->
+                    <Label 
       Grid.Row="6" Grid.Column="0" 
       Content="_Date Created:" 
       HorizontalAlignment="Right"
       Target="{Binding ElementName=createdDateLbl}"
       />
-            <Label 
+                    <Label 
       x:Name="createdDateLbl"
       Grid.Row="6" Grid.Column="2" 
       Content="{Binding Path=CreatedDate}" 
       Validation.ErrorTemplate="{x:Null}"
       />
 
-            <!-- Date Completed -->
-            <Label 
+                    <!-- Date Completed -->
+                    <Label 
       Grid.Row="8" Grid.Column="0" 
       Content="Date _Completed:" 
       HorizontalAlignment="Right"
       Target="{Binding ElementName=completedDateLbl}"
       />
-            <Label 
+                    <Label 
       x:Name="completedDateLbl"
       Grid.Row="8" Grid.Column="2" 
       Content="{Binding Path=CompletedDate}" 
       Validation.ErrorTemplate="{x:Null}"
       />
-            <!-- Projects -->
-            <Label 
+                    <!-- Projects -->
+                    <Label 
       Grid.Row="10" Grid.Column="0" 
       Content="Projects:" 
       HorizontalAlignment="Right"
       Target="{Binding ElementName=projectsLbl}"
       />
-            <ScrollViewer Grid.Row="11" Grid.ColumnSpan="3">
-                <ListView 
+                    <ScrollViewer Grid.Row="11" Grid.ColumnSpan="3">
+                        <ListView 
       AlternationCount="2" 
       DataContext="{StaticResource ProjectGroups}" 
       ItemContainerStyle="{StaticResource TaskItemDoubleClickStyle}"
       ItemsSource="{Binding}"
         SelectionMode="Single"
       >
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn 
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn 
             Header="Title" 
             DisplayMemberBinding="{Binding Path=Title}" 
             />
-                            <GridViewColumn 
+                                    <GridViewColumn 
             Header="Status" 
             DisplayMemberBinding="{Binding Path=StatusDescription}" 
             />
-                            <GridViewColumn Header="Est. Cost">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock TextAlignment="Right"
+                                    <GridViewColumn Header="Est. Cost">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock TextAlignment="Right"
                        Text="{Binding Path=EstimatedCost, StringFormat='{}{0:C}'}" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
 
-                            <GridViewColumn
+                                    <GridViewColumn
               Header="Date Created"
               DisplayMemberBinding="{Binding Path=CreatedDate}"/>
-                            <GridViewColumn
+                                    <GridViewColumn
               Header="Date Completed"
               DisplayMemberBinding="{Binding Path=CompletedDate}"/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-            </ScrollViewer>
-        </Grid>
-    </DockPanel>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </ScrollViewer>
+                </Grid>
+            </DockPanel>
+        </TabItem>
+    </TabControl>
 </Window>

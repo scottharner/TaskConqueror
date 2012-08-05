@@ -5,88 +5,95 @@
   xmlns:tc="clr-namespace:TaskConqueror"
   FontSize="13" 
   FontFamily="Verdana"
-  Title="{Binding Path=DisplayName}"
+  Title="{Binding Path=AppDisplayName}"
   tc:DialogCloser.DialogResult="{Binding DialogResult}"
   >
-    <DockPanel Margin="4">
-        <!-- Buttons -->
-        <GroupBox 
+    <Window.Resources>
+        <ResourceDictionary Source="/WorkspaceResources.xaml" />
+    </Window.Resources>
+    <TabControl Margin="4">
+        <TabItem HeaderTemplate="{StaticResource TabItemHeaderTemplate}">
+            <DockPanel Margin="4">
+                <!-- Buttons -->
+                <GroupBox 
             DockPanel.Dock="Top"
           Header="Report" HorizontalAlignment="Left" Margin="0,0,0,10">
-            <StackPanel Orientation="Horizontal">
-                <!-- RUN BUTTON -->
-                <tc:ImageButton 
+                    <StackPanel Orientation="Horizontal">
+                        <!-- RUN BUTTON -->
+                        <tc:ImageButton 
                     Text="Run" 
                     Image="pack://application:,,,/TaskConqueror;Component/Assets/Images/run.png"
                     Command="{Binding Path=RunCommand}"
                     />
-            </StackPanel>
-        </GroupBox>
-        <Grid DockPanel.Dock="Bottom" Margin="4">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="6" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+                    </StackPanel>
+                </GroupBox>
+                <Grid DockPanel.Dock="Bottom" Margin="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="6" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="30" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="30" />
-            </Grid.RowDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="30" />
+                    </Grid.RowDefinitions>
 
-            <Grid.Resources>
-                <DataTemplate DataType="{x:Type ValidationError}">
-                    <TextBlock 
+                    <Grid.Resources>
+                        <DataTemplate DataType="{x:Type ValidationError}">
+                            <TextBlock 
           FontStyle="Italic"
           Foreground="Red"
           HorizontalAlignment="Right"
           Margin="0,1"
           Text="{Binding Path=ErrorContent}" 
           />
-                </DataTemplate>
-            </Grid.Resources>
+                        </DataTemplate>
+                    </Grid.Resources>
 
 
-            <!-- START DATE -->
-            <Label 
+                    <!-- START DATE -->
+                    <Label 
       Grid.Row="0" Grid.Column="0" 
       Content="_Start Date:" 
       HorizontalAlignment="Right"
       Target="{Binding ElementName=startDateDtp}"
       />
-            <DatePicker 
+                    <DatePicker 
                 x:Name="startDateDtp" 
                 Grid.Row="0" 
                 Grid.Column="2" 
                 SelectedDate="{Binding Path=StartDate, ValidatesOnDataErrors=True}"
                 Validation.ErrorTemplate="{x:Null}"
                 />
-            <ContentPresenter 
+                    <ContentPresenter 
       Grid.Row="1" Grid.Column="2"
       Content="{Binding ElementName=startDateDtp, Path=(Validation.Errors).CurrentItem}"
       />
 
-            <!-- END DATE -->
-            <Label 
+                    <!-- END DATE -->
+                    <Label 
       Grid.Row="2" Grid.Column="0" 
       Content="_End Date:" 
       HorizontalAlignment="Right"
       Target="{Binding ElementName=endDateDtp}"
       />
-            <DatePicker 
+                    <DatePicker 
                 x:Name="endDateDtp" 
                 Grid.Row="2" 
                 Grid.Column="2" 
                 SelectedDate="{Binding Path=EndDate, ValidatesOnDataErrors=True}"
                 Validation.ErrorTemplate="{x:Null}"
                 />
-            <ContentPresenter 
+                    <ContentPresenter 
       Grid.Row="3" Grid.Column="2"
       Content="{Binding ElementName=endDateDtp, Path=(Validation.Errors).CurrentItem}"
       />
 
-        </Grid>
-    </DockPanel>
+                </Grid>
+            </DockPanel>
+        </TabItem>
+    </TabControl>
 </Window>

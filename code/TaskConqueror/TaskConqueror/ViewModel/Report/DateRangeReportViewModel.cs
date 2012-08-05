@@ -29,7 +29,8 @@ namespace TaskConqueror
 
             _dateRangeReport = dateRangeReport;
 
-            base.DisplayName = dateRangeReport.Title;            
+            base.DisplayName = dateRangeReport.Title;
+            base.DisplayImage = "pack://application:,,,/TaskConqueror;Component/Assets/Images/report.png";
         }
 
         #endregion // Constructor

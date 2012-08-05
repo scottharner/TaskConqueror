@@ -19,6 +19,13 @@ namespace TaskConqueror
 
         #endregion // Constructor
 
+        #region AppDisplayName
+
+        public string AppDisplayName 
+        { get { return Properties.Resources.AppName; } }
+
+        #endregion // DisplayName
+
         #region DisplayName
 
         /// <summary>

@@ -51,7 +51,8 @@ namespace TaskConqueror
             _priorityDescription = _priorityOptions.FirstOrDefault(p => p.PriorityID == this.PriorityId).Description;
             _originalStatusId = StatusId;
 
-            base.DisplayName = Properties.Resources.Edit_Task_DisplayName;            
+            base.DisplayName = Properties.Resources.Edit_Task_DisplayName;
+            base.DisplayImage = "pack://application:,,,/TaskConqueror;Component/Assets/Images/task.png";
         }
 
         #endregion // Constructor

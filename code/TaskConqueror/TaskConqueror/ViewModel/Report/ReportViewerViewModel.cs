@@ -33,7 +33,8 @@ namespace TaskConqueror
 
             _report = report;
 
-            base.DisplayName = Title;            
+            base.DisplayName = Title;
+            base.DisplayImage = "pack://application:,,,/TaskConqueror;Component/Assets/Images/report.png";
         }
 
         #endregion // Constructor

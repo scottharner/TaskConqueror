@@ -7,6 +7,23 @@ This resource dictionary is used by the Worskpaces.
   xmlns:tc="clr-namespace:TaskConqueror"
   xmlns:acb="clr-namespace:AttachedCommandBehavior"
   >
+    <tc:SortTreeNodeConverter x:Key="SortConverter" />
+    <DataTemplate x:Key="TabItemHeaderTemplate">
+        <DockPanel MinWidth="125">
+            <ContentPresenter
+        VerticalAlignment="Center" >
+                <ContentPresenter.Content>
+                    <StackPanel Orientation="Horizontal" Margin="2">
+                        <Image Source="{Binding DataContext.DisplayImage, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}"
+                       Width="16"
+                       Height="16"
+                       SnapsToDevicePixels="True"/>
+                        <TextBlock Text="{Binding DataContext.DisplayName, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Margin="5,0"/>
+                    </StackPanel>
+                </ContentPresenter.Content>
+            </ContentPresenter>
+        </DockPanel>
+    </DataTemplate>
     <Style x:Key="TaskItemStyle" TargetType="{x:Type ListViewItem}">
         <!-- 
       Stretch the content of each cell so that we can 
