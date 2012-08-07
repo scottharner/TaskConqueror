@@ -51,6 +51,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ReuxablesLegacy">
+      <HintPath>..\..\..\..\..\..\Desktop\LEGACY\ReuxablesLegacy.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -145,7 +148,7 @@
     <Compile Include="View\Behaviors\DialogCloser.cs" />
     <Compile Include="View\Behaviors\EventHandlerGenerator.cs" />
     <Compile Include="View\Behaviors\ExecutionStrategy.cs" />
-    <Compile Include="View\Behaviors\TreeviewItemChangedCommandBehavior.cs" />
+    <Compile Include="View\Behaviors\TreeNodeChangedBehavior.cs" />
     <Compile Include="View\Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="View\Converters\SortTreeNodeConverter.cs" />
     <Compile Include="View\Goal\AllGoalsView.xaml.cs">

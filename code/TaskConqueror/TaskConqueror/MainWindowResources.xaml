@@ -57,13 +57,15 @@ This resource dictionary is used by the MainWindow.
   <!--
   This style ensures that the borders in the main window are consistent.
   -->
-  <Style x:Key="MainBorderStyle" TargetType="{x:Type Border}">
+<!--
+    <Style x:Key="MainBorderStyle" TargetType="{x:Type Border}">
     <Setter Property="Background" Value="WhiteSmoke" />
     <Setter Property="BorderBrush" Value="LightGray" />
     <Setter Property="BorderThickness" Value="1" />
     <Setter Property="CornerRadius" Value="5" />
     <Setter Property="SnapsToDevicePixels" Value="True" />
   </Style>
+    -->
 
   <!--
   This template explains how to render the list of commands on the left
