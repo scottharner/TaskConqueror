@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Documents;
+using System.Windows.Media;
 
 namespace TaskConqueror
 {
@@ -34,6 +35,7 @@ namespace TaskConqueror
             if (criteriaResult.HasValue && criteriaResult.Value == true)
             {
                 Content = Build();
+                Content.Background = Brushes.White;
                 Display();
             }
         }

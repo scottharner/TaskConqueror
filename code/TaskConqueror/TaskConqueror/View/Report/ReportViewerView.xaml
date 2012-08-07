@@ -35,7 +35,13 @@
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center">
                     </StackPanel>
                 </Grid>
-                <FlowDocumentScrollViewer DockPanel.Dock="Top" Document="{Binding Path=Content}"/>
+                <FlowDocumentScrollViewer 
+                    DockPanel.Dock="Top" 
+                    Document="{Binding Path=Content}"
+                    Background="White"    
+                    BorderBrush="LightBlue"
+                    BorderThickness="1"
+                />
             </DockPanel>
         </TabItem>
     </TabControl>

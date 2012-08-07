@@ -9,6 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using AttachedCommandBehavior;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
