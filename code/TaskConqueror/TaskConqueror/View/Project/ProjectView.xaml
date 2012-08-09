@@ -7,6 +7,7 @@
   FontSize="13" 
   FontFamily="Verdana"
   Title="{Binding Path=AppDisplayName}"
+    MinHeight="600"
   >
     <Window.Resources>
         <ResourceDictionary Source="/WorkspaceResources.xaml" />
@@ -88,8 +89,7 @@
                         <RowDefinition Height="30" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="30" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="75" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
                     <Grid.Resources>
@@ -217,46 +217,40 @@
       Content="{Binding Path=CompletedDate}" 
       Validation.ErrorTemplate="{x:Null}"
       />
-                    <!-- Tasks -->
-                    <Label 
-      Grid.Row="12" Grid.Column="0" 
-      Content="Tasks:" 
-      HorizontalAlignment="Right"
-      Target="{Binding ElementName=tasksLbl}"
-      />
-                    <ScrollViewer Grid.Row="13" Grid.ColumnSpan="3">
-                        <ListView 
+                    <DockPanel Grid.Row="12" Grid.ColumnSpan="3">
+                        <TextBlock Text="Tasks" DockPanel.Dock="Top" Margin="0 0 0 10"/>
+                        <ScrollViewer MinHeight="100">
+                            <ListView 
       AlternationCount="2" 
-                Grid.Row="13"
-                Grid.ColumnSpan="3"
       DataContext="{StaticResource TaskGroups}" 
       ItemContainerStyle="{StaticResource TaskItemDoubleClickStyle}"
       ItemsSource="{Binding}"
         SelectionMode="Single"
       >
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn 
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn 
             Header="Title" 
             DisplayMemberBinding="{Binding Path=Title}" 
             />
-                                    <GridViewColumn 
+                                        <GridViewColumn 
             Header="Status" 
             DisplayMemberBinding="{Binding Path=StatusDescription}" 
             />
-                                    <GridViewColumn
+                                        <GridViewColumn
               Header="Priority"
               DisplayMemberBinding="{Binding Path=PriorityDescription}"/>
-                                    <GridViewColumn
+                                        <GridViewColumn
               Header="Date Created"
               DisplayMemberBinding="{Binding Path=CreatedDate}"/>
-                                    <GridViewColumn
+                                        <GridViewColumn
               Header="Date Completed"
               DisplayMemberBinding="{Binding Path=CompletedDate}"/>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
-                    </ScrollViewer>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </ScrollViewer>
+                    </DockPanel>
                 </Grid>
             </DockPanel>
         </TabItem>

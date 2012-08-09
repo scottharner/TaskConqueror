@@ -7,6 +7,7 @@
   FontSize="13" 
   FontFamily="Verdana"
   Title="{Binding Path=AppDisplayName}"
+    MinHeight="600"
   >
     <Window.Resources>
         <ResourceDictionary Source="/WorkspaceResources.xaml" />
@@ -86,8 +87,7 @@
                         <RowDefinition Height="30" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="30" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="75" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
                     <Grid.Resources>
@@ -200,49 +200,46 @@
       Validation.ErrorTemplate="{x:Null}"
       />
                     <!-- Projects -->
-                    <Label 
-      Grid.Row="10" Grid.Column="0" 
-      Content="Projects:" 
-      HorizontalAlignment="Right"
-      Target="{Binding ElementName=projectsLbl}"
-      />
-                    <ScrollViewer Grid.Row="11" Grid.ColumnSpan="3">
-                        <ListView 
+                    <DockPanel Grid.Row="10" Grid.ColumnSpan="3">
+                        <TextBlock Text="Projects" DockPanel.Dock="Top" Margin="0 0 0 10"/>
+                        <ScrollViewer Grid.ColumnSpan="3">
+                            <ListView 
       AlternationCount="2" 
       DataContext="{StaticResource ProjectGroups}" 
       ItemContainerStyle="{StaticResource TaskItemDoubleClickStyle}"
       ItemsSource="{Binding}"
         SelectionMode="Single"
       >
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn 
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn 
             Header="Title" 
             DisplayMemberBinding="{Binding Path=Title}" 
             />
-                                    <GridViewColumn 
+                                        <GridViewColumn 
             Header="Status" 
             DisplayMemberBinding="{Binding Path=StatusDescription}" 
             />
-                                    <GridViewColumn Header="Est. Cost">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock TextAlignment="Right"
+                                        <GridViewColumn Header="Est. Cost">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock TextAlignment="Right"
                        Text="{Binding Path=EstimatedCost, StringFormat='{}{0:C}'}" />
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
 
-                                    <GridViewColumn
+                                        <GridViewColumn
               Header="Date Created"
               DisplayMemberBinding="{Binding Path=CreatedDate}"/>
-                                    <GridViewColumn
+                                        <GridViewColumn
               Header="Date Completed"
               DisplayMemberBinding="{Binding Path=CompletedDate}"/>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
-                    </ScrollViewer>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </ScrollViewer>
+                    </DockPanel>
                 </Grid>
             </DockPanel>
         </TabItem>

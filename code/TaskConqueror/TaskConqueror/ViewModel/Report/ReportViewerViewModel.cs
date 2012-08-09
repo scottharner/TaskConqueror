@@ -81,6 +81,8 @@ namespace TaskConqueror
         /// </summary>
         public void Print()
         {
+            const double Inch = 96;
+
             // Create a PrintDialog
             PrintDialog printDlg = new PrintDialog();
 
@@ -91,8 +93,14 @@ namespace TaskConqueror
 
             FlowDocument flowDocumentCopy = new FlowDocument();
             TextRange copyDocumentRange = new TextRange(flowDocumentCopy.ContentStart, flowDocumentCopy.ContentEnd);
-            copyDocumentRange.Load(stream, DataFormats.Xaml); 
+            copyDocumentRange.Load(stream, DataFormats.Xaml);
             
+            double xMargin = (1.25 * Inch);
+            double yMargin = (1 * Inch);
+
+            // Set the page padding
+            flowDocumentCopy.PagePadding = new Thickness(yMargin, xMargin, xMargin, yMargin);            
+
             IDocumentPaginatorSource idpSource = flowDocumentCopy;
 
             try
