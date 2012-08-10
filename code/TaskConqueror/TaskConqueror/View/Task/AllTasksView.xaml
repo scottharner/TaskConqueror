@@ -49,8 +49,17 @@
                     />
             </StackPanel>
         </GroupBox>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="top" HorizontalAlignment="Right" Margin="0 0 0 10">
+            <TextBlock Text="Title Contains:"/>
+            <TextBox Text="{Binding Path=FilterTerm}" Margin="10 0" MinWidth="150"/>
+            <tc:ImageButton
+                Text="Filter"
+                Image="pack://application:,,,/TaskConqueror;Component/Assets/Images/filter.png"
+                Command="{Binding Path=FilterResultsCommand}"
+                />
+        </StackPanel>
 
-        <Grid DockPanel.Dock="Bottom" Margin="0,2,4,2">
+            <Grid DockPanel.Dock="Bottom" Margin="0,2,4,2">
       <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center">
       </StackPanel>
     </Grid>

@@ -23,6 +23,8 @@ namespace TaskConqueror
         RelayCommand _newCommand;
         RelayCommand _editCommand;
         RelayCommand _deleteCommand;
+        RelayCommand _filterResultsCommand;
+        bool _filterTermHasChanged = false;
 
         #endregion // Fields
 
@@ -50,7 +52,7 @@ namespace TaskConqueror
         void CreateAllTasks()
         {
             List<TaskViewModel> all =
-                (from task in _taskData.GetTasks()
+                (from task in _taskData.GetTasks(FilterTerm)
                  select new TaskViewModel(task, _taskData)).ToList();
 
             foreach (TaskViewModel tvm in all)
@@ -58,6 +60,15 @@ namespace TaskConqueror
 
             this.AllTasks = new ObservableCollection<TaskViewModel>(all);
             this.AllTasks.CollectionChanged += this.OnCollectionChanged;
+        }
+
+        void ClearAllTasks()
+        {
+            foreach (TaskViewModel taskVM in this.AllTasks)
+                taskVM.Dispose();
+
+            this.AllTasks.Clear();
+            this.AllTasks.CollectionChanged -= this.OnCollectionChanged;
         }
 
         #endregion // Constructor
@@ -69,17 +80,33 @@ namespace TaskConqueror
         /// </summary>
         public ObservableCollection<TaskViewModel> AllTasks { get; private set; }
 
+        private string _filterTerm = "";
+
+        public string FilterTerm
+        {
+            get
+            {
+                return _filterTerm;
+            }
+
+            set
+            {
+                if (_filterTerm == value)
+                    return;
+
+                _filterTerm = value;
+                _filterTermHasChanged = true;
+                base.OnPropertyChanged("FilterTerm");
+            }
+        }
+
         #endregion // Public Interface
 
         #region  Base Class Overrides
 
         protected override void OnDispose()
         {
-            foreach (TaskViewModel taskVM in this.AllTasks)
-                taskVM.Dispose();
-
-            this.AllTasks.Clear();
-            this.AllTasks.CollectionChanged -= this.OnCollectionChanged;
+            ClearAllTasks();
 
             _taskData.TaskAdded -= this.OnTaskAdded;
             _taskData.TaskUpdated -= this.OnTaskUpdated;
@@ -188,6 +215,21 @@ namespace TaskConqueror
             }
         }
 
+        public ICommand FilterResultsCommand
+        {
+            get
+            {
+                if (_filterResultsCommand == null)
+                {
+                    _filterResultsCommand = new RelayCommand(
+                        param => this.FilterResults()
+                        );
+                }
+
+                return _filterResultsCommand;
+            }
+        }
+
         #endregion
 
         #region Public Methods
@@ -231,6 +273,33 @@ namespace TaskConqueror
                 {
                     _taskData.DeleteTask(_taskData.GetTaskByTaskId(selectedTaskVM.TaskId));
                 }
+            }
+        }
+
+        public void FilterResults()
+        {
+            if (_filterTermHasChanged)
+            {
+                for (int i = (AllTasks.Count - 1); i >= 0; i--)
+                {
+                    TaskViewModel taskVm = AllTasks[i];
+                    this.AllTasks.Remove(taskVm);
+                    taskVm.Dispose();
+                }
+
+                List<TaskViewModel> all =
+                    (from task in _taskData.GetTasks(FilterTerm)
+                     select new TaskViewModel(task, _taskData)).ToList();
+
+                foreach (TaskViewModel tvm in all)
+                    tvm.PropertyChanged += this.OnTaskViewModelPropertyChanged;
+
+                for (int i = 0; i < all.Count; i++)
+                {
+                    this.AllTasks.Add(all[i]);
+                }
+
+                _filterTermHasChanged = false;
             }
         }
 

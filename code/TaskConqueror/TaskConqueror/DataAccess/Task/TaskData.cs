@@ -158,11 +158,23 @@ namespace TaskConqueror
         /// <summary>
         /// Returns a shallow-copied list of all tasks in the repository.
         /// </summary>
-        public List<Task> GetTasks()
+        public List<Task> GetTasks(string filterTerm = "")
         {
-            List<Data.Task> dbTasks = (from t in _appInfo.GcContext.Tasks
-                                       orderby t.Title
-                                       select t).ToList();
+            List<Data.Task> dbTasks;
+
+            if (string.IsNullOrEmpty(filterTerm))
+            {
+                dbTasks = (from t in _appInfo.GcContext.Tasks
+                           orderby t.Title
+                           select t).ToList();
+            }
+            else
+            {
+                dbTasks = (from t in _appInfo.GcContext.Tasks
+                           where t.Title.Contains(filterTerm)
+                           orderby t.Title
+                           select t).ToList();
+            }
 
             List<Task> tasks = new List<Task>();
 
