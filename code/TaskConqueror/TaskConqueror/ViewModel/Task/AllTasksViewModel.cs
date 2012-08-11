@@ -15,7 +15,7 @@ namespace TaskConqueror
     /// database.  This class also provides information
     /// related to multiple selected customers.
     /// </summary>
-    public class AllTasksViewModel : WorkspaceViewModel
+    public class AllTasksViewModel : NavigatorViewModel
     {
         #region Fields
 
@@ -23,8 +23,6 @@ namespace TaskConqueror
         RelayCommand _newCommand;
         RelayCommand _editCommand;
         RelayCommand _deleteCommand;
-        RelayCommand _filterResultsCommand;
-        bool _filterTermHasChanged = false;
 
         #endregion // Fields
 
@@ -79,26 +77,6 @@ namespace TaskConqueror
         /// Returns a collection of all the TaskViewModel objects.
         /// </summary>
         public ObservableCollection<TaskViewModel> AllTasks { get; private set; }
-
-        private string _filterTerm = "";
-
-        public string FilterTerm
-        {
-            get
-            {
-                return _filterTerm;
-            }
-
-            set
-            {
-                if (_filterTerm == value)
-                    return;
-
-                _filterTerm = value;
-                _filterTermHasChanged = true;
-                base.OnPropertyChanged("FilterTerm");
-            }
-        }
 
         #endregion // Public Interface
 
@@ -215,21 +193,6 @@ namespace TaskConqueror
             }
         }
 
-        public ICommand FilterResultsCommand
-        {
-            get
-            {
-                if (_filterResultsCommand == null)
-                {
-                    _filterResultsCommand = new RelayCommand(
-                        param => this.FilterResults()
-                        );
-                }
-
-                return _filterResultsCommand;
-            }
-        }
-
         #endregion
 
         #region Public Methods
@@ -276,9 +239,9 @@ namespace TaskConqueror
             }
         }
 
-        public void FilterResults()
+        public override void PerformFilter()
         {
-            if (_filterTermHasChanged)
+            if (FilterTermHasChanged)
             {
                 for (int i = (AllTasks.Count - 1); i >= 0; i--)
                 {
@@ -298,8 +261,6 @@ namespace TaskConqueror
                 {
                     this.AllTasks.Add(all[i]);
                 }
-
-                _filterTermHasChanged = false;
             }
         }
 

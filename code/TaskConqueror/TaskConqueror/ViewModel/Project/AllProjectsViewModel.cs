@@ -14,7 +14,7 @@ namespace TaskConqueror
     /// that has support for staying synchronized with the
     /// database.
     /// </summary>
-    public class AllProjectsViewModel : WorkspaceViewModel
+    public class AllProjectsViewModel : NavigatorViewModel
     {
         #region Fields
 
@@ -233,6 +233,31 @@ namespace TaskConqueror
             {
                 _projectData.DeleteProject(_projectData.GetProjectByProjectId(selectedProjectVM.ProjectId), _taskData);
                 selectedProjectVM.Dispose();
+            }
+        }
+
+        public override void PerformFilter()
+        {
+            if (FilterTermHasChanged)
+            {
+                for (int i = (AllProjects.Count - 1); i >= 0; i--)
+                {
+                    ProjectViewModel projectVm = AllProjects[i];
+                    this.AllProjects.Remove(projectVm);
+                    projectVm.Dispose();
+                }
+
+                List<ProjectViewModel> all =
+                    (from project in _projectData.GetProjects(FilterTerm)
+                     select new ProjectViewModel(project, _projectData, _taskData)).ToList();
+
+                foreach (ProjectViewModel pvm in all)
+                    pvm.PropertyChanged += this.OnProjectViewModelPropertyChanged;
+
+                for (int i = 0; i < all.Count; i++)
+                {
+                    this.AllProjects.Add(all[i]);
+                }
             }
         }
 

@@ -105,4 +105,17 @@ This resource dictionary is used by the Worskpaces.
             </MultiTrigger>
         </Style.Triggers>
     </Style>
+
+    <ControlTemplate x:Key="FilterControlsTemplate">
+        <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
+            <TextBlock Text="Title Contains:" VerticalAlignment="Center"/>
+            <TextBox Text="{Binding Path=FilterTerm}" Margin="10 0" MinWidth="150"/>
+            <tc:ImageButton
+                Text="Filter"
+                Image="pack://application:,,,/TaskConqueror;Component/Assets/Images/filter.png"
+                Command="{Binding Path=FilterResultsCommand}"
+                />
+        </StackPanel>
+    </ControlTemplate>
+
 </ResourceDictionary>

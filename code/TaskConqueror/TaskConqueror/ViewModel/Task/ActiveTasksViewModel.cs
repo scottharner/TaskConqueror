@@ -15,7 +15,7 @@ namespace TaskConqueror
     /// database.  This class also provides information
     /// related to multiple selected customers.
     /// </summary>
-    public class ActiveTasksViewModel : WorkspaceViewModel
+    public class ActiveTasksViewModel : NavigatorViewModel
     {
         #region Fields
 
@@ -288,6 +288,31 @@ namespace TaskConqueror
             using (var viewModel = new AddTasksViewModel(_taskData, new ProjectData(), new GoalData()))
             {
                 this.ShowWorkspaceAsDialog(window, viewModel);
+            }
+        }
+
+        public override void PerformFilter()
+        {
+            if (FilterTermHasChanged)
+            {
+                for (int i = (ActiveTasks.Count - 1); i >= 0; i--)
+                {
+                    TaskViewModel taskVm = ActiveTasks[i];
+                    this.ActiveTasks.Remove(taskVm);
+                    taskVm.Dispose();
+                }
+
+                List<TaskViewModel> all =
+                    (from task in _taskData.GetActiveTasks(FilterTerm)
+                     select new TaskViewModel(task, _taskData)).ToList();
+
+                foreach (TaskViewModel tvm in all)
+                    tvm.PropertyChanged += this.OnTaskViewModelPropertyChanged;
+
+                for (int i = 0; i < all.Count; i++)
+                {
+                    this.ActiveTasks.Add(all[i]);
+                }
             }
         }
 

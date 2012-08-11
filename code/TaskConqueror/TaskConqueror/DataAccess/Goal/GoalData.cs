@@ -160,11 +160,23 @@ namespace TaskConqueror
         /// <summary>
         /// Returns a shallow-copied list of all goals in the repository.
         /// </summary>
-        public List<Goal> GetGoals()
+        public List<Goal> GetGoals(string filterTerm = "")
         {
-            List<Data.Goal> dbGoals = (from g in _appInfo.GcContext.Goals
-                                       orderby g.Title
-                                       select g).ToList();
+            List<Data.Goal> dbGoals;
+
+            if (string.IsNullOrEmpty(filterTerm))
+            {
+                dbGoals = (from g in _appInfo.GcContext.Goals
+                           orderby g.Title
+                           select g).ToList();
+            }
+            else
+            {
+                dbGoals = (from g in _appInfo.GcContext.Goals
+                           where g.Title.Contains(filterTerm)
+                           orderby g.Title
+                           select g).ToList();
+            }
 
             List<Goal> goals = new List<Goal>();
 

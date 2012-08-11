@@ -14,7 +14,7 @@ namespace TaskConqueror
     /// that has support for staying synchronized with the
     /// database.
     /// </summary>
-    public class AllGoalsViewModel : WorkspaceViewModel
+    public class AllGoalsViewModel : NavigatorViewModel
     {
         #region Fields
 
@@ -240,6 +240,31 @@ namespace TaskConqueror
             {
                 _goalData.DeleteGoal(_goalData.GetGoalByGoalId(selectedGoalVM.GoalId), _projectData, _taskData);
                 selectedGoalVM.Dispose();
+            }
+        }
+
+        public override void PerformFilter()
+        {
+            if (FilterTermHasChanged)
+            {
+                for (int i = (AllGoals.Count - 1); i >= 0; i--)
+                {
+                    GoalViewModel goalVm = AllGoals[i];
+                    this.AllGoals.Remove(goalVm);
+                    goalVm.Dispose();
+                }
+
+                List<GoalViewModel> all =
+                    (from goal in _goalData.GetGoals(FilterTerm)
+                     select new GoalViewModel(goal, _goalData, _projectData, _taskData)).ToList();
+
+                foreach (GoalViewModel gvm in all)
+                    gvm.PropertyChanged += this.OnGoalViewModelPropertyChanged;
+
+                for (int i = 0; i < all.Count; i++)
+                {
+                    this.AllGoals.Add(all[i]);
+                }
             }
         }
 

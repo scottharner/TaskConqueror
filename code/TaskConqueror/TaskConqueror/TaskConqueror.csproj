@@ -113,6 +113,7 @@
     <Compile Include="RelayCommand.cs" />
     <Compile Include="ViewModel\Admin\AdminViewModel.cs" />
     <Compile Include="ViewModel\CommandViewModel.cs" />
+    <Compile Include="ViewModel\NavigatorViewModel.cs" />
     <Compile Include="ViewModel\Goal\AllGoalsViewModel.cs" />
     <Compile Include="ViewModel\Goal\GoalViewModel.cs" />
     <Compile Include="ViewModel\Project\AddChildProjectsViewModel.cs" />

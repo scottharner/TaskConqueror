@@ -160,11 +160,23 @@ namespace TaskConqueror
         /// <summary>
         /// Returns a shallow-copied list of all projects in the repository.
         /// </summary>
-        public List<Project> GetProjects()
+        public List<Project> GetProjects(string filterTerm = "")
         {
-            List<Data.Project> dbProjects = (from p in _appInfo.GcContext.Projects
-                                       orderby p.Title
-                                       select p).ToList();
+            List<Data.Project> dbProjects;
+
+            if (string.IsNullOrEmpty(filterTerm))
+            {
+                dbProjects = (from p in _appInfo.GcContext.Projects
+                              orderby p.Title
+                              select p).ToList();
+            }
+            else
+            {
+                dbProjects = (from p in _appInfo.GcContext.Projects
+                           where p.Title.Contains(filterTerm)
+                           orderby p.Title
+                           select p).ToList();
+            }
 
             List<Project> projects = new List<Project>();
 
