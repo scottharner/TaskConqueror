@@ -55,12 +55,16 @@
                 VerticalAlignment="Center"
             Template="{StaticResource FilterControlsTemplate}"/>
         </DockPanel>
-        <Grid DockPanel.Dock="Bottom" Margin="0,2,4,2">
-      <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center">
-      </StackPanel>
-    </Grid>
+        <DockPanel DockPanel.Dock="Bottom">
+            <ItemsControl
+            DockPanel.Dock="Right"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Template="{StaticResource SortControlsTemplate}"/>
+        </DockPanel>
 
-    <ListView 
+
+        <ListView 
       AlternationCount="2" 
       DataContext="{StaticResource ProjectGroups}" 
       ItemContainerStyle="{StaticResource TaskItemDoubleClickStyle}"

@@ -371,6 +371,7 @@
     <Resource Include="Assets\Images\ok.png" />
     <Resource Include="Assets\Images\print.png" />
     <Resource Include="Assets\Images\filter.png" />
+    <Resource Include="Assets\Images\sort.png" />
     <Content Include="TaskConqueror.sdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
