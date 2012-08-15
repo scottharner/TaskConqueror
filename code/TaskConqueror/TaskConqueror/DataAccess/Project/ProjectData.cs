@@ -160,21 +160,19 @@ namespace TaskConqueror
         /// <summary>
         /// Returns a shallow-copied list of all projects in the repository.
         /// </summary>
-        public List<Project> GetProjects(string filterTerm = "")
+        public List<Project> GetProjects(string filterTerm = "", SortableProperty sortColumn = null)
         {
             List<Data.Project> dbProjects;
 
             if (string.IsNullOrEmpty(filterTerm))
             {
                 dbProjects = (from p in _appInfo.GcContext.Projects
-                              orderby p.Title
                               select p).ToList();
             }
             else
             {
                 dbProjects = (from p in _appInfo.GcContext.Projects
                            where p.Title.Contains(filterTerm)
-                           orderby p.Title
                            select p).ToList();
             }
 
@@ -183,6 +181,35 @@ namespace TaskConqueror
             foreach (Data.Project dbProject in dbProjects)
             {
                 projects.Add(Project.CreateProject(dbProject));
+            }
+
+            if (sortColumn == null)
+            {
+                projects = projects.OrderBy(p => p.Title).ToList();
+            }
+            else
+            {
+                switch (sortColumn.Name)
+                {
+                    case "StatusId":
+                        projects = projects.OrderBy(p => p.StatusId).ToList();
+                        break;
+                    case "EstimatedCost":
+                        projects = projects.OrderBy(p => p.EstimatedCost).ToList();
+                        break;
+                    case "GoalTitle":
+                        projects = projects.OrderBy(p => p.ParentGoal == null ? "" : p.ParentGoal.Title).ToList();
+                        break;
+                    case "CreatedDate":
+                        projects = projects.OrderBy(p => p.CreatedDate).ToList();
+                        break;
+                    case "CompletedDate":
+                        projects = projects.OrderBy(p => p.CompletedDate).ToList();
+                        break;
+                    default:
+                        projects = projects.OrderBy(p => p.Title).ToList();
+                        break;
+                }
             }
 
             return projects;

@@ -121,7 +121,13 @@ This resource dictionary is used by the Worskpaces.
     <ControlTemplate x:Key="SortControlsTemplate">
         <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
             <TextBlock Text="Sort By:" VerticalAlignment="Center"/>
-            <ComboBox ItemsSource="{Binding Path=SortColumns}" Margin="10 0" MinWidth="150"/>
+            <ComboBox 
+                ItemsSource="{Binding Path=SortColumns}" 
+                SelectedItem="{Binding Path=SelectedSortColumn}"
+                DisplayMemberPath="Description"
+                SelectedValuePath="Name"
+                Margin="10 0" 
+                MinWidth="150"/>
             <tc:ImageButton
                 Text="Sort"
                 Image="pack://application:,,,/TaskConqueror;Component/Assets/Images/sort.png"

@@ -160,21 +160,19 @@ namespace TaskConqueror
         /// <summary>
         /// Returns a shallow-copied list of all goals in the repository.
         /// </summary>
-        public List<Goal> GetGoals(string filterTerm = "")
+        public List<Goal> GetGoals(string filterTerm = "", SortableProperty sortColumn = null)
         {
             List<Data.Goal> dbGoals;
 
             if (string.IsNullOrEmpty(filterTerm))
             {
                 dbGoals = (from g in _appInfo.GcContext.Goals
-                           orderby g.Title
                            select g).ToList();
             }
             else
             {
                 dbGoals = (from g in _appInfo.GcContext.Goals
                            where g.Title.Contains(filterTerm)
-                           orderby g.Title
                            select g).ToList();
             }
 
@@ -183,6 +181,32 @@ namespace TaskConqueror
             foreach (Data.Goal dbGoal in dbGoals)
             {
                 goals.Add(Goal.CreateGoal(dbGoal));
+            }
+
+            if (sortColumn == null)
+            {
+                goals = goals.OrderBy(g => g.Title).ToList();
+            }
+            else
+            {
+                switch (sortColumn.Name)
+                {
+                    case "StatusId":
+                        goals = goals.OrderBy(g => g.StatusId).ToList();
+                        break;
+                    case "CategoryId":
+                        goals = goals.OrderBy(g => g.CategoryId).ToList();
+                        break;
+                    case "CreatedDate":
+                        goals = goals.OrderBy(g => g.CreatedDate).ToList();
+                        break;
+                    case "CompletedDate":
+                        goals = goals.OrderBy(g => g.CompletedDate).ToList();
+                        break;
+                    default:
+                        goals = goals.OrderBy(g => g.Title).ToList();
+                        break;
+                }
             }
 
             return goals;

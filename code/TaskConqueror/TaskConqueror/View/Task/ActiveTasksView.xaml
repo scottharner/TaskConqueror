@@ -10,10 +10,6 @@
             x:Key="TaskGroups" 
             Source="{Binding Path=ActiveTasks}"
         >
-            <CollectionViewSource.SortDescriptions>
-                <scm:SortDescription PropertyName="PriorityId" Direction="Descending" />
-                <scm:SortDescription PropertyName="Title" Direction="Ascending" />
-            </CollectionViewSource.SortDescriptions>
         </CollectionViewSource>
 
         <DataTemplate x:Key="CompletedCellTemplate">

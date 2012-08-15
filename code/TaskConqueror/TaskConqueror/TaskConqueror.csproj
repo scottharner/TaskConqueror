@@ -128,6 +128,7 @@
     <Compile Include="ViewModel\RootTreeNodeViewModel.cs" />
     <Compile Include="ViewModel\ITreeNodeContainerViewModel.cs" />
     <Compile Include="ViewModel\EditorViewModel.cs" />
+    <Compile Include="ViewModel\SortableProperty.cs" />
     <Compile Include="ViewModel\Task\AddChildTasksViewModel.cs" />
     <Compile Include="ViewModel\UnassignedTreeNodeViewModel.cs" />
     <Compile Include="ViewModel\ITreeNodeViewModel.cs" />

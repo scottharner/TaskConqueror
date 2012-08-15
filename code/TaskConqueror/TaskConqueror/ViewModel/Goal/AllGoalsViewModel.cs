@@ -53,7 +53,15 @@ namespace TaskConqueror
             _goalData.GoalDeleted += this.OnGoalDeleted;
 
             // Populate the AllGoals collection with GoalViewModels.
-            this.CreateAllGoals();              
+            this.CreateAllGoals();
+
+            SortColumns.Add(new SortableProperty() { Description = "Title", Name = "Title" });
+            SortColumns.Add(new SortableProperty() { Description = "Status", Name = "StatusId" });
+            SortColumns.Add(new SortableProperty() { Description = "Category", Name = "CategoryId" });
+            SortColumns.Add(new SortableProperty() { Description = "Created Date", Name = "CreatedDate" });
+            SortColumns.Add(new SortableProperty() { Description = "Completion Date", Name = "CompletedDate" });
+
+            SelectedSortColumn = SortColumns.FirstOrDefault();
         }
 
         void CreateAllGoals()
@@ -265,6 +273,28 @@ namespace TaskConqueror
                 {
                     this.AllGoals.Add(all[i]);
                 }
+            }
+        }
+
+        public override void SortResults()
+        {
+            for (int i = (AllGoals.Count - 1); i >= 0; i--)
+            {
+                GoalViewModel goalVm = AllGoals[i];
+                this.AllGoals.Remove(goalVm);
+                goalVm.Dispose();
+            }
+
+            List<GoalViewModel> all =
+                (from goal in _goalData.GetGoals(FilterTerm, SelectedSortColumn)
+                 select new GoalViewModel(goal, _goalData, _projectData, _taskData)).ToList();
+
+            foreach (GoalViewModel gvm in all)
+                gvm.PropertyChanged += this.OnGoalViewModelPropertyChanged;
+
+            for (int i = 0; i < all.Count; i++)
+            {
+                this.AllGoals.Add(all[i]);
             }
         }
 

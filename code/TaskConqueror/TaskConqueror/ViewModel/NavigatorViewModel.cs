@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 using System.Windows;
+using System.Collections.ObjectModel;
 
 namespace TaskConqueror
 {
@@ -12,6 +13,7 @@ namespace TaskConqueror
         #region Fields
 
         RelayCommand _filterResultsCommand;
+        RelayCommand _sortResultsCommand;
 
         #endregion // Fields
 
@@ -47,6 +49,36 @@ namespace TaskConqueror
             }
         }
 
+        ObservableCollection<SortableProperty> _sortColumns = new ObservableCollection<SortableProperty>();
+
+        public ObservableCollection<SortableProperty> SortColumns
+        {
+            get
+            {
+                return _sortColumns;
+            }
+        }
+
+        SortableProperty _selectedSortColumn;
+
+        public SortableProperty SelectedSortColumn
+        {
+            get
+            {
+                return _selectedSortColumn;
+            }
+
+            set
+            {
+                if (_selectedSortColumn == value)
+                    return;
+
+                _selectedSortColumn = value;
+
+                base.OnPropertyChanged("SelectedSortColumn");
+            }
+        }
+
         #endregion
 
         #region Constructor
@@ -70,6 +102,22 @@ namespace TaskConqueror
             }
         }
 
+        public ICommand SortResultsCommand
+        {
+            get
+            {
+                if (_sortResultsCommand == null)
+                {
+                    _sortResultsCommand = new RelayCommand(
+                        param => this.SortResults(),
+                        param => this.CanSortResults()
+                            );
+                }
+
+                return _sortResultsCommand;
+            }
+        }
+
         #endregion // Commands
 
         #region Public Methods
@@ -82,6 +130,13 @@ namespace TaskConqueror
         }
 
         public abstract void PerformFilter();
+
+        public abstract void SortResults();
+
+        public bool CanSortResults()
+        {
+            return SelectedSortColumn != null;
+        }
 
         #endregion
     }

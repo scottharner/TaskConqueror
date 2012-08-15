@@ -10,13 +10,6 @@
       x:Key="GoalGroups" 
       Source="{Binding Path=AllGoals}"
       >
-      <CollectionViewSource.SortDescriptions>
-        <!-- 
-        Sort descending by IsCompany so that the 'True' values appear first,
-        which means that companies will always be listed before people.
-        -->
-        <scm:SortDescription PropertyName="Title" Direction="Ascending" />
-      </CollectionViewSource.SortDescriptions>
     </CollectionViewSource>
 
     </UserControl.Resources>

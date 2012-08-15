@@ -6,19 +6,9 @@
   xmlns:tc="clr-namespace:TaskConqueror"
   >
   <UserControl.Resources>
-    <CollectionViewSource
+        <CollectionViewSource
       x:Key="TaskGroups" 
-      Source="{Binding Path=AllTasks}"
-      >
-      <CollectionViewSource.SortDescriptions>
-        <!-- 
-        Sort descending by IsCompany so that the 'True' values appear first,
-        which means that companies will always be listed before people.
-        -->
-        <scm:SortDescription PropertyName="PriorityId" Direction="Descending" />
-        <scm:SortDescription PropertyName="Title" Direction="Ascending" />
-      </CollectionViewSource.SortDescriptions>
-    </CollectionViewSource>
+      Source="{Binding Path=AllTasks}"/>
 
     </UserControl.Resources>
 

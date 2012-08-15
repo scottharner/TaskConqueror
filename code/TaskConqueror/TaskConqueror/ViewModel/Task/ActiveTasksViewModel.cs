@@ -45,7 +45,16 @@ namespace TaskConqueror
             _taskData.TaskDeleted += this.OnTaskDeleted;
 
             // Populate the ActiveTasks collection with TaskViewModels.
-            this.CreateActiveTasks();              
+            this.CreateActiveTasks();
+
+            SortColumns.Add(new SortableProperty() { Description = "Title", Name = "Title" });
+            SortColumns.Add(new SortableProperty() { Description = "Status", Name = "StatusId" });
+            SortColumns.Add(new SortableProperty() { Description = "Priority", Name = "PriorityId" });
+            SortColumns.Add(new SortableProperty() { Description = "Project", Name = "ProjectTitle" });
+            SortColumns.Add(new SortableProperty() { Description = "Created Date", Name = "CreatedDate" });
+            SortColumns.Add(new SortableProperty() { Description = "Completion Date", Name = "CompletedDate" });
+
+            SelectedSortColumn = SortColumns.FirstOrDefault();
         }
 
         void CreateActiveTasks()
@@ -316,6 +325,27 @@ namespace TaskConqueror
             }
         }
 
+        public override void SortResults()
+        {
+            for (int i = (ActiveTasks.Count - 1); i >= 0; i--)
+            {
+                TaskViewModel taskVm = ActiveTasks[i];
+                this.ActiveTasks.Remove(taskVm);
+                taskVm.Dispose();
+            }
+
+            List<TaskViewModel> all =
+                (from task in _taskData.GetActiveTasks(FilterTerm, SelectedSortColumn)
+                 select new TaskViewModel(task, _taskData)).ToList();
+
+            foreach (TaskViewModel tvm in all)
+                tvm.PropertyChanged += this.OnTaskViewModelPropertyChanged;
+
+            for (int i = 0; i < all.Count; i++)
+            {
+                this.ActiveTasks.Add(all[i]);
+            }
+        }
         #endregion // Public Methods
 
         #region Private Helpers

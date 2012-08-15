@@ -158,21 +158,19 @@ namespace TaskConqueror
         /// <summary>
         /// Returns a shallow-copied list of all tasks in the repository.
         /// </summary>
-        public List<Task> GetTasks(string filterTerm = "")
+        public List<Task> GetTasks(string filterTerm = "", SortableProperty sortColumn = null)
         {
             List<Data.Task> dbTasks;
 
             if (string.IsNullOrEmpty(filterTerm))
             {
                 dbTasks = (from t in _appInfo.GcContext.Tasks
-                           orderby t.Title
                            select t).ToList();
             }
             else
             {
                 dbTasks = (from t in _appInfo.GcContext.Tasks
                            where t.Title.Contains(filterTerm)
-                           orderby t.Title
                            select t).ToList();
             }
 
@@ -182,6 +180,8 @@ namespace TaskConqueror
             {
                 tasks.Add(Task.CreateTask(dbTask));
             }
+
+            tasks = SortTasks(tasks, sortColumn);
 
             return tasks;
         }
@@ -229,14 +229,13 @@ namespace TaskConqueror
         /// <summary>
         /// Returns a shallow-copied list of all active tasks in the repository.
         /// </summary>
-        public List<Task> GetActiveTasks(string filterTerm = "")
+        public List<Task> GetActiveTasks(string filterTerm = "", SortableProperty sortColumn = null)
         {
             List<Data.Task> dbTasks;
 
             if (string.IsNullOrEmpty(filterTerm))
             {
                 dbTasks = (from t in _appInfo.GcContext.Tasks
-                           orderby t.Title
                            where t.IsActive == true
                            select t).ToList();
             }
@@ -244,7 +243,6 @@ namespace TaskConqueror
             {
                 dbTasks = (from t in _appInfo.GcContext.Tasks
                            where t.Title.Contains(filterTerm) && t.IsActive == true
-                           orderby t.Title
                            select t).ToList();
             }
 
@@ -253,6 +251,42 @@ namespace TaskConqueror
             foreach (Data.Task dbTask in dbTasks)
             {
                 tasks.Add(Task.CreateTask(dbTask));
+            }
+
+            tasks = SortTasks(tasks, sortColumn);
+
+            return tasks;
+        }
+
+        private List<Task> SortTasks(List<Task> tasks, SortableProperty sortColumn = null)
+        {
+            if (sortColumn == null)
+            {
+                tasks = tasks.OrderBy(t => t.Title).ToList();
+            }
+            else
+            {
+                switch (sortColumn.Name)
+                {
+                    case "StatusId":
+                        tasks = tasks.OrderBy(t => t.StatusId).ToList();
+                        break;
+                    case "PriorityId":
+                        tasks = tasks.OrderByDescending(t => t.PriorityId).ToList();
+                        break;
+                    case "ProjectTitle":
+                        tasks = tasks.OrderBy(t => t.ParentProject == null ? "" : t.ParentProject.Title).ToList();
+                        break;
+                    case "CreatedDate":
+                        tasks = tasks.OrderBy(t => t.CreatedDate).ToList();
+                        break;
+                    case "CompletedDate":
+                        tasks = tasks.OrderBy(t => t.CompletedDate).ToList();
+                        break;
+                    default:
+                        tasks = tasks.OrderBy(t => t.Title).ToList();
+                        break;
+                }
             }
 
             return tasks;
