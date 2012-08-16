@@ -373,6 +373,10 @@
     <Resource Include="Assets\Images\print.png" />
     <Resource Include="Assets\Images\filter.png" />
     <Resource Include="Assets\Images\sort.png" />
+    <Resource Include="Assets\Images\page_first.png" />
+    <Resource Include="Assets\Images\page_last.png" />
+    <Resource Include="Assets\Images\page_next.png" />
+    <Resource Include="Assets\Images\page_prev.png" />
     <Content Include="TaskConqueror.sdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

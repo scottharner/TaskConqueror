@@ -18,6 +18,8 @@ namespace TaskConqueror
             new Tuple<string, Type>("Goal Progress", typeof(GoalProgressReport)),
             new Tuple<string, Type>("Project Progress", typeof(ProjectProgressReport)),
         };
+
+        public const int RecordsPerPage = 20;
     }
 
     public class Statuses

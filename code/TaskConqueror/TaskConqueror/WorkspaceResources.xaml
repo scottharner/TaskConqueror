@@ -135,4 +135,35 @@ This resource dictionary is used by the Worskpaces.
                 />
         </StackPanel>
     </ControlTemplate>
+
+    <ControlTemplate x:Key="PageControlsTemplate">
+        <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+            <tc:ImageButton
+                Text=""
+                Image="pack://application:,,,/TaskConqueror;Component/Assets/Images/page_first.png"
+                Command="{Binding Path=PageFirstCommand}"
+                />
+            <tc:ImageButton
+                Text=""
+                Image="pack://application:,,,/TaskConqueror;Component/Assets/Images/page_prev.png"
+                Command="{Binding Path=PagePreviousCommand}"
+                />
+            <TextBlock Text="Records " VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding FirstRecordNumber}" VerticalAlignment="Center"/>
+            <TextBlock Text=" to " VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding LastRecordNumber}" VerticalAlignment="Center"/>
+            <TextBlock Text=" of " VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding TotalRecordCount}" VerticalAlignment="Center"/>
+            <tc:ImageButton
+                Text=""
+                Image="pack://application:,,,/TaskConqueror;Component/Assets/Images/page_next.png"
+                Command="{Binding Path=PageNextCommand}"
+                />
+            <tc:ImageButton
+                Text=""
+                Image="pack://application:,,,/TaskConqueror;Component/Assets/Images/page_last.png"
+                Command="{Binding Path=PageLastCommand}"
+                />
+        </StackPanel>
+    </ControlTemplate>
 </ResourceDictionary>
