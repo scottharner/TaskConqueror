@@ -14,6 +14,10 @@ namespace TaskConqueror
 
         RelayCommand _filterResultsCommand;
         RelayCommand _sortResultsCommand;
+        RelayCommand _pageFirstCommand;
+        RelayCommand _pageLastCommand;
+        RelayCommand _pageNextCommand;
+        RelayCommand _pagePreviousCommand;
 
         #endregion // Fields
 
@@ -49,6 +53,63 @@ namespace TaskConqueror
             }
         }
 
+        int _firstRecordNumber;
+
+        public int FirstRecordNumber
+        {
+            get
+            {
+                return _firstRecordNumber;
+            }
+
+            set
+            {
+                if (_firstRecordNumber == value)
+                    return;
+
+                _firstRecordNumber = value;
+                base.OnPropertyChanged("FirstRecordNumber");
+            }
+        }
+
+        int _lastRecordNumber;
+
+        public int LastRecordNumber
+        {
+            get
+            {
+                return _lastRecordNumber;
+            }
+
+            set
+            {
+                if (_lastRecordNumber == value)
+                    return;
+
+                _lastRecordNumber = value;
+                base.OnPropertyChanged("LastRecordNumber");
+            }
+        }
+
+        int _totalRecordCount;
+
+        public int TotalRecordCount
+        {
+            get
+            {
+                return _totalRecordCount;
+            }
+
+            set
+            {
+                if (_totalRecordCount == value)
+                    return;
+
+                _totalRecordCount = value;
+                base.OnPropertyChanged("TotalRecordCount");
+            }
+        }
+
         ObservableCollection<SortableProperty> _sortColumns = new ObservableCollection<SortableProperty>();
 
         public ObservableCollection<SortableProperty> SortColumns
@@ -59,7 +120,7 @@ namespace TaskConqueror
             }
         }
 
-        SortableProperty _selectedSortColumn;
+        SortableProperty _selectedSortColumn = null;
 
         public SortableProperty SelectedSortColumn
         {
@@ -118,6 +179,70 @@ namespace TaskConqueror
             }
         }
 
+        public ICommand PageFirstCommand
+        {
+            get
+            {
+                if (_pageFirstCommand == null)
+                {
+                    _pageFirstCommand = new RelayCommand(
+                        param => this.PageFirst(),
+                        param => this.CanPageFirst()
+                            );
+                }
+
+                return _pageFirstCommand;
+            }
+        }
+
+        public ICommand PageLastCommand
+        {
+            get
+            {
+                if (_pageLastCommand == null)
+                {
+                    _pageLastCommand = new RelayCommand(
+                        param => this.PageLast(),
+                        param => this.CanPageLast()
+                            );
+                }
+
+                return _pageLastCommand;
+            }
+        }
+
+        public ICommand PageNextCommand
+        {
+            get
+            {
+                if (_pageNextCommand == null)
+                {
+                    _pageNextCommand = new RelayCommand(
+                        param => this.PageNext(),
+                        param => this.CanPageNext()
+                            );
+                }
+
+                return _pageNextCommand;
+            }
+        }
+
+        public ICommand PagePreviousCommand
+        {
+            get
+            {
+                if (_pagePreviousCommand == null)
+                {
+                    _pagePreviousCommand = new RelayCommand(
+                        param => this.PagePrevious(),
+                        param => this.CanPagePrevious()
+                            );
+                }
+
+                return _pagePreviousCommand;
+            }
+        }
+
         #endregion // Commands
 
         #region Public Methods
@@ -137,6 +262,48 @@ namespace TaskConqueror
         {
             return SelectedSortColumn != null;
         }
+
+        public bool CanPageFirst()
+        {
+            return FirstRecordNumber > Constants.RecordsPerPage;
+        }
+
+        public bool CanPageLast()
+        {
+            return LastRecordNumber < TotalRecordCount;
+        }
+
+        public bool CanPageNext()
+        {
+            return LastRecordNumber < TotalRecordCount;
+        }
+
+        public bool CanPagePrevious()
+        {
+            return FirstRecordNumber > Constants.RecordsPerPage;
+        }
+
+        public void PageFirst()
+        {
+            GetPagedTasks(1);
+        }
+
+        public void PageLast()
+        {
+            GetPagedTasks((TotalRecordCount - 1) / Constants.RecordsPerPage + 1);
+        }
+
+        public void PageNext()
+        {
+            GetPagedTasks((LastRecordNumber) / Constants.RecordsPerPage + 1);
+        }
+
+        public void PagePrevious()
+        {
+            GetPagedTasks((FirstRecordNumber - 2) / Constants.RecordsPerPage + 1);
+        }
+
+        public abstract void GetPagedTasks(int pageNumber);
 
         #endregion
     }

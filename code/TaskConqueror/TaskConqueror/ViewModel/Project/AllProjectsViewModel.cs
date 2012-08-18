@@ -292,6 +292,11 @@ namespace TaskConqueror
             }
         }
 
+        public override void GetPagedTasks(int pageNumber)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion // Public Methods
 
         #region Private Helpers

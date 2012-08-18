@@ -165,45 +165,57 @@ namespace TaskConqueror
 
             if (string.IsNullOrEmpty(filterTerm))
             {
-                if (pageNumber.HasValue)
-                {
-                    allTasks = (from t in _appInfo.GcContext.Tasks
-                               select t).Skip(Constants.RecordsPerPage * (pageNumber.Value - 1))
-                                .Take(Constants.RecordsPerPage);
-                }
-                else
-                {
-                    allTasks = from t in _appInfo.GcContext.Tasks
-                               select t;
-                }
+                allTasks = from t in _appInfo.GcContext.Tasks
+                            select t;
             }
             else
             {
-                if (pageNumber.HasValue)
-                {
-                    allTasks = (from t in _appInfo.GcContext.Tasks
-                               where t.Title.Contains(filterTerm)
-                               select t).Skip(Constants.RecordsPerPage * (pageNumber.Value-1))
-                                .Take(Constants.RecordsPerPage);
-                }
-                else
-                {
-                    allTasks = (from t in _appInfo.GcContext.Tasks
-                               where t.Title.Contains(filterTerm)
-                               select t);
-                }
+                allTasks = (from t in _appInfo.GcContext.Tasks
+                            where t.Title.Contains(filterTerm)
+                            select t);
             }
 
             AddOrderBy(allTasks, sortColumn);
 
+            List<Data.Task> allTasksList = allTasks.ToList();
+
+            // todo - optimize paging - sql ce does not support linq paging
+            if (pageNumber.HasValue)
+            {
+                allTasksList = allTasksList.Skip(Constants.RecordsPerPage * (pageNumber.Value - 1))
+                                .Take(Constants.RecordsPerPage).ToList();
+            }
+
             List<Task> tasks = new List<Task>();
 
-            foreach (Data.Task dbTask in allTasks)
+            foreach (Data.Task dbTask in allTasksList)
             {
                 tasks.Add(Task.CreateTask(dbTask));
             }
 
             return tasks;
+        }
+
+        /// <summary>
+        /// Returns the count of all tasks in the repository.
+        /// </summary>
+        public int GetTasksCount(string filterTerm = "")
+        {
+            int recordCount;
+
+            if (string.IsNullOrEmpty(filterTerm))
+            {
+                    recordCount = (from t in _appInfo.GcContext.Tasks
+                               select t).Count();
+            }
+            else
+            {
+                    recordCount = (from t in _appInfo.GcContext.Tasks
+                                where t.Title.Contains(filterTerm)
+                                select t).Count();
+            }
+
+            return recordCount;
         }
 
         /// <summary>
@@ -255,47 +267,59 @@ namespace TaskConqueror
 
             if (string.IsNullOrEmpty(filterTerm))
             {
-                if (pageNumber.HasValue)
-                {
-                    activeTasks = (from t in _appInfo.GcContext.Tasks
-                                where t.IsActive == true
-                                select t).Skip(Constants.RecordsPerPage * (pageNumber.Value - 1))
-                                .Take(Constants.RecordsPerPage);
-                }
-                else
-                {
-                    activeTasks = (from t in _appInfo.GcContext.Tasks
-                               where t.IsActive == true
-                               select t);
-                }
+                activeTasks = (from t in _appInfo.GcContext.Tasks
+                            where t.IsActive == true
+                            select t);
             }
             else
             {
-                if (pageNumber.HasValue)
-                {
-                    activeTasks = (from t in _appInfo.GcContext.Tasks
-                                   where t.Title.Contains(filterTerm) && t.IsActive == true
-                                   select t).Skip(Constants.RecordsPerPage * (pageNumber.Value - 1))
-                                .Take(Constants.RecordsPerPage);
-                }
-                else
-                {
-                    activeTasks = (from t in _appInfo.GcContext.Tasks
-                               where t.Title.Contains(filterTerm) && t.IsActive == true
-                               select t);
-                }
+                activeTasks = (from t in _appInfo.GcContext.Tasks
+                            where t.Title.Contains(filterTerm) && t.IsActive == true
+                            select t);
             }
 
             AddOrderBy(activeTasks, sortColumn);
 
+            List<Data.Task> activeTasksList = activeTasks.ToList();
+
+            // todo - optimize paging - sql ce does not support linq paging
+            if (pageNumber.HasValue)
+            {
+                activeTasksList = activeTasksList.Skip(Constants.RecordsPerPage * (pageNumber.Value - 1))
+                                .Take(Constants.RecordsPerPage).ToList();
+            }
+
             List<Task> tasks = new List<Task>();
 
-            foreach (Data.Task dbTask in activeTasks)
+            foreach (Data.Task dbTask in activeTasksList)
             {
                 tasks.Add(Task.CreateTask(dbTask));
             }
 
             return tasks;
+        }
+
+        /// <summary>
+        /// Returns the count of active tasks in the repository.
+        /// </summary>
+        public int GetActiveTasksCount(string filterTerm = "")
+        {
+            int recordCount;
+
+            if (string.IsNullOrEmpty(filterTerm))
+            {
+                recordCount = (from t in _appInfo.GcContext.Tasks
+                               where t.IsActive == true
+                               select t).Count();
+            }
+            else
+            {
+                recordCount = (from t in _appInfo.GcContext.Tasks
+                               where t.Title.Contains(filterTerm) && t.IsActive == true
+                               select t).Count();
+            }
+
+            return recordCount;
         }
 
         private void AddOrderBy(IQueryable<Data.Task> tasksQuery, SortableProperty sortColumn = null)

@@ -55,6 +55,11 @@
             </DockPanel>
         <DockPanel DockPanel.Dock="Bottom">
             <ItemsControl
+            DockPanel.Dock="Left"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Template="{StaticResource PageControlsTemplate}"/>
+            <ItemsControl
             DockPanel.Dock="Right"
             HorizontalAlignment="Right"
             VerticalAlignment="Center"

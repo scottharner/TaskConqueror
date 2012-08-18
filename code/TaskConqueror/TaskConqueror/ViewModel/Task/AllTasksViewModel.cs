@@ -44,7 +44,10 @@ namespace TaskConqueror
             _taskData.TaskDeleted += this.OnTaskDeleted;
 
             // Populate the AllTasks collection with TaskViewModels.
-            this.CreateAllTasks();
+            this.AllTasks = new ObservableCollection<TaskViewModel>();
+            this.AllTasks.CollectionChanged += this.OnCollectionChanged;
+
+            this.PageFirst();
 
             SortColumns.Add(new SortableProperty() { Description = "Title", Name = "Title" });
             SortColumns.Add(new SortableProperty() { Description = "Status", Name = "StatusId" });
@@ -52,21 +55,6 @@ namespace TaskConqueror
             SortColumns.Add(new SortableProperty() { Description = "Project", Name = "ProjectTitle" });
             SortColumns.Add(new SortableProperty() { Description = "Created Date", Name = "CreatedDate" });
             SortColumns.Add(new SortableProperty() { Description = "Completion Date", Name = "CompletedDate" });
-
-            SelectedSortColumn = SortColumns.FirstOrDefault();
-        }
-
-        void CreateAllTasks()
-        {
-            List<TaskViewModel> all =
-                (from task in _taskData.GetTasks(FilterTerm)
-                 select new TaskViewModel(task, _taskData)).ToList();
-
-            foreach (TaskViewModel tvm in all)
-                tvm.PropertyChanged += this.OnTaskViewModelPropertyChanged;
-
-            this.AllTasks = new ObservableCollection<TaskViewModel>(all);
-            this.AllTasks.CollectionChanged += this.OnCollectionChanged;
         }
 
         void ClearAllTasks()
@@ -252,28 +240,16 @@ namespace TaskConqueror
         {
             if (FilterTermHasChanged)
             {
-                for (int i = (AllTasks.Count - 1); i >= 0; i--)
-                {
-                    TaskViewModel taskVm = AllTasks[i];
-                    this.AllTasks.Remove(taskVm);
-                    taskVm.Dispose();
-                }
-
-                List<TaskViewModel> all =
-                    (from task in _taskData.GetTasks(FilterTerm)
-                     select new TaskViewModel(task, _taskData)).ToList();
-
-                foreach (TaskViewModel tvm in all)
-                    tvm.PropertyChanged += this.OnTaskViewModelPropertyChanged;
-
-                for (int i = 0; i < all.Count; i++)
-                {
-                    this.AllTasks.Add(all[i]);
-                }
+                PageFirst();
             }
         }
 
         public override void SortResults()
+        {
+            PageFirst();
+        }
+
+        public override void GetPagedTasks(int pageNumber)
         {
             for (int i = (AllTasks.Count - 1); i >= 0; i--)
             {
@@ -283,8 +259,8 @@ namespace TaskConqueror
             }
 
             List<TaskViewModel> all =
-                (from task in _taskData.GetTasks(FilterTerm, SelectedSortColumn)
-                    select new TaskViewModel(task, _taskData)).ToList();
+                (from task in _taskData.GetTasks(FilterTerm, SelectedSortColumn, pageNumber)
+                 select new TaskViewModel(task, _taskData)).ToList();
 
             foreach (TaskViewModel tvm in all)
                 tvm.PropertyChanged += this.OnTaskViewModelPropertyChanged;
@@ -293,6 +269,10 @@ namespace TaskConqueror
             {
                 this.AllTasks.Add(all[i]);
             }
+
+            FirstRecordNumber = AllTasks.Count > 0 ? (Constants.RecordsPerPage * (pageNumber-1)) + 1 : 0;
+            LastRecordNumber = FirstRecordNumber + AllTasks.Count - 1;
+            TotalRecordCount = _taskData.GetTasksCount(FilterTerm);
         }
 
         #endregion // Public Methods
