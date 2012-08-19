@@ -106,8 +106,13 @@ namespace TaskConqueror
             try
             {
                 // Call PrintDocument method to send document to printer
-                printDlg.PrintDocument(idpSource.DocumentPaginator, Title);
-                this.OnRequestClose();
+                printDlg.PageRangeSelection = PageRangeSelection.AllPages;
+                printDlg.UserPageRangeEnabled = true;
+                if (printDlg.ShowDialog() == true)
+                {
+                    printDlg.PrintDocument(idpSource.DocumentPaginator, Title);
+                    this.OnRequestClose();
+                }
             }
             catch (Exception printError)
             {
