@@ -44,30 +44,19 @@ namespace TaskConqueror
             _projectData.ProjectUpdated += this.OnProjectUpdated;
             _projectData.ProjectDeleted += this.OnProjectDeleted;
 
-            // Populate the AllProjects collection with ProjectViewModels.
-            this.CreateAllProjects();
+            this.AllProjects = new ObservableCollection<ProjectViewModel>();
+            this.AllProjects.CollectionChanged += this.OnCollectionChanged;
+
+            this.PageFirst();
 
             SortColumns.Add(new SortableProperty() { Description = "Title", Name = "Title" });
             SortColumns.Add(new SortableProperty() { Description = "Status", Name = "StatusId" });
             SortColumns.Add(new SortableProperty() { Description = "Est. Cost", Name = "EstimatedCost" });
             SortColumns.Add(new SortableProperty() { Description = "Goal", Name = "GoalTitle" });
-            SortColumns.Add(new SortableProperty() { Description = "Created Date", Name = "CreatedDate" });
-            SortColumns.Add(new SortableProperty() { Description = "Completion Date", Name = "CompletedDate" });
+            SortColumns.Add(new SortableProperty() { Description = "Date Created", Name = "CreatedDate" });
+            SortColumns.Add(new SortableProperty() { Description = "Date Completed", Name = "CompletedDate" });
 
             SelectedSortColumn = SortColumns.FirstOrDefault();
-        }
-
-        void CreateAllProjects()
-        {
-            List<ProjectViewModel> all =
-                (from project in _projectData.GetProjects()
-                 select new ProjectViewModel(project, _projectData, _taskData)).ToList();
-
-            foreach (ProjectViewModel pvm in all)
-                pvm.PropertyChanged += this.OnProjectViewModelPropertyChanged;
-
-            this.AllProjects = new ObservableCollection<ProjectViewModel>(all);
-            this.AllProjects.CollectionChanged += this.OnCollectionChanged;
         }
 
         #endregion // Constructor
@@ -123,23 +112,17 @@ namespace TaskConqueror
 
         void OnProjectAdded(object sender, ProjectAddedEventArgs e)
         {
-            var viewModel = new ProjectViewModel(e.NewProject, _projectData, _taskData);
-            this.AllProjects.Add(viewModel);
+            RefreshPage();
         }
 
         void OnProjectUpdated(object sender, ProjectUpdatedEventArgs e)
         {
-            this.AllProjects.Remove(this.AllProjects.FirstOrDefault(p => p.ProjectId == e.UpdatedProject.ProjectId));
-            var viewModel = new ProjectViewModel(e.UpdatedProject, _projectData, _taskData);
-            this.AllProjects.Add(viewModel);
+            RefreshPage();
         }
 
         void OnProjectDeleted(object sender, ProjectDeletedEventArgs e)
         {
-            using (var viewModel = this.AllProjects.FirstOrDefault(p => p.ProjectId == e.DeletedProject.ProjectId))
-            {
-                this.AllProjects.Remove(viewModel);
-            }
+            RefreshPage();
         }
 
         #endregion // Event Handling Methods
@@ -249,28 +232,16 @@ namespace TaskConqueror
         {
             if (FilterTermHasChanged)
             {
-                for (int i = (AllProjects.Count - 1); i >= 0; i--)
-                {
-                    ProjectViewModel projectVm = AllProjects[i];
-                    this.AllProjects.Remove(projectVm);
-                    projectVm.Dispose();
-                }
-
-                List<ProjectViewModel> all =
-                    (from project in _projectData.GetProjects(FilterTerm)
-                     select new ProjectViewModel(project, _projectData, _taskData)).ToList();
-
-                foreach (ProjectViewModel pvm in all)
-                    pvm.PropertyChanged += this.OnProjectViewModelPropertyChanged;
-
-                for (int i = 0; i < all.Count; i++)
-                {
-                    this.AllProjects.Add(all[i]);
-                }
+                PageFirst();
             }
         }
 
         public override void SortResults()
+        {
+            PageFirst();
+        }
+
+        public override void GetPagedTasks(int pageNumber)
         {
             for (int i = (AllProjects.Count - 1); i >= 0; i--)
             {
@@ -280,7 +251,7 @@ namespace TaskConqueror
             }
 
             List<ProjectViewModel> all =
-                (from project in _projectData.GetProjects(FilterTerm, SelectedSortColumn)
+                (from project in _projectData.GetProjects(FilterTerm, SelectedSortColumn, pageNumber)
                  select new ProjectViewModel(project, _projectData, _taskData)).ToList();
 
             foreach (ProjectViewModel pvm in all)
@@ -290,11 +261,10 @@ namespace TaskConqueror
             {
                 this.AllProjects.Add(all[i]);
             }
-        }
 
-        public override void GetPagedTasks(int pageNumber)
-        {
-            throw new NotImplementedException();
+            FirstRecordNumber = AllProjects.Count > 0 ? (Constants.RecordsPerPage * (pageNumber - 1)) + 1 : 0;
+            LastRecordNumber = FirstRecordNumber + AllProjects.Count - 1;
+            TotalRecordCount = _projectData.GetProjectsCount(FilterTerm);
         }
 
         #endregion // Public Methods

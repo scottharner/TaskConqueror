@@ -303,6 +303,11 @@ namespace TaskConqueror
             GetPagedTasks((FirstRecordNumber - 2) / Constants.RecordsPerPage + 1);
         }
 
+        public void RefreshPage()
+        {
+            GetPagedTasks(FirstRecordNumber / Constants.RecordsPerPage + 1);
+        }
+        
         public abstract void GetPagedTasks(int pageNumber);
 
         #endregion

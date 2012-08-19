@@ -54,8 +54,8 @@ namespace TaskConqueror
             SortColumns.Add(new SortableProperty() { Description = "Status", Name = "StatusId" });
             SortColumns.Add(new SortableProperty() { Description = "Priority", Name = "PriorityId" });
             SortColumns.Add(new SortableProperty() { Description = "Project", Name = "ProjectTitle" });
-            SortColumns.Add(new SortableProperty() { Description = "Created Date", Name = "CreatedDate" });
-            SortColumns.Add(new SortableProperty() { Description = "Completion Date", Name = "CompletedDate" });
+            SortColumns.Add(new SortableProperty() { Description = "Date Created", Name = "CreatedDate" });
+            SortColumns.Add(new SortableProperty() { Description = "Date Completed", Name = "CompletedDate" });
 
             SelectedSortColumn = SortColumns.FirstOrDefault();
         }
@@ -115,26 +115,20 @@ namespace TaskConqueror
         {
             if (e.NewTask.IsActive)
             {
-                var viewModel = new TaskViewModel(e.NewTask, _taskData);
-                this.ActiveTasks.Add(viewModel);
+                RefreshPage();
             }
         }
 
         void OnTaskUpdated(object sender, TaskUpdatedEventArgs e)
         {
-            this.ActiveTasks.Remove(this.ActiveTasks.FirstOrDefault(t => t.TaskId == e.UpdatedTask.TaskId));
-            if (e.UpdatedTask.IsActive)
-            {
-                var viewModel = new TaskViewModel(e.UpdatedTask, _taskData);
-                this.ActiveTasks.Add(viewModel);
-            }
+            RefreshPage();
         }
 
         void OnTaskDeleted(object sender, TaskDeletedEventArgs e)
         {
-            using (var taskVm = this.ActiveTasks.FirstOrDefault(t => t.TaskId == e.DeletedTask.TaskId))
+            if (e.DeletedTask.IsActive)
             {
-                this.ActiveTasks.Remove(taskVm);
+                RefreshPage();
             }
         }
 

@@ -53,8 +53,8 @@ namespace TaskConqueror
             SortColumns.Add(new SortableProperty() { Description = "Status", Name = "StatusId" });
             SortColumns.Add(new SortableProperty() { Description = "Priority", Name = "PriorityId" });
             SortColumns.Add(new SortableProperty() { Description = "Project", Name = "ProjectTitle" });
-            SortColumns.Add(new SortableProperty() { Description = "Created Date", Name = "CreatedDate" });
-            SortColumns.Add(new SortableProperty() { Description = "Completion Date", Name = "CompletedDate" });
+            SortColumns.Add(new SortableProperty() { Description = "Date Created", Name = "CreatedDate" });
+            SortColumns.Add(new SortableProperty() { Description = "Date Completed", Name = "CompletedDate" });
         }
 
         void ClearAllTasks()
@@ -115,22 +115,17 @@ namespace TaskConqueror
 
         void OnTaskAdded(object sender, TaskAddedEventArgs e)
         {
-            var viewModel = new TaskViewModel(e.NewTask, _taskData);
-            this.AllTasks.Add(viewModel);
+            RefreshPage();
         }
 
         void OnTaskUpdated(object sender, TaskUpdatedEventArgs e)
         {
-            this.AllTasks.Remove(this.AllTasks.FirstOrDefault(t => t.TaskId == e.UpdatedTask.TaskId));
-            var viewModel = new TaskViewModel(e.UpdatedTask, _taskData);
-            this.AllTasks.Add(viewModel);
+            RefreshPage();
         }
 
         void OnTaskDeleted(object sender, TaskDeletedEventArgs e)
         {
-            TaskViewModel taskVM = this.AllTasks.FirstOrDefault(t => t.TaskId == e.DeletedTask.TaskId);
-            this.AllTasks.Remove(taskVM);
-            taskVM.Dispose();
+            RefreshPage();
         }
 
         #endregion // Event Handling Methods

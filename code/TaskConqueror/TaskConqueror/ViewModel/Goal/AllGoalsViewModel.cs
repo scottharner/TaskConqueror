@@ -53,28 +53,18 @@ namespace TaskConqueror
             _goalData.GoalDeleted += this.OnGoalDeleted;
 
             // Populate the AllGoals collection with GoalViewModels.
-            this.CreateAllGoals();
+            this.AllGoals = new ObservableCollection<GoalViewModel>();
+            this.AllGoals.CollectionChanged += this.OnCollectionChanged;
+
+            this.PageFirst();
 
             SortColumns.Add(new SortableProperty() { Description = "Title", Name = "Title" });
             SortColumns.Add(new SortableProperty() { Description = "Status", Name = "StatusId" });
             SortColumns.Add(new SortableProperty() { Description = "Category", Name = "CategoryId" });
-            SortColumns.Add(new SortableProperty() { Description = "Created Date", Name = "CreatedDate" });
-            SortColumns.Add(new SortableProperty() { Description = "Completion Date", Name = "CompletedDate" });
+            SortColumns.Add(new SortableProperty() { Description = "Date Created", Name = "CreatedDate" });
+            SortColumns.Add(new SortableProperty() { Description = "Date Completed", Name = "CompletedDate" });
 
             SelectedSortColumn = SortColumns.FirstOrDefault();
-        }
-
-        void CreateAllGoals()
-        {
-            List<GoalViewModel> all =
-                (from goal in _goalData.GetGoals()
-                 select new GoalViewModel(goal, _goalData, _projectData, _taskData)).ToList();
-
-            foreach (GoalViewModel gvm in all)
-                gvm.PropertyChanged += this.OnGoalViewModelPropertyChanged;
-
-            this.AllGoals = new ObservableCollection<GoalViewModel>(all);
-            this.AllGoals.CollectionChanged += this.OnCollectionChanged;
         }
 
         #endregion // Constructor
@@ -130,22 +120,17 @@ namespace TaskConqueror
 
         void OnGoalAdded(object sender, GoalAddedEventArgs e)
         {
-            var viewModel = new GoalViewModel(e.NewGoal, _goalData, _projectData, _taskData);
-            this.AllGoals.Add(viewModel);
+            RefreshPage();
         }
 
         void OnGoalUpdated(object sender, GoalUpdatedEventArgs e)
         {
-            this.AllGoals.Remove(this.AllGoals.FirstOrDefault(g => g.GoalId == e.UpdatedGoal.GoalId));
-            var viewModel = new GoalViewModel(e.UpdatedGoal, _goalData, _projectData, _taskData);
-            this.AllGoals.Add(viewModel);
+            RefreshPage();
         }
 
         void OnGoalDeleted(object sender, GoalDeletedEventArgs e)
         {
-            GoalViewModel goalVM = this.AllGoals.FirstOrDefault(g => g.GoalId == e.DeletedGoal.GoalId);
-            this.AllGoals.Remove(goalVM);
-            goalVM.Dispose();
+            RefreshPage();
         }
 
         #endregion // Event Handling Methods
@@ -255,28 +240,16 @@ namespace TaskConqueror
         {
             if (FilterTermHasChanged)
             {
-                for (int i = (AllGoals.Count - 1); i >= 0; i--)
-                {
-                    GoalViewModel goalVm = AllGoals[i];
-                    this.AllGoals.Remove(goalVm);
-                    goalVm.Dispose();
-                }
-
-                List<GoalViewModel> all =
-                    (from goal in _goalData.GetGoals(FilterTerm)
-                     select new GoalViewModel(goal, _goalData, _projectData, _taskData)).ToList();
-
-                foreach (GoalViewModel gvm in all)
-                    gvm.PropertyChanged += this.OnGoalViewModelPropertyChanged;
-
-                for (int i = 0; i < all.Count; i++)
-                {
-                    this.AllGoals.Add(all[i]);
-                }
+                PageFirst();
             }
         }
 
         public override void SortResults()
+        {
+            PageFirst();
+        }
+
+        public override void GetPagedTasks(int pageNumber)
         {
             for (int i = (AllGoals.Count - 1); i >= 0; i--)
             {
@@ -286,7 +259,7 @@ namespace TaskConqueror
             }
 
             List<GoalViewModel> all =
-                (from goal in _goalData.GetGoals(FilterTerm, SelectedSortColumn)
+                (from goal in _goalData.GetGoals(FilterTerm, SelectedSortColumn, pageNumber)
                  select new GoalViewModel(goal, _goalData, _projectData, _taskData)).ToList();
 
             foreach (GoalViewModel gvm in all)
@@ -296,11 +269,10 @@ namespace TaskConqueror
             {
                 this.AllGoals.Add(all[i]);
             }
-        }
 
-        public override void GetPagedTasks(int pageNumber)
-        {
-            throw new NotImplementedException();
+            FirstRecordNumber = AllGoals.Count > 0 ? (Constants.RecordsPerPage * (pageNumber - 1)) + 1 : 0;
+            LastRecordNumber = FirstRecordNumber + AllGoals.Count - 1;
+            TotalRecordCount = _goalData.GetGoalsCount(FilterTerm);
         }
 
         #endregion // Public Methods

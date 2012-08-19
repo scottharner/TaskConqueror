@@ -160,59 +160,37 @@ namespace TaskConqueror
         /// <summary>
         /// Returns a shallow-copied list of all projects in the repository.
         /// </summary>
-        public List<Project> GetProjects(string filterTerm = "", SortableProperty sortColumn = null)
+        public List<Project> GetProjects(string filterTerm = "", SortableProperty sortColumn = null, int? pageNumber = null)
         {
-            List<Data.Project> dbProjects;
+            IQueryable<Data.Project> dbProjects = GetAllProjectsQuery(filterTerm);
 
-            if (string.IsNullOrEmpty(filterTerm))
+            List<Data.Project> allProjectsList = GetOrderedList(dbProjects, sortColumn);
+
+            // todo - optimize paging - sql ce does not support linq paging
+            if (pageNumber.HasValue)
             {
-                dbProjects = (from p in _appInfo.GcContext.Projects
-                              select p).ToList();
-            }
-            else
-            {
-                dbProjects = (from p in _appInfo.GcContext.Projects
-                           where p.Title.Contains(filterTerm)
-                           select p).ToList();
+                allProjectsList = allProjectsList.Skip(Constants.RecordsPerPage * (pageNumber.Value - 1))
+                                .Take(Constants.RecordsPerPage).ToList();
             }
 
             List<Project> projects = new List<Project>();
 
-            foreach (Data.Project dbProject in dbProjects)
+            foreach (Data.Project dbProject in allProjectsList)
             {
                 projects.Add(Project.CreateProject(dbProject));
             }
 
-            if (sortColumn == null)
-            {
-                projects = projects.OrderBy(p => p.Title).ToList();
-            }
-            else
-            {
-                switch (sortColumn.Name)
-                {
-                    case "StatusId":
-                        projects = projects.OrderBy(p => p.StatusId).ToList();
-                        break;
-                    case "EstimatedCost":
-                        projects = projects.OrderBy(p => p.EstimatedCost).ToList();
-                        break;
-                    case "GoalTitle":
-                        projects = projects.OrderBy(p => p.ParentGoal == null ? "" : p.ParentGoal.Title).ToList();
-                        break;
-                    case "CreatedDate":
-                        projects = projects.OrderBy(p => p.CreatedDate).ToList();
-                        break;
-                    case "CompletedDate":
-                        projects = projects.OrderBy(p => p.CompletedDate).ToList();
-                        break;
-                    default:
-                        projects = projects.OrderBy(p => p.Title).ToList();
-                        break;
-                }
-            }
-
             return projects;
+        }
+
+        /// <summary>
+        /// Returns the count of all projects in the repository.
+        /// </summary>
+        public int GetProjectsCount(string filterTerm = "")
+        {
+            IQueryable<Data.Project> allProjects = GetAllProjectsQuery(filterTerm);
+
+            return allProjects.Count();
         }
 
         /// <summary>
@@ -240,7 +218,6 @@ namespace TaskConqueror
         /// </summary>
         public List<Project> GetCompletedProjectsByDate(DateTime startDate, DateTime endDate)
         {
-            //todo - fix bug whereby completed date is not getting set
             List<Data.Project> dbProjects = (from p in _appInfo.GcContext.Projects
                                              where p.StatusID == Statuses.Completed && 
                                              p.CompletedDate >= startDate && 
@@ -385,6 +362,61 @@ namespace TaskConqueror
         #endregion // Public Interface
 
         #region Private Helpers
+
+        private List<Data.Project> GetOrderedList(IQueryable<Data.Project> projectsQuery, SortableProperty sortColumn = null)
+        {
+            List<Data.Project> dbProjectList;
+
+            if (sortColumn == null)
+            {
+                dbProjectList = projectsQuery.OrderBy(t => t.Title).ToList();
+            }
+            else
+            {
+                switch (sortColumn.Name)
+                {
+                    case "StatusId":
+                        dbProjectList = projectsQuery.OrderBy(t => t.StatusID).ToList();
+                        break;
+                    case "EstimatedCost":
+                        dbProjectList = projectsQuery.OrderBy(t => t.EstimatedCost).ToList();
+                        break;
+                    case "GoalTitle":
+                        dbProjectList = projectsQuery.OrderBy(t => t.Goals.FirstOrDefault() == null ? "" : t.Goals.FirstOrDefault().Title).ToList();
+                        break;
+                    case "CreatedDate":
+                        dbProjectList = projectsQuery.OrderBy(t => t.CreatedDate).ToList();
+                        break;
+                    case "CompletedDate":
+                        dbProjectList = projectsQuery.OrderBy(t => t.CompletedDate).ToList();
+                        break;
+                    default:
+                        dbProjectList = projectsQuery.OrderBy(t => t.Title).ToList();
+                        break;
+                }
+            }
+
+            return dbProjectList;
+        }
+
+        private IQueryable<Data.Project> GetAllProjectsQuery(string filterTerm = "")
+        {
+            IQueryable<Data.Project> dbProjects;
+
+            if (string.IsNullOrEmpty(filterTerm))
+            {
+                dbProjects = (from p in _appInfo.GcContext.Projects
+                              select p);
+            }
+            else
+            {
+                dbProjects = (from p in _appInfo.GcContext.Projects
+                              where p.Title.Contains(filterTerm)
+                              select p);
+            }
+
+            return dbProjects;
+        }
 
         #endregion // Private Helpers
 

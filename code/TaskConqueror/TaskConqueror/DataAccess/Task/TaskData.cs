@@ -161,24 +161,10 @@ namespace TaskConqueror
         /// </summary>
         public List<Task> GetTasks(string filterTerm = "", SortableProperty sortColumn = null, int? pageNumber = null)
         {
-            IQueryable<Data.Task> allTasks;
+            IQueryable<Data.Task> allTasks = GetAllTasksQuery(filterTerm);
 
-            if (string.IsNullOrEmpty(filterTerm))
-            {
-                allTasks = from t in _appInfo.GcContext.Tasks
-                            select t;
-            }
-            else
-            {
-                allTasks = (from t in _appInfo.GcContext.Tasks
-                            where t.Title.Contains(filterTerm)
-                            select t);
-            }
-
-            AddOrderBy(allTasks, sortColumn);
-
-            List<Data.Task> allTasksList = allTasks.ToList();
-
+            List<Data.Task> allTasksList = GetOrderedList(allTasks, sortColumn);
+            
             // todo - optimize paging - sql ce does not support linq paging
             if (pageNumber.HasValue)
             {
@@ -201,21 +187,9 @@ namespace TaskConqueror
         /// </summary>
         public int GetTasksCount(string filterTerm = "")
         {
-            int recordCount;
+            IQueryable<Data.Task> allTasks = GetAllTasksQuery(filterTerm);
 
-            if (string.IsNullOrEmpty(filterTerm))
-            {
-                    recordCount = (from t in _appInfo.GcContext.Tasks
-                               select t).Count();
-            }
-            else
-            {
-                    recordCount = (from t in _appInfo.GcContext.Tasks
-                                where t.Title.Contains(filterTerm)
-                                select t).Count();
-            }
-
-            return recordCount;
+            return allTasks.Count();
         }
 
         /// <summary>
@@ -263,24 +237,9 @@ namespace TaskConqueror
         /// </summary>
         public List<Task> GetActiveTasks(string filterTerm = "", SortableProperty sortColumn = null, int? pageNumber = null)
         {
-            IQueryable<Data.Task> activeTasks;
+            IQueryable<Data.Task> activeTasks = GetActiveTasksQuery(filterTerm);
 
-            if (string.IsNullOrEmpty(filterTerm))
-            {
-                activeTasks = (from t in _appInfo.GcContext.Tasks
-                            where t.IsActive == true
-                            select t);
-            }
-            else
-            {
-                activeTasks = (from t in _appInfo.GcContext.Tasks
-                            where t.Title.Contains(filterTerm) && t.IsActive == true
-                            select t);
-            }
-
-            AddOrderBy(activeTasks, sortColumn);
-
-            List<Data.Task> activeTasksList = activeTasks.ToList();
+            List<Data.Task> activeTasksList = GetOrderedList(activeTasks, sortColumn);
 
             // todo - optimize paging - sql ce does not support linq paging
             if (pageNumber.HasValue)
@@ -304,54 +263,9 @@ namespace TaskConqueror
         /// </summary>
         public int GetActiveTasksCount(string filterTerm = "")
         {
-            int recordCount;
+            IQueryable<Data.Task> activeTasks = GetActiveTasksQuery(filterTerm);
 
-            if (string.IsNullOrEmpty(filterTerm))
-            {
-                recordCount = (from t in _appInfo.GcContext.Tasks
-                               where t.IsActive == true
-                               select t).Count();
-            }
-            else
-            {
-                recordCount = (from t in _appInfo.GcContext.Tasks
-                               where t.Title.Contains(filterTerm) && t.IsActive == true
-                               select t).Count();
-            }
-
-            return recordCount;
-        }
-
-        private void AddOrderBy(IQueryable<Data.Task> tasksQuery, SortableProperty sortColumn = null)
-        {
-            if (sortColumn == null)
-            {
-                tasksQuery.OrderBy(t => t.Title);
-            }
-            else
-            {
-                switch (sortColumn.Name)
-                {
-                    case "StatusId":
-                        tasksQuery.OrderBy(t => t.StatusID);
-                        break;
-                    case "PriorityId":
-                        tasksQuery.OrderByDescending(t => t.PriorityID);
-                        break;
-                    case "ProjectTitle":
-                        tasksQuery.OrderBy(t => t.Projects.FirstOrDefault() == null ? "" : t.Projects.FirstOrDefault().Title);
-                        break;
-                    case "CreatedDate":
-                        tasksQuery.OrderBy(t => t.CreatedDate);
-                        break;
-                    case "CompletedDate":
-                        tasksQuery.OrderBy(t => t.CompletedDate);
-                        break;
-                    default:
-                        tasksQuery.OrderBy(t => t.Title);
-                        break;
-                }
-            }
+            return activeTasks.Count();
         }
 
         /// <summary>
@@ -456,6 +370,81 @@ namespace TaskConqueror
 
         #region Private Helpers
 
+        private List<Data.Task> GetOrderedList(IQueryable<Data.Task> tasksQuery, SortableProperty sortColumn = null)
+        {
+            List<Data.Task> dbTaskList;
+
+            if (sortColumn == null)
+            {
+                dbTaskList = tasksQuery.OrderBy(t => t.Title).ToList();
+            }
+            else
+            {
+                switch (sortColumn.Name)
+                {
+                    case "StatusId":
+                        dbTaskList = tasksQuery.OrderBy(t => t.StatusID).ToList();
+                        break;
+                    case "PriorityId":
+                        dbTaskList = tasksQuery.OrderByDescending(t => t.PriorityID).ToList();
+                        break;
+                    case "ProjectTitle":
+                        dbTaskList = tasksQuery.OrderBy(t => t.Projects.FirstOrDefault() == null ? "" : t.Projects.FirstOrDefault().Title).ToList();
+                        break;
+                    case "CreatedDate":
+                        dbTaskList = tasksQuery.OrderBy(t => t.CreatedDate).ToList();
+                        break;
+                    case "CompletedDate":
+                        dbTaskList = tasksQuery.OrderBy(t => t.CompletedDate).ToList();
+                        break;
+                    default:
+                        dbTaskList = tasksQuery.OrderBy(t => t.Title).ToList();
+                        break;
+                }
+            }
+
+            return dbTaskList;
+        }
+
+        private IQueryable<Data.Task> GetAllTasksQuery(string filterTerm = "")
+        {
+            IQueryable<Data.Task> allTasks;
+
+            if (string.IsNullOrEmpty(filterTerm))
+            {
+                allTasks = from t in _appInfo.GcContext.Tasks
+                            select t;
+            }
+            else
+            {
+                allTasks = (from t in _appInfo.GcContext.Tasks
+                            where t.Title.Contains(filterTerm)
+                            select t);
+            }
+
+            return allTasks;
+        }
+
+        private IQueryable<Data.Task> GetActiveTasksQuery(string filterTerm = "")
+        {
+            IQueryable<Data.Task> activeTasks;
+
+            if (string.IsNullOrEmpty(filterTerm))
+            {
+                activeTasks = (from t in _appInfo.GcContext.Tasks
+                               where t.IsActive == true
+                               select t);
+            }
+            else
+            {
+                activeTasks = (from t in _appInfo.GcContext.Tasks
+                               where t.Title.Contains(filterTerm) && t.IsActive == true
+                               select t);
+            }
+
+            return activeTasks;
+        }
+        
         #endregion // Private Helpers
     }
 }

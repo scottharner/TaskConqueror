@@ -160,56 +160,37 @@ namespace TaskConqueror
         /// <summary>
         /// Returns a shallow-copied list of all goals in the repository.
         /// </summary>
-        public List<Goal> GetGoals(string filterTerm = "", SortableProperty sortColumn = null)
+        public List<Goal> GetGoals(string filterTerm = "", SortableProperty sortColumn = null, int? pageNumber = null)
         {
-            List<Data.Goal> dbGoals;
+            IQueryable<Data.Goal> dbGoals = GetAllGoalsQuery(filterTerm);
 
-            if (string.IsNullOrEmpty(filterTerm))
+            List<Data.Goal> dbGoalsList = GetOrderedList(dbGoals, sortColumn);
+
+            // todo - optimize paging - sql ce does not support linq paging
+            if (pageNumber.HasValue)
             {
-                dbGoals = (from g in _appInfo.GcContext.Goals
-                           select g).ToList();
-            }
-            else
-            {
-                dbGoals = (from g in _appInfo.GcContext.Goals
-                           where g.Title.Contains(filterTerm)
-                           select g).ToList();
+                dbGoalsList = dbGoalsList.Skip(Constants.RecordsPerPage * (pageNumber.Value - 1))
+                                .Take(Constants.RecordsPerPage).ToList();
             }
 
             List<Goal> goals = new List<Goal>();
 
-            foreach (Data.Goal dbGoal in dbGoals)
+            foreach (Data.Goal dbGoal in dbGoalsList)
             {
                 goals.Add(Goal.CreateGoal(dbGoal));
             }
 
-            if (sortColumn == null)
-            {
-                goals = goals.OrderBy(g => g.Title).ToList();
-            }
-            else
-            {
-                switch (sortColumn.Name)
-                {
-                    case "StatusId":
-                        goals = goals.OrderBy(g => g.StatusId).ToList();
-                        break;
-                    case "CategoryId":
-                        goals = goals.OrderBy(g => g.CategoryId).ToList();
-                        break;
-                    case "CreatedDate":
-                        goals = goals.OrderBy(g => g.CreatedDate).ToList();
-                        break;
-                    case "CompletedDate":
-                        goals = goals.OrderBy(g => g.CompletedDate).ToList();
-                        break;
-                    default:
-                        goals = goals.OrderBy(g => g.Title).ToList();
-                        break;
-                }
-            }
-
             return goals;
+        }
+
+        /// <summary>
+        /// Returns the count of all tasks in the repository.
+        /// </summary>
+        public int GetGoalsCount(string filterTerm = "")
+        {
+            IQueryable<Data.Goal> allGoals = GetAllGoalsQuery(filterTerm);
+
+            return allGoals.Count();
         }
 
         /// <summary>
@@ -339,6 +320,58 @@ namespace TaskConqueror
         #endregion // Public Interface
 
         #region Private Helpers
+
+        private List<Data.Goal> GetOrderedList(IQueryable<Data.Goal> goalsQuery, SortableProperty sortColumn = null)
+        {
+            List<Data.Goal> dbGoalList;
+
+            if (sortColumn == null)
+            {
+                dbGoalList = goalsQuery.OrderBy(t => t.Title).ToList();
+            }
+            else
+            {
+                switch (sortColumn.Name)
+                {
+                    case "StatusId":
+                        dbGoalList = goalsQuery.OrderBy(t => t.StatusID).ToList();
+                        break;
+                    case "CategoryId":
+                        dbGoalList = goalsQuery.OrderBy(g => g.CategoryID).ToList();
+                        break;
+                    case "CreatedDate":
+                        dbGoalList = goalsQuery.OrderBy(t => t.CreatedDate).ToList();
+                        break;
+                    case "CompletedDate":
+                        dbGoalList = goalsQuery.OrderBy(t => t.CompletedDate).ToList();
+                        break;
+                    default:
+                        dbGoalList = goalsQuery.OrderBy(t => t.Title).ToList();
+                        break;
+                }
+            }
+
+            return dbGoalList;
+        }
+
+        private IQueryable<Data.Goal> GetAllGoalsQuery(string filterTerm = "")
+        {
+            IQueryable<Data.Goal> dbGoals;
+
+            if (string.IsNullOrEmpty(filterTerm))
+            {
+                dbGoals = (from g in _appInfo.GcContext.Goals
+                           select g);
+            }
+            else
+            {
+                dbGoals = (from g in _appInfo.GcContext.Goals
+                           where g.Title.Contains(filterTerm)
+                           select g);
+            }
+
+            return dbGoals;
+        }
 
         #endregion // Private Helpers
     }
