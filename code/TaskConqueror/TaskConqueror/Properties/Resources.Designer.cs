@@ -115,6 +115,24 @@ namespace TaskConqueror.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        internal static string CacheItem_Exception_Name {
+            get {
+                return ResourceManager.GetString("CacheItem_Exception_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Requested cache item does not exist..
+        /// </summary>
+        internal static string CacheItem_Exception_NotFound {
+            get {
+                return ResourceManager.GetString("CacheItem_Exception_NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to print report:.
         /// </summary>
         internal static string CannotPrint {

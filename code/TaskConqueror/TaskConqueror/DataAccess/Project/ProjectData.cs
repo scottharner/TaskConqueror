@@ -27,6 +27,10 @@ namespace TaskConqueror
         public ProjectData()
         {
             _appInfo = AppInfo.Instance;
+
+            this.ProjectAdded += this.AllProjectsOnProjectAdded;
+            this.ProjectUpdated += this.AllProjectsOnProjectUpdated;
+            this.ProjectDeleted += this.AllProjectsOnProjectDeleted;
         }
 
         #endregion // Constructor
@@ -162,11 +166,30 @@ namespace TaskConqueror
         /// </summary>
         public List<Project> GetProjects(string filterTerm = "", SortableProperty sortColumn = null, int? pageNumber = null)
         {
-            IQueryable<Data.Project> dbProjects = GetAllProjectsQuery(filterTerm);
+            QueryCacheItem allProjectsCacheItem = _appInfo.GlobalQueryCache.GetCacheItem(Constants.AllProjectsCacheItem, filterTerm);
+            List<Data.Project> allProjectsList;
 
-            List<Data.Project> allProjectsList = GetOrderedList(dbProjects, sortColumn);
+            // retrieve the query from cache if available
+            // this will avoid retrieving all records when only a page is needed
+            if (allProjectsCacheItem == null)
+            {
+                IQueryable<Data.Project> allProjects = GetAllProjectsQuery(filterTerm);
 
-            // todo - optimize paging - sql ce does not support linq paging
+                allProjectsList = GetOrderedList(allProjects, sortColumn);
+
+                _appInfo.GlobalQueryCache.AddCacheItem(Constants.AllProjectsCacheItem, filterTerm, sortColumn, allProjectsList);
+            }
+            else
+            {
+                allProjectsList = (List<Data.Project>)allProjectsCacheItem.Value;
+
+                if (allProjectsCacheItem.SortColumn != sortColumn)
+                {
+                    _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.AllProjectsCacheItem, filterTerm, sortColumn, allProjectsList);
+                    SortList(allProjectsList, sortColumn);
+                }
+            }
+            
             if (pageNumber.HasValue)
             {
                 allProjectsList = allProjectsList.Skip(Constants.RecordsPerPage * (pageNumber.Value - 1))
@@ -359,6 +382,27 @@ namespace TaskConqueror
             }
         }
 
+        /// <summary>
+        /// Cleans up event handlers when finished using this object
+        /// </summary>
+        public virtual void Dispose()
+        {
+            foreach (Delegate d in ProjectAdded.GetInvocationList())
+            {
+                ProjectAdded -= (EventHandler<TaskConqueror.ProjectAddedEventArgs>)d;
+            }
+
+            foreach (Delegate d in ProjectUpdated.GetInvocationList())
+            {
+                ProjectUpdated -= (EventHandler<TaskConqueror.ProjectUpdatedEventArgs>)d;
+            }
+
+            foreach (Delegate d in ProjectDeleted.GetInvocationList())
+            {
+                ProjectDeleted -= (EventHandler<TaskConqueror.ProjectDeletedEventArgs>)d;
+            }
+        }
+
         #endregion // Public Interface
 
         #region Private Helpers
@@ -399,6 +443,38 @@ namespace TaskConqueror
             return dbProjectList;
         }
 
+        private void SortList(List<Data.Project> dbProjectList, SortableProperty sortColumn = null)
+        {
+            if (sortColumn == null)
+            {
+                dbProjectList = dbProjectList.OrderBy(t => t.Title).ToList();
+            }
+            else
+            {
+                switch (sortColumn.Name)
+                {
+                    case "StatusId":
+                        dbProjectList = dbProjectList.OrderBy(t => t.StatusID).ToList();
+                        break;
+                    case "EstimatedCost":
+                        dbProjectList = dbProjectList.OrderBy(t => t.EstimatedCost).ToList();
+                        break;
+                    case "GoalTitle":
+                        dbProjectList = dbProjectList.OrderBy(t => t.Goals.FirstOrDefault() == null ? "" : t.Goals.FirstOrDefault().Title).ToList();
+                        break;
+                    case "CreatedDate":
+                        dbProjectList = dbProjectList.OrderBy(t => t.CreatedDate).ToList();
+                        break;
+                    case "CompletedDate":
+                        dbProjectList = dbProjectList.OrderBy(t => t.CompletedDate).ToList();
+                        break;
+                    default:
+                        dbProjectList = dbProjectList.OrderBy(t => t.Title).ToList();
+                        break;
+                }
+            }
+        }
+
         private IQueryable<Data.Project> GetAllProjectsQuery(string filterTerm = "")
         {
             IQueryable<Data.Project> dbProjects;
@@ -416,6 +492,88 @@ namespace TaskConqueror
             }
 
             return dbProjects;
+        }
+
+        /// <summary>
+        /// Updates the all projects cached query results when a project is added
+        /// </summary>
+        void AllProjectsOnProjectAdded(object sender, ProjectAddedEventArgs e)
+        {
+            QueryCacheItem cachedQuery = _appInfo.GlobalQueryCache.GetCacheItem(Constants.AllProjectsCacheItem);
+
+            if (cachedQuery != null)
+            {
+                // check if the added item satisfies the filter term
+                if (cachedQuery.FilterTerm == null || e.NewProject.Title.Contains(cachedQuery.FilterTerm))
+                {
+                    // add the added item to the cached query results
+                    List<Data.Project> allProjects = (List<Data.Project>)cachedQuery.Value;
+                    Data.Project addedProject = _appInfo.GcContext.Projects.FirstOrDefault(p => p.ProjectID == e.NewProject.ProjectId);
+                    if (addedProject != null)
+                    {
+                        allProjects.Add(addedProject);
+                        // sort the query results according to the sort column
+                        SortList(allProjects, cachedQuery.SortColumn);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Updates the all projects cached query results when a project is deleted
+        /// </summary>
+        void AllProjectsOnProjectDeleted(object sender, ProjectDeletedEventArgs e)
+        {
+            QueryCacheItem cachedQuery = _appInfo.GlobalQueryCache.GetCacheItem(Constants.AllProjectsCacheItem);
+
+            if (cachedQuery != null)
+            {
+                List<Data.Project> allProjects = (List<Data.Project>)cachedQuery.Value;
+                Data.Project deletedProject = allProjects.FirstOrDefault(p => p.ProjectID == e.DeletedProject.ProjectId);
+                if (deletedProject != null)
+                {
+                    allProjects.Remove(deletedProject);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Updates the all projects cached query results when a project is updated
+        /// </summary>
+        void AllProjectsOnProjectUpdated(object sender, ProjectUpdatedEventArgs e)
+        {
+            QueryCacheItem cachedQuery = _appInfo.GlobalQueryCache.GetCacheItem(Constants.AllProjectsCacheItem);
+
+            if (cachedQuery != null)
+            {
+                // updated the query results if needed
+                List<Data.Project> allProjects = (List<Data.Project>)cachedQuery.Value;
+                if (cachedQuery.FilterTerm == null || e.UpdatedProject.Title.Contains(cachedQuery.FilterTerm))
+                {
+                    Data.Project oldProject = allProjects.FirstOrDefault(p => p.ProjectID == e.UpdatedProject.ProjectId);
+                    Data.Project newProject = allProjects.FirstOrDefault(p => p.ProjectID == e.UpdatedProject.ProjectId);
+                    if (oldProject != null && newProject != null)
+                    {
+                        allProjects.Remove(oldProject);
+                        allProjects.Add(newProject);
+                    }
+                    else if (newProject != null)
+                    {
+                        allProjects.Add(newProject);
+                    }
+
+                    SortList(allProjects, cachedQuery.SortColumn);
+                }
+                else
+                {
+                    // the updated project doesnt meet the filter term so remove if it exists in list
+                    Data.Project oldProject = allProjects.FirstOrDefault(p => p.ProjectID == e.UpdatedProject.ProjectId);
+                    if (oldProject != null)
+                    {
+                        allProjects.Remove(oldProject);
+                    }
+                }
+            }
         }
 
         #endregion // Private Helpers

@@ -79,6 +79,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppInfo.cs" />
+    <Compile Include="QueryCache.cs" />
+    <Compile Include="QueryCacheItem.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="DataAccess\Goal\GoalAddedEventArgs.cs" />
     <Compile Include="DataAccess\Goal\GoalData.cs" />

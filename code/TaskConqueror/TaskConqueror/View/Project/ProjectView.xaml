@@ -137,17 +137,17 @@
       Content="{Binding ElementName=titleTxt, Path=(Validation.Errors).CurrentItem}"
       />
 
-                    <!-- PROJECT -->
+                    <!-- GOAL -->
                     <Label 
       Grid.Row="2" Grid.Column="0" 
-      Content="_Project:" 
+      Content="_Goal:" 
       HorizontalAlignment="Right"
-      Target="{Binding ElementName=projectLbl}"
+      Target="{Binding ElementName=goalLbl}"
       />
                     <Label 
-      x:Name="projectLbl"
+      x:Name="goalLbl"
       Grid.Row="2" Grid.Column="2" 
-      Content="{Binding Path=Project}" 
+      Content="{Binding Path=GoalTitle}" 
       Validation.ErrorTemplate="{x:Null}"
       />
 

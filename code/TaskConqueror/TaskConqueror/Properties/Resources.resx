@@ -243,4 +243,10 @@
   <data name="Error_MissingSelectedProject" xml:space="preserve">
     <value>Project is missing</value>
   </data>
+  <data name="CacheItem_Exception_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="CacheItem_Exception_NotFound" xml:space="preserve">
+    <value>Requested cache item does not exist.</value>
+  </data>
 </root>

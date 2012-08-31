@@ -14,6 +14,7 @@ namespace TaskConqueror
         List<Data.Status> _statusList;
         List<Data.TaskPriority> _priorityList;
         List<Data.GoalCategory> _categoryList;
+        QueryCache _queryCache;
 
         /// <summary>
         /// Allocate ourselves. We have a private constructor, so no one else can.
@@ -49,6 +50,11 @@ namespace TaskConqueror
             get { return _gcContext; }
         }
 
+        public QueryCache GlobalQueryCache
+        {
+            get { return _queryCache; }
+        }
+
         /// <summary>
         /// This is a private constructor, meaning no outsiders have access.
         /// </summary>
@@ -59,6 +65,7 @@ namespace TaskConqueror
             _priorityList = (from p in _gcContext.TaskPriorities select p).ToList();
             _statusList = (from s in _gcContext.Status select s).ToList();
             _categoryList = (from c in _gcContext.GoalCategories select c).ToList();
+            _queryCache = new QueryCache();
         }
     }
 }
