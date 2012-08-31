@@ -1,0 +1,13 @@
+.heading {
+    border-bottom: 1px solid black; 
+}
+
+p.sectionHeading {
+    font-weight: bold;
+    font-size: 110%;
+}
+
+span.icon {
+    border: 1px solid black;
+    padding: 2px;
+}

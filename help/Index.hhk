@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML>
+<HEAD>
+<meta name="GENERATOR" content="Microsoft&reg; HTML Help Workshop 4.1">
+<!-- Sitemap 1.0 -->
+</HEAD><BODY>
+<UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="customers">
+		<param name="Name" value="Main Menu">
+		<param name="Local" value="html\overview\main_menu.htm">
+		<param name="Name" value="Customers">
+		<param name="Local" value="html\customers.htm">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="adding">
+			<param name="Name" value="Adding A Customer">
+			<param name="Local" value="html\customers\add.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="searching">
+			<param name="Name" value="Searching For Customers">
+			<param name="Local" value="html\customers\search.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="updating">
+			<param name="Name" value="Updating A Customer">
+			<param name="Local" value="html\customers\update.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="main menu">
+		<param name="Name" value="Main Menu">
+		<param name="Local" value="html\overview\main_menu.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="release notes">
+		<param name="Name" value="Release Notes">
+		<param name="Local" value="html\overview\release_notes.htm">
+		</OBJECT>
+</UL>
+</BODY></HTML>

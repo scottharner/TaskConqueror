@@ -1,0 +1,28 @@
+[OPTIONS]
+Auto Index=Yes
+Compatibility=1.1 or later
+Compiled file=TaskConqueror.chm
+Contents file=Contents.hhc
+Default Window=main
+Default topic=html\overview.htm
+Display compile progress=No
+Full text search stop list file=SearchStopList.stp
+Full-text search=Yes
+Index file=Index.hhk
+Language=0x409 English (United States)
+Title=Task Conqueror
+
+[WINDOWS]
+main=,"Contents.hhc","Index.hhk","html\overview.htm","html\overview.htm",,,,,0x43420,,0x3006,[0,0,800,600],,,,,,,0
+
+
+[FILES]
+html\overview.htm
+html\overview\release_notes.htm
+html\overview\main_menu.htm
+html\customers.htm
+html\customers\search.htm
+html\customers\add.htm
+
+[INFOTYPES]
+
