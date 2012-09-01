@@ -253,7 +253,7 @@ namespace TaskConqueror
                     CompletedDate = null;
                 }
                 
-                _goalData.UpdateGoal(_goal);
+                _goalData.UpdateGoal(_goal, _projectData);
             }
 
             _originalStatusId = StatusId;

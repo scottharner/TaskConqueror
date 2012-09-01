@@ -230,7 +230,7 @@ namespace TaskConqueror
                     CompletedDate = null;
                 }
 
-                _projectData.UpdateProject(_project);
+                _projectData.UpdateProject(_project, _taskData);
             }
 
             _originalStatusId = StatusId;

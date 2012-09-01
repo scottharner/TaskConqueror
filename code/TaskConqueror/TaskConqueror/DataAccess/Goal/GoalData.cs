@@ -27,6 +27,10 @@ namespace TaskConqueror
         public GoalData()
         {
             _appInfo = AppInfo.Instance;
+
+            this.GoalAdded += this.AllGoalsOnGoalAdded;
+            this.GoalUpdated += this.AllGoalsOnGoalUpdated;
+            this.GoalDeleted += this.AllGoalsOnGoalDeleted;
         }
 
         #endregion // Constructor
@@ -75,7 +79,7 @@ namespace TaskConqueror
         /// If the goal is not already in the repository, an
         /// exception is thrown.
         /// </summary>
-        public void UpdateGoal(Goal goal)
+        public void UpdateGoal(Goal goal, ProjectData projectData)
         {
             if (goal == null)
                 throw new ArgumentNullException("goal");
@@ -103,6 +107,8 @@ namespace TaskConqueror
 
                 if (this.GoalUpdated != null)
                     this.GoalUpdated(this, new GoalUpdatedEventArgs(goal));
+
+                projectData.UpdateProjectsByGoal(dbGoal.GoalID);
             }
         }
 
@@ -162,11 +168,30 @@ namespace TaskConqueror
         /// </summary>
         public List<Goal> GetGoals(string filterTerm = "", SortableProperty sortColumn = null, int? pageNumber = null)
         {
-            IQueryable<Data.Goal> dbGoals = GetAllGoalsQuery(filterTerm);
+            QueryCacheItem allGoalsCacheItem = _appInfo.GlobalQueryCache.GetCacheItem(Constants.AllGoalsCacheItem, filterTerm);
+            List<Data.Goal> dbGoalsList;
 
-            List<Data.Goal> dbGoalsList = GetOrderedList(dbGoals, sortColumn);
+            // retrieve the query from cache if available
+            // this will avoid retrieving all records when only a page is needed
+            if (allGoalsCacheItem == null)
+            {
+                IQueryable<Data.Goal> allGoals = GetAllGoalsQuery(filterTerm);
 
-            // todo - optimize paging - sql ce does not support linq paging
+                dbGoalsList = GetOrderedList(allGoals, sortColumn);
+
+                _appInfo.GlobalQueryCache.AddCacheItem(Constants.AllGoalsCacheItem, filterTerm, sortColumn, dbGoalsList);
+            }
+            else
+            {
+                dbGoalsList = (List<Data.Goal>)allGoalsCacheItem.Value;
+
+                if (allGoalsCacheItem.SortColumn != sortColumn)
+                {
+                    _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.AllGoalsCacheItem, filterTerm, sortColumn, dbGoalsList);
+                    SortList(dbGoalsList, sortColumn);
+                }
+            }
+
             if (pageNumber.HasValue)
             {
                 dbGoalsList = dbGoalsList.Skip(Constants.RecordsPerPage * (pageNumber.Value - 1))
@@ -354,6 +379,35 @@ namespace TaskConqueror
             return dbGoalList;
         }
 
+        private void SortList(List<Data.Goal> dbGoalList, SortableProperty sortColumn = null)
+        {
+            if (sortColumn == null)
+            {
+                dbGoalList = dbGoalList.OrderBy(t => t.Title).ToList();
+            }
+            else
+            {
+                switch (sortColumn.Name)
+                {
+                    case "StatusId":
+                        dbGoalList = dbGoalList.OrderBy(t => t.StatusID).ToList();
+                        break;
+                    case "CategoryId":
+                        dbGoalList = dbGoalList.OrderBy(g => g.CategoryID).ToList();
+                        break;
+                    case "CreatedDate":
+                        dbGoalList = dbGoalList.OrderBy(t => t.CreatedDate).ToList();
+                        break;
+                    case "CompletedDate":
+                        dbGoalList = dbGoalList.OrderBy(t => t.CompletedDate).ToList();
+                        break;
+                    default:
+                        dbGoalList = dbGoalList.OrderBy(t => t.Title).ToList();
+                        break;
+                }
+            }
+        }
+
         private IQueryable<Data.Goal> GetAllGoalsQuery(string filterTerm = "")
         {
             IQueryable<Data.Goal> dbGoals;
@@ -371,6 +425,88 @@ namespace TaskConqueror
             }
 
             return dbGoals;
+        }
+
+        /// <summary>
+        /// Updates the all goals cached query results when a goal is added
+        /// </summary>
+        void AllGoalsOnGoalAdded(object sender, GoalAddedEventArgs e)
+        {
+            QueryCacheItem cachedQuery = _appInfo.GlobalQueryCache.GetCacheItem(Constants.AllGoalsCacheItem);
+
+            if (cachedQuery != null)
+            {
+                // check if the added item satisfies the filter term
+                if (cachedQuery.FilterTerm == null || e.NewGoal.Title.Contains(cachedQuery.FilterTerm))
+                {
+                    // add the added item to the cached query results
+                    List<Data.Goal> allGoals = (List<Data.Goal>)cachedQuery.Value;
+                    Data.Goal addedGoal = _appInfo.GcContext.Goals.FirstOrDefault(g => g.GoalID == e.NewGoal.GoalId);
+                    if (addedGoal != null)
+                    {
+                        allGoals.Add(addedGoal);
+                        // sort the query results according to the sort column
+                        SortList(allGoals, cachedQuery.SortColumn);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Updates the all goals cached query results when a goal is deleted
+        /// </summary>
+        void AllGoalsOnGoalDeleted(object sender, GoalDeletedEventArgs e)
+        {
+            QueryCacheItem cachedQuery = _appInfo.GlobalQueryCache.GetCacheItem(Constants.AllGoalsCacheItem);
+
+            if (cachedQuery != null)
+            {
+                List<Data.Goal> allGoals = (List<Data.Goal>)cachedQuery.Value;
+                Data.Goal deletedGoal = allGoals.FirstOrDefault(g => g.GoalID == e.DeletedGoal.GoalId);
+                if (deletedGoal != null)
+                {
+                    allGoals.Remove(deletedGoal);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Updates the all goals cached query results when a goal is updated
+        /// </summary>
+        void AllGoalsOnGoalUpdated(object sender, GoalUpdatedEventArgs e)
+        {
+            QueryCacheItem cachedQuery = _appInfo.GlobalQueryCache.GetCacheItem(Constants.AllGoalsCacheItem);
+
+            if (cachedQuery != null)
+            {
+                // updated the query results if needed
+                List<Data.Goal> allGoals = (List<Data.Goal>)cachedQuery.Value;
+                if (cachedQuery.FilterTerm == null || e.UpdatedGoal.Title.Contains(cachedQuery.FilterTerm))
+                {
+                    Data.Goal oldGoal = allGoals.FirstOrDefault(g => g.GoalID == e.UpdatedGoal.GoalId);
+                    Data.Goal newGoal = allGoals.FirstOrDefault(g => g.GoalID == e.UpdatedGoal.GoalId);
+                    if (oldGoal != null && newGoal != null)
+                    {
+                        allGoals.Remove(oldGoal);
+                        allGoals.Add(newGoal);
+                    }
+                    else if (newGoal != null)
+                    {
+                        allGoals.Add(newGoal);
+                    }
+
+                    SortList(allGoals, cachedQuery.SortColumn);
+                }
+                else
+                {
+                    // the updated goal doesnt meet the filter term so remove if it exists in list
+                    Data.Goal oldGoal = allGoals.FirstOrDefault(g => g.GoalID == e.UpdatedGoal.GoalId);
+                    if (oldGoal != null)
+                    {
+                        allGoals.Remove(oldGoal);
+                    }
+                }
+            }
         }
 
         #endregion // Private Helpers

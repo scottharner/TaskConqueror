@@ -627,6 +627,24 @@ namespace TaskConqueror
         }
 
         /// <summary>
+        /// Triggers update event handlers on all child tasks when a project is updated
+        /// </summary>
+        public void UpdateTasksByProject(int projectId)
+        {
+            if (this.TaskUpdated != null)
+            {
+                List<Data.Task> childTasks = (from t in _appInfo.GcContext.Tasks
+                                                    where t.Projects.FirstOrDefault().ProjectID == projectId
+                                                    select t).ToList();
+
+                foreach (var child in childTasks)
+                {
+                    this.TaskUpdated(this, new TaskUpdatedEventArgs(Task.CreateTask(child)));
+                }
+            }
+        }
+
+        /// <summary>
         /// Updates the active tasks cached query results when a task is added
         /// </summary>
         void ActiveTasksOnTaskAdded(object sender, TaskAddedEventArgs e)

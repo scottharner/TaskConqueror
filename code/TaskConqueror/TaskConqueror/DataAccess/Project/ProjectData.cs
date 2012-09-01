@@ -79,7 +79,7 @@ namespace TaskConqueror
         /// If the project is not already in the repository, an
         /// exception is thrown.
         /// </summary>
-        public void UpdateProject(Project project)
+        public void UpdateProject(Project project, TaskData taskData)
         {
             if (project == null)
                 throw new ArgumentNullException("project");
@@ -107,6 +107,8 @@ namespace TaskConqueror
 
                 if (this.ProjectUpdated != null)
                     this.ProjectUpdated(this, new ProjectUpdatedEventArgs(project));
+
+                taskData.UpdateTasksByProject(project.ProjectId);
             }
         }
 
@@ -400,6 +402,24 @@ namespace TaskConqueror
             foreach (Delegate d in ProjectDeleted.GetInvocationList())
             {
                 ProjectDeleted -= (EventHandler<TaskConqueror.ProjectDeletedEventArgs>)d;
+            }
+        }
+
+        /// <summary>
+        /// Triggers update event handlers on all child projects when a goal is updated
+        /// </summary>
+        public void UpdateProjectsByGoal(int goalId)
+        {
+            if (this.ProjectUpdated != null)
+            {
+                List<Data.Project> childProjects = (from p in _appInfo.GcContext.Projects
+                                                    where p.Goals.FirstOrDefault().GoalID == goalId
+                                                    select p).ToList();
+
+                foreach (var child in childProjects)
+                {
+                    this.ProjectUpdated(this, new ProjectUpdatedEventArgs(Project.CreateProject(child)));
+                }
             }
         }
 
