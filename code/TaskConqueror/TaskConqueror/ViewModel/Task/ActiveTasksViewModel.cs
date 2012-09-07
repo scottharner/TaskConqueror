@@ -278,9 +278,15 @@ namespace TaskConqueror
         {
             AddTasksView window = new AddTasksView();
 
-            using (var viewModel = new AddTasksViewModel(_taskData, new ProjectData(), new GoalData()))
+            using (ProjectData pdata = new ProjectData())
             {
-                this.ShowWorkspaceAsDialog(window, viewModel);
+                using (GoalData gData = new GoalData())
+                {
+                    using (var viewModel = new AddTasksViewModel(_taskData, pdata, gData))
+                    {
+                        this.ShowWorkspaceAsDialog(window, viewModel);
+                    }
+                }
             }
         }
 

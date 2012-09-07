@@ -32,10 +32,12 @@ namespace TaskConqueror
             _goal = goal;
 
             List<Project> childProjects = goalData.GetChildProjectsContainingInactiveTasks(goal.GoalId);
-            ProjectData pData = new ProjectData();
-            foreach (Project childProject in childProjects)
+            using (ProjectData pData = new ProjectData())
             {
-                _childNodes.Add(new ProjectTreeNodeViewModel(childProject, pData, this));
+                foreach (Project childProject in childProjects)
+                {
+                    _childNodes.Add(new ProjectTreeNodeViewModel(childProject, pData, this));
+                }
             }
 
             _parent = parent;

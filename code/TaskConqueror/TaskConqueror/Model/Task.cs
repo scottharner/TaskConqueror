@@ -27,8 +27,10 @@ namespace TaskConqueror
 
             if (projectId.HasValue)
             {
-                ProjectData projectData = new ProjectData();
-                newTask.ParentProject = projectData.GetProjectByProjectId(projectId.Value);
+                using (ProjectData projectData = new ProjectData())
+                {
+                    newTask.ParentProject = projectData.GetProjectByProjectId(projectId.Value);
+                }
             }
 
             return newTask;

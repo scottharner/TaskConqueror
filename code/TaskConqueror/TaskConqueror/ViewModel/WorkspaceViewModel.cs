@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 using System.Windows;
+using System.Windows.Forms;
 
 namespace TaskConqueror
 {
@@ -14,6 +15,7 @@ namespace TaskConqueror
         #region Fields
 
         RelayCommand _closeCommand;
+        RelayCommand _viewHelpCommand;
 
         #endregion // Fields
 
@@ -46,7 +48,31 @@ namespace TaskConqueror
             }
         }
 
+        /// <summary>
+        /// Returns the command that, when invoked, attempts
+        /// to display help.
+        /// </summary>
+        public ICommand ViewHelpCommand
+        {
+            get
+            {
+                if (_viewHelpCommand == null)
+                    _viewHelpCommand = new RelayCommand(param => this.ViewHelp());
+
+                return _viewHelpCommand;
+            }
+        }
+
         #endregion // Commands
+
+        #region Public Methods
+
+        public virtual void ViewHelp()
+        {
+            Help.ShowHelp(null, "TaskConqueror.chm");
+        }
+
+        #endregion
 
         #region RequestClose [event]
 

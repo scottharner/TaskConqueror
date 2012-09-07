@@ -11,7 +11,7 @@ namespace TaskConqueror
     /// <summary>
     /// Represents a source of projects in the application.
     /// </summary>
-    public class ProjectData
+    public class ProjectData : IDisposable
     {
         #region Fields
 

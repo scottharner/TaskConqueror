@@ -7,6 +7,8 @@ namespace TaskConqueror
 {
     public partial class App : Application
     {
+        MainWindowViewModel _viewModel;
+
         static App()
         {
             // This code is used to test the app when using other cultures.
@@ -30,25 +32,35 @@ namespace TaskConqueror
 
             MainWindow window = new MainWindow();
 
-            var viewModel = new MainWindowViewModel();
+            _viewModel = new MainWindowViewModel();
 
             // When the ViewModel asks to be closed, 
             // close the window.
             EventHandler handler = null;
             handler = delegate
             {
-                viewModel.RequestClose -= handler;
+                _viewModel.RequestClose -= handler;
                 window.Close();
             };
-            viewModel.RequestClose += handler;
+            _viewModel.RequestClose += handler;
 
             // Allow all controls in the window to 
             // bind to the ViewModel by setting the 
             // DataContext, which propagates down 
             // the element tree.
-            window.DataContext = viewModel;
+            window.DataContext = _viewModel;
 
             window.Show();
+        }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            base.OnExit(e);
+
+            if (_viewModel != null)
+            {
+                _viewModel.Dispose();
+            }
         }
     }
 }

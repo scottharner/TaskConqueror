@@ -32,18 +32,20 @@ namespace TaskConqueror
                 {"CompletedDate", "Date Completed"}
             };
 
-            TaskData tData = new TaskData();
-            List<Task> completedTasks = tData.GetCompletedTasksByDate(StartDate, EndDate);
-            List<TaskViewModel> rowData = new List<TaskViewModel>();
-            foreach (Task task in completedTasks)
+            using (TaskData tData = new TaskData())
             {
-                rowData.Add(new TaskViewModel(task, tData));
+                List<Task> completedTasks = tData.GetCompletedTasksByDate(StartDate, EndDate);
+                List<TaskViewModel> rowData = new List<TaskViewModel>();
+                foreach (Task task in completedTasks)
+                {
+                    rowData.Add(new TaskViewModel(task, tData));
+                }
+
+                flowDocument.Blocks.Add(FlowDocumentHelper.BuildTable<TaskViewModel>(columnDefinitions, rowData));
+
+                foreach (TaskViewModel taskVm in rowData)
+                    taskVm.Dispose();
             }
-
-            flowDocument.Blocks.Add(FlowDocumentHelper.BuildTable<TaskViewModel>(columnDefinitions, rowData));
-
-            foreach (TaskViewModel taskVm in rowData)
-                taskVm.Dispose();
 
             return flowDocument;
         }

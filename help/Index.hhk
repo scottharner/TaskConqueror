@@ -39,5 +39,214 @@
 		<param name="Name" value="Release Notes">
 		<param name="Local" value="html\overview\release_notes.htm">
 		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="active tasks">
+		<param name="Name" value="Main Menu">
+		<param name="Local" value="html\overview\main_menu.htm">
+		<param name="Name" value="Active Tasks">
+		<param name="Local" value="html\active_tasks.htm">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="browsing">
+			<param name="Name" value="Browsing And Searching Active Tasks">
+			<param name="Local" value="html\active_tasks\search.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="searching">
+			<param name="Name" value="Browsing And Searching Active Tasks">
+			<param name="Local" value="html\active_tasks\search.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="adding">
+			<param name="Name" value="Adding An Active Task">
+			<param name="Local" value="html\active_tasks\add.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="editing">
+			<param name="Name" value="Editing A Task">
+			<param name="Local" value="html\tasks\edit.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="removing">
+			<param name="Name" value="Browsing And Searching Active Tasks">
+			<param name="Local" value="html\active_tasks\search.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="tasks">
+		<param name="Name" value="Main Menu">
+		<param name="Local" value="html\overview\main_menu.htm">
+		<param name="Name" value="Tasks">
+		<param name="Local" value="html\tasks.htm">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="browsing">
+			<param name="Name" value="Browsing And Searching Tasks">
+			<param name="Local" value="html\tasks\search.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="searching">
+			<param name="Name" value="Browsing And Searching Tasks">
+			<param name="Local" value="html\tasks\search.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="creating">
+			<param name="Name" value="Editing A Task">
+			<param name="Local" value="html\tasks\edit.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="editing">
+			<param name="Name" value="Editing A Task">
+			<param name="Local" value="html\tasks\edit.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="deleting">
+			<param name="Name" value="Browsing And Searching Tasks">
+			<param name="Local" value="html\tasks\search.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="projects">
+		<param name="Name" value="Main Menu">
+		<param name="Local" value="html\overview\main_menu.htm">
+		<param name="Name" value="Projects">
+		<param name="Local" value="html\projects.htm">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="browsing">
+			<param name="Name" value="Browsing And Searching Projects">
+			<param name="Local" value="html\projects\search.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="searching">
+			<param name="Name" value="Browsing And Searching Projects">
+			<param name="Local" value="html\projects\search.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="creating">
+			<param name="Name" value="Editing A Project">
+			<param name="Local" value="html\projects\edit.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="editing">
+			<param name="Name" value="Editing A Project">
+			<param name="Local" value="html\projects\edit.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="deleting">
+			<param name="Name" value="Browsing And Searching Projects">
+			<param name="Local" value="html\projects\search.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="adding tasks">
+			<param name="Name" value="Adding Tasks To A Project">
+			<param name="Local" value="html\projects\add_tasks.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="goals">
+		<param name="Name" value="Main Menu">
+		<param name="Local" value="html\overview\main_menu.htm">
+		<param name="Name" value="Goals">
+		<param name="Local" value="html\goals.htm">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="browsing">
+			<param name="Name" value="Browsing And Searching Goals">
+			<param name="Local" value="html\goals\search.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="searching">
+			<param name="Name" value="Browsing And Searching Goals">
+			<param name="Local" value="html\goals\search.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="creating">
+			<param name="Name" value="Editing A Goal">
+			<param name="Local" value="html\goals\edit.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="editing">
+			<param name="Name" value="Editing A Goal">
+			<param name="Local" value="html\goals\edit.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="deleting">
+			<param name="Name" value="Browsing And Searching Goals">
+			<param name="Local" value="html\goals\search.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="adding projects">
+			<param name="Name" value="Adding Projects To A Goal">
+			<param name="Local" value="html\goals\add_projects.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="reports">
+		<param name="Name" value="Main Menu">
+		<param name="Local" value="html\overview\main_menu.htm">
+		<param name="Name" value="Reports">
+		<param name="Local" value="html\reports.htm">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="browsing">
+			<param name="Name" value="Browsing Reports">
+			<param name="Local" value="html\reports\browse.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="running active tasks">
+			<param name="Name" value="Browsing Reports">
+			<param name="Local" value="html\reports\browse.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="running completed goals">
+			<param name="Name" value="Running The Completed Goals Report">
+			<param name="Local" value="html\reports\completed_goals.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="running completed projects">
+			<param name="Name" value="Running The Completed Projects Report">
+			<param name="Local" value="html\reports\completed_projects.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="running completed tasks">
+			<param name="Name" value="Running The Completed Tasks Report">
+			<param name="Local" value="html\reports\completed_tasks.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="running goal progress">
+			<param name="Name" value="Running The Goal Progress Report">
+			<param name="Local" value="html\reports\goal_progress.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="running project progress">
+			<param name="Name" value="Running The Project Progress Report">
+			<param name="Local" value="html\reports\project_progress.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="printing">
+			<param name="Name" value="Printing A Report">
+			<param name="Local" value="html\reports\print.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="administrative">
+		<param name="Name" value="Main Menu">
+		<param name="Local" value="html\overview\main_menu.htm">
+		<param name="Name" value="Administrative">
+		<param name="Local" value="html\administrative.htm">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="purging">
+			<param name="Name" value="Purging Tasks, Projects, And Goals">
+			<param name="Local" value="html\administrative\purge.htm">
+			</OBJECT>
+	</UL>
 </UL>
 </BODY></HTML>

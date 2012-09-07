@@ -34,19 +34,23 @@ namespace TaskConqueror
                 {"CompletedDate", "Date Completed"}
             };
 
-            ProjectData pData = new ProjectData();
-            TaskData tData = new TaskData();
-            List<Project> completedProjects = pData.GetCompletedProjectsByDate(StartDate, EndDate);
-            List<ProjectViewModel> rowData = new List<ProjectViewModel>();
-            foreach (Project project in completedProjects)
+            using (ProjectData pData = new ProjectData())
             {
-                rowData.Add(new ProjectViewModel(project, pData, tData));
+                using (TaskData tData = new TaskData())
+                {
+                    List<Project> completedProjects = pData.GetCompletedProjectsByDate(StartDate, EndDate);
+                    List<ProjectViewModel> rowData = new List<ProjectViewModel>();
+                    foreach (Project project in completedProjects)
+                    {
+                        rowData.Add(new ProjectViewModel(project, pData, tData));
+                    }
+
+                    flowDocument.Blocks.Add(FlowDocumentHelper.BuildTable<ProjectViewModel>(columnDefinitions, rowData));
+
+                    foreach (ProjectViewModel projectVm in rowData)
+                        projectVm.Dispose();
+                }
             }
-
-            flowDocument.Blocks.Add(FlowDocumentHelper.BuildTable<ProjectViewModel>(columnDefinitions, rowData));
-
-            foreach (ProjectViewModel projectVm in rowData)
-                projectVm.Dispose();
 
             return flowDocument;
         }

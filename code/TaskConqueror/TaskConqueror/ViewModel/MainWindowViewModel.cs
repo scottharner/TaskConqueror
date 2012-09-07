@@ -115,6 +115,17 @@ namespace TaskConqueror
 
         #endregion // Workspaces
 
+        #region Public Methods
+
+        protected override void OnDispose()
+        {
+            _taskData.Dispose();
+            _goalData.Dispose();
+            _projectData.Dispose();
+        }
+
+        #endregion
+
         #region Private Helpers
 
         WorkspaceViewModel ListTasks()

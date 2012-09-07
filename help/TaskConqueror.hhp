@@ -20,9 +20,30 @@ main=,"Contents.hhc","Index.hhk","html\overview.htm","html\overview.htm",,,,,0x4
 html\overview.htm
 html\overview\release_notes.htm
 html\overview\main_menu.htm
-html\customers.htm
-html\customers\search.htm
-html\customers\add.htm
+html\tasks.htm
+html\active_tasks.htm
+html\administrative.htm
+html\goals.htm
+html\projects.htm
+html\reports.htm
+html\tasks\search.htm
+html\tasks\edit.htm
+html\active_tasks\search.htm
+html\active_tasks\add.htm
+html\administrative\purge.htm
+html\goals\search.htm
+html\goals\add_projects.htm
+html\goals\edit.htm
+html\projects\search.htm
+html\projects\add_tasks.htm
+html\projects\edit.htm
+html\reports\project_progress.htm
+html\reports\browse.htm
+html\reports\completed_goals.htm
+html\reports\completed_projects.htm
+html\reports\completed_tasks.htm
+html\reports\goal_progress.htm
+html\reports\print.htm
 
 [INFOTYPES]
 

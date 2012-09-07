@@ -285,9 +285,12 @@ namespace TaskConqueror
         {
             AddChildTasksView window = new AddChildTasksView();
 
-            using (var viewModel = new AddChildTasksViewModel(_taskData, _project, new ProjectData()))
+            using (ProjectData pdata = new ProjectData())
             {
-                this.ShowWorkspaceAsDialog(window, viewModel);
+                using (var viewModel = new AddChildTasksViewModel(_taskData, _project, pdata))
+                {
+                    this.ShowWorkspaceAsDialog(window, viewModel);
+                }
             }
         }
 

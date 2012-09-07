@@ -13,15 +13,12 @@ namespace TaskConqueror
     {        
         #region Fields
 
-        GoalData _gData;
-
         #endregion
 
         #region Constructor
 
         public GoalProgressReport()
         {
-            _gData = new GoalData();
         }
 
         #endregion
@@ -72,19 +69,26 @@ namespace TaskConqueror
                 {"CompletedDate", "Date Completed"}
             };
 
-            ProjectData pData = new ProjectData();
-            TaskData tData = new TaskData();
-            List<Project> childProjects = _gData.GetChildProjects(SelectedGoal.GoalId);
-            List<ProjectViewModel> rowData = new List<ProjectViewModel>();
-            foreach (Project project in childProjects)
+            using (ProjectData pData = new ProjectData())
             {
-                rowData.Add(new ProjectViewModel(project, pData, tData));
+                using (TaskData tData = new TaskData())
+                {
+                    using (GoalData gData = new GoalData())
+                    {
+                        List<Project> childProjects = gData.GetChildProjects(SelectedGoal.GoalId);
+                        List<ProjectViewModel> rowData = new List<ProjectViewModel>();
+                        foreach (Project project in childProjects)
+                        {
+                            rowData.Add(new ProjectViewModel(project, pData, tData));
+                        }
+
+                        flowDocument.Blocks.Add(FlowDocumentHelper.BuildTable<ProjectViewModel>(columnDefinitions, rowData));
+
+                        foreach (ProjectViewModel projectVm in rowData)
+                            projectVm.Dispose();
+                    }
+                }
             }
-
-            flowDocument.Blocks.Add(FlowDocumentHelper.BuildTable<ProjectViewModel>(columnDefinitions, rowData));
-
-            foreach (ProjectViewModel projectVm in rowData)
-                projectVm.Dispose();
 
             return flowDocument;
         }

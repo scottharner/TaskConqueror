@@ -26,8 +26,10 @@ namespace TaskConqueror
 
             if (goalId.HasValue)
             {
-                GoalData goalData = new GoalData();
-                newProject.ParentGoal = goalData.GetGoalByGoalId(goalId.Value);
+                using (GoalData goalData = new GoalData())
+                {
+                    newProject.ParentGoal = goalData.GetGoalByGoalId(goalId.Value);
+                }
             }
 
             return newProject;

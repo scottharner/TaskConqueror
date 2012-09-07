@@ -35,20 +35,26 @@ namespace TaskConqueror
                 {"CompletedDate", "Date Completed"}
             };
 
-            GoalData gData = new GoalData();
-            ProjectData pData = new ProjectData();
-            TaskData tData = new TaskData();
-            List<Goal> completedGoals = gData.GetCompletedGoalsByDate(StartDate, EndDate);
-            List<GoalViewModel> rowData = new List<GoalViewModel>();
-            foreach (Goal goal in completedGoals)
+            using (GoalData gData = new GoalData())
             {
-                rowData.Add(new GoalViewModel(goal, gData, pData, tData));
+                using (ProjectData pData = new ProjectData())
+                {
+                    using (TaskData tData = new TaskData())
+                    {
+                        List<Goal> completedGoals = gData.GetCompletedGoalsByDate(StartDate, EndDate);
+                        List<GoalViewModel> rowData = new List<GoalViewModel>();
+                        foreach (Goal goal in completedGoals)
+                        {
+                            rowData.Add(new GoalViewModel(goal, gData, pData, tData));
+                        }
+
+                        flowDocument.Blocks.Add(FlowDocumentHelper.BuildTable<GoalViewModel>(columnDefinitions, rowData));
+
+                        foreach (GoalViewModel goalVm in rowData)
+                            goalVm.Dispose();
+                    }
+                }
             }
-
-            flowDocument.Blocks.Add(FlowDocumentHelper.BuildTable<GoalViewModel>(columnDefinitions, rowData));
-
-            foreach (GoalViewModel goalVm in rowData)
-                goalVm.Dispose();
 
             return flowDocument;
         }

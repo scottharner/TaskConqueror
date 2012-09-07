@@ -14,23 +14,37 @@
         <TabItem HeaderTemplate="{StaticResource TabItemHeaderTemplate}">
             <DockPanel Margin="4">
                 <!-- Buttons -->
-                <GroupBox 
-            DockPanel.Dock="Top"
+                <StackPanel
+    Orientation="Horizontal"
+    DockPanel.Dock="Top">
+                    <GroupBox 
           Header="File" HorizontalAlignment="Left" Margin="0,0,0,10">
-                    <StackPanel Orientation="Horizontal">
-                        <!-- SAVE BUTTON -->
-                        <tc:ImageButton 
+                        <StackPanel Orientation="Horizontal">
+                            <!-- SAVE BUTTON -->
+                            <tc:ImageButton 
                     Text="Save" 
                     Image="pack://application:,,,/TaskConqueror;Component/Assets/Images/save.png"
                     Command="{Binding Path=SaveCommand}"
                     />
-                        <tc:ImageButton 
+                            <tc:ImageButton 
                     Text="Close" 
                     Image="pack://application:,,,/TaskConqueror;Component/Assets/Images/close.png"
                     Command="{Binding Path=CancelCommand}"
                     />
-                    </StackPanel>
-                </GroupBox>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox 
+            Header="Help" HorizontalAlignment="Left" Margin="10,0,0,10">
+                        <StackPanel Orientation="Horizontal">
+                            <!-- NEW BUTTON -->
+                            <tc:ImageButton 
+                    Text="View" 
+                    Image="pack://application:,,,/TaskConqueror;Component/Assets/Images/help.png"
+                    Command="{Binding Path=ViewHelpCommand}"
+                    />
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
                 <Grid DockPanel.Dock="Bottom" Margin="4">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />

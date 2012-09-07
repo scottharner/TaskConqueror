@@ -18,6 +18,19 @@
                 <DockPanel.Resources>
                     <ResourceDictionary Source="/WorkspaceResources.xaml" />
                 </DockPanel.Resources>
+                <GroupBox 
+            DockPanel.Dock="Top"
+            Header="Help" HorizontalAlignment="Left" Margin="4,0,0,10">
+                    <StackPanel Orientation="Horizontal">
+                        <!-- NEW BUTTON -->
+                        <tc:ImageButton 
+                    Text="View" 
+                    Image="pack://application:,,,/TaskConqueror;Component/Assets/Images/help.png"
+                    Command="{Binding Path=ViewHelpCommand}"
+                    />
+                    </StackPanel>
+                </GroupBox>
+
                 <Grid DockPanel.Dock="Bottom" Margin="4">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />

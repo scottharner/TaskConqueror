@@ -27,7 +27,7 @@
         <DockPanel DockPanel.Dock="Top">
         <GroupBox 
             DockPanel.Dock="Left"
-            Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="2" Header="Tasks" HorizontalAlignment="Left" Margin="0,0,0,10">
+            Header="Tasks" HorizontalAlignment="Left" Margin="0,0,0,10">
             <StackPanel Orientation="Horizontal">
                 <!-- NEW BUTTON -->
                 <tc:ImageButton 
@@ -47,7 +47,19 @@
                     />
             </StackPanel>
         </GroupBox>
-        <ItemsControl
+            <GroupBox 
+            DockPanel.Dock="Left"
+            Header="Help" HorizontalAlignment="Left" Margin="10,0,0,10">
+                <StackPanel Orientation="Horizontal">
+                    <!-- NEW BUTTON -->
+                    <tc:ImageButton 
+                    Text="View" 
+                    Image="pack://application:,,,/TaskConqueror;Component/Assets/Images/help.png"
+                    Command="{Binding Path=ViewHelpCommand}"
+                    />
+                </StackPanel>
+            </GroupBox>
+            <ItemsControl
             DockPanel.Dock="Right"
             HorizontalAlignment="Right"
             VerticalAlignment="Center"

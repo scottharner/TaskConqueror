@@ -11,7 +11,7 @@ namespace TaskConqueror
     /// <summary>
     /// Represents a source of goals in the application.
     /// </summary>
-    public class GoalData
+    public class GoalData : IDisposable
     {
         #region Fields
 
@@ -339,6 +339,27 @@ namespace TaskConqueror
                 Goal completedGoal = Goal.CreateGoal(completedDbGoal);
 
                 this.DeleteGoal(completedGoal, projectData, taskData);
+            }
+        }
+
+        /// <summary>
+        /// Cleans up event handlers when finished using this object
+        /// </summary>
+        public virtual void Dispose()
+        {
+            foreach (Delegate d in GoalAdded.GetInvocationList())
+            {
+                GoalAdded -= (EventHandler<TaskConqueror.GoalAddedEventArgs>)d;
+            }
+
+            foreach (Delegate d in GoalUpdated.GetInvocationList())
+            {
+                GoalUpdated -= (EventHandler<TaskConqueror.GoalUpdatedEventArgs>)d;
+            }
+
+            foreach (Delegate d in GoalDeleted.GetInvocationList())
+            {
+                GoalDeleted -= (EventHandler<TaskConqueror.GoalDeletedEventArgs>)d;
             }
         }
 
