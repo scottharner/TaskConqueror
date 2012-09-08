@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
 using System.Windows;
+using System.Windows.Forms;
 
 namespace TaskConqueror
 {
@@ -221,7 +222,7 @@ namespace TaskConqueror
         {
             ProjectViewModel selectedProjectVM = AllProjects.FirstOrDefault(p => p.IsSelected == true);
             
-            if (selectedProjectVM != null && MessageBox.Show(Properties.Resources.Projects_Delete_Confirm, Properties.Resources.Delete_Confirm, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            if (selectedProjectVM != null && System.Windows.MessageBox.Show(Properties.Resources.Projects_Delete_Confirm, Properties.Resources.Delete_Confirm, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 _projectData.DeleteProject(_projectData.GetProjectByProjectId(selectedProjectVM.ProjectId), _taskData);
                 selectedProjectVM.Dispose();
@@ -265,6 +266,11 @@ namespace TaskConqueror
             FirstRecordNumber = AllProjects.Count > 0 ? (Constants.RecordsPerPage * (pageNumber - 1)) + 1 : 0;
             LastRecordNumber = FirstRecordNumber + AllProjects.Count - 1;
             TotalRecordCount = _projectData.GetProjectsCount(FilterTerm);
+        }
+
+        public override void ViewHelp()
+        {
+            Help.ShowHelp(null, "TaskConqueror.chm", "html/projects/search.htm");
         }
 
         #endregion // Public Methods

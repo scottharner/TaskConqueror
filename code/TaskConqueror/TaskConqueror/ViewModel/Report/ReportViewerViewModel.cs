@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Documents;
 using System.Windows.Controls;
 using System.IO;
+using System.Windows.Forms;
 
 namespace TaskConqueror
 {
@@ -84,16 +85,16 @@ namespace TaskConqueror
             const double Inch = 96;
 
             // Create a PrintDialog
-            PrintDialog printDlg = new PrintDialog();
+            System.Windows.Controls.PrintDialog printDlg = new System.Windows.Controls.PrintDialog();
 
             // Create IDocumentPaginatorSource from a copy of our flowdocument content
             MemoryStream stream = new MemoryStream();
             TextRange sourceDocument = new TextRange(Content.ContentStart, Content.ContentEnd);
-            sourceDocument.Save(stream, DataFormats.Xaml);
+            sourceDocument.Save(stream, System.Windows.DataFormats.Xaml);
 
             FlowDocument flowDocumentCopy = new FlowDocument();
             TextRange copyDocumentRange = new TextRange(flowDocumentCopy.ContentStart, flowDocumentCopy.ContentEnd);
-            copyDocumentRange.Load(stream, DataFormats.Xaml);
+            copyDocumentRange.Load(stream, System.Windows.DataFormats.Xaml);
             
             double xMargin = (1.25 * Inch);
             double yMargin = (1 * Inch);
@@ -116,8 +117,13 @@ namespace TaskConqueror
             }
             catch (Exception printError)
             {
-                MessageBox.Show(Properties.Resources.CannotPrint + " " + printError.Message, Properties.Resources.Error_Encountered);    
+                System.Windows.MessageBox.Show(Properties.Resources.CannotPrint + " " + printError.Message, Properties.Resources.Error_Encountered);    
             }
+        }
+
+        public override void ViewHelp()
+        {
+            Help.ShowHelp(null, "TaskConqueror.chm", "html/reports/print.htm");
         }
 
         #endregion // Public Methods

@@ -4,6 +4,7 @@ using System.Windows.Input;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Forms;
 
 namespace TaskConqueror
 {
@@ -305,6 +306,11 @@ namespace TaskConqueror
 
             // auto save since this will be called from active task list
             this.Save();
+        }
+
+        public override void ViewHelp()
+        {
+            Help.ShowHelp(null, "TaskConqueror.chm", "html/tasks/edit.htm");
         }
 
         #endregion // Public Methods

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Collections.ObjectModel;
+using System.Windows.Forms;
 
 namespace TaskConqueror
 {
@@ -271,7 +272,7 @@ namespace TaskConqueror
         {
             TaskViewModel selectedTaskVM = ChildTasks.FirstOrDefault(t => t.IsSelected == true);
 
-            if (selectedTaskVM != null && MessageBox.Show(Properties.Resources.Tasks_Delete_Confirm, Properties.Resources.Delete_Confirm, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            if (selectedTaskVM != null && System.Windows.MessageBox.Show(Properties.Resources.Tasks_Delete_Confirm, Properties.Resources.Delete_Confirm, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 _taskData.DeleteTask(_taskData.GetTaskByTaskId(selectedTaskVM.TaskId));
                 selectedTaskVM.Dispose();
@@ -292,6 +293,11 @@ namespace TaskConqueror
                     this.ShowWorkspaceAsDialog(window, viewModel);
                 }
             }
+        }
+
+        public override void ViewHelp()
+        {
+            Help.ShowHelp(null, "TaskConqueror.chm", "html/projects/edit.htm");
         }
 
         #endregion // Public Methods

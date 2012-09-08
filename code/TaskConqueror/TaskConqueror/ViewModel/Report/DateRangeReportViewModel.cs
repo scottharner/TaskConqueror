@@ -4,6 +4,7 @@ using System.Windows.Input;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Forms;
 
 namespace TaskConqueror
 {
@@ -84,6 +85,22 @@ namespace TaskConqueror
             DialogResult = true;
 
             this.OnRequestClose();
+        }
+
+        public override void ViewHelp()
+        {
+            if ((_dateRangeReport as CompletedGoalsReport) != null)
+            {
+                Help.ShowHelp(null, "TaskConqueror.chm", "html/reports/completed_goals.htm");
+            }
+            else if ((_dateRangeReport as CompletedProjectsReport) != null)
+            {
+                Help.ShowHelp(null, "TaskConqueror.chm", "html/reports/completed_projects.htm");
+            }
+            else
+            {
+                Help.ShowHelp(null, "TaskConqueror.chm", "html/reports/completed_tasks.htm");
+            }
         }
 
         #endregion // Public Methods

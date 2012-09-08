@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
 using System.Windows;
+using System.Windows.Forms;
 
 namespace TaskConqueror
 {
@@ -229,7 +230,7 @@ namespace TaskConqueror
         {
             GoalViewModel selectedGoalVM = AllGoals.FirstOrDefault(g => g.IsSelected == true);
             
-            if (selectedGoalVM != null && MessageBox.Show(Properties.Resources.Goals_Delete_Confirm, Properties.Resources.Delete_Confirm, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            if (selectedGoalVM != null && System.Windows.MessageBox.Show(Properties.Resources.Goals_Delete_Confirm, Properties.Resources.Delete_Confirm, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 _goalData.DeleteGoal(_goalData.GetGoalByGoalId(selectedGoalVM.GoalId), _projectData, _taskData);
                 selectedGoalVM.Dispose();
@@ -273,6 +274,11 @@ namespace TaskConqueror
             FirstRecordNumber = AllGoals.Count > 0 ? (Constants.RecordsPerPage * (pageNumber - 1)) + 1 : 0;
             LastRecordNumber = FirstRecordNumber + AllGoals.Count - 1;
             TotalRecordCount = _goalData.GetGoalsCount(FilterTerm);
+        }
+
+        public override void ViewHelp()
+        {
+            Help.ShowHelp(null, "TaskConqueror.chm", "html/goals/search.htm");
         }
 
         #endregion // Public Methods

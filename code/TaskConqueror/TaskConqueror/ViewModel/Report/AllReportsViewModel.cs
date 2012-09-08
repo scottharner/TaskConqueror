@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
 using System.Windows;
+using System.Windows.Forms;
 
 namespace TaskConqueror
 {
@@ -93,6 +94,11 @@ namespace TaskConqueror
 
             IReport selectedReport = (IReport)Activator.CreateInstance(selectedReportVM.ReportType);
             selectedReport.Run();
+        }
+
+        public override void ViewHelp()
+        {
+            Help.ShowHelp(null, "TaskConqueror.chm", "html/reports/browse.htm");
         }
 
         #endregion // Public Methods

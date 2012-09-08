@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
 using System.Windows;
+using System.Windows.Forms;
 
 namespace TaskConqueror
 {
@@ -224,7 +225,7 @@ namespace TaskConqueror
         {
             using (TaskViewModel selectedTaskVM = AllTasks.FirstOrDefault(t => t.IsSelected == true))
             {
-                if (selectedTaskVM != null && MessageBox.Show(Properties.Resources.Tasks_Delete_Confirm, Properties.Resources.Delete_Confirm, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                if (selectedTaskVM != null && System.Windows.MessageBox.Show(Properties.Resources.Tasks_Delete_Confirm, Properties.Resources.Delete_Confirm, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     _taskData.DeleteTask(_taskData.GetTaskByTaskId(selectedTaskVM.TaskId));
                 }
@@ -268,6 +269,11 @@ namespace TaskConqueror
             FirstRecordNumber = AllTasks.Count > 0 ? (Constants.RecordsPerPage * (pageNumber-1)) + 1 : 0;
             LastRecordNumber = FirstRecordNumber + AllTasks.Count - 1;
             TotalRecordCount = _taskData.GetTasksCount(FilterTerm);
+        }
+
+        public override void ViewHelp()
+        {
+            Help.ShowHelp(null, "TaskConqueror.chm", "html/tasks/search.htm");
         }
 
         #endregion // Public Methods

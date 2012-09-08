@@ -4,6 +4,7 @@ using System.Windows.Input;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Forms;
 
 namespace TaskConqueror
 {
@@ -157,7 +158,12 @@ namespace TaskConqueror
                 base.OnPropertyChanged("GoalOptions");
             }
         }
-        
+
+        public override void ViewHelp()
+        {
+            Help.ShowHelp(null, "TaskConqueror.chm", "html/reports/goal_progress.htm");
+        }
+
         #endregion
 
         #region Private Helpers

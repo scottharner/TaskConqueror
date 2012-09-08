@@ -4,6 +4,7 @@ using System.Windows.Input;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Forms;
 
 namespace TaskConqueror
 {
@@ -76,6 +77,11 @@ namespace TaskConqueror
             DialogResult = true;
 
             this.OnRequestClose();
+        }
+
+        public override void ViewHelp()
+        {
+            Help.ShowHelp(null, "TaskConqueror.chm", "html/reports/project_progress.htm");
         }
 
         #endregion // Public Methods

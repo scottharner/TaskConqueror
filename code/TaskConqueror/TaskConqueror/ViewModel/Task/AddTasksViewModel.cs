@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows;
 using System.Data;
 using System.Collections.ObjectModel;
+using System.Windows.Forms;
 
 namespace TaskConqueror
 {
@@ -252,6 +253,11 @@ namespace TaskConqueror
 
                 SelectedTasks.Remove(selectedTaskVM);
             }
+        }
+
+        public override void ViewHelp()
+        {
+            Help.ShowHelp(null, "TaskConqueror.chm", "html/active_tasks/add.htm");
         }
 
         #endregion // Public Methods

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows;
 using System.Data;
 using System.Collections.ObjectModel;
+using System.Windows.Forms;
 
 namespace TaskConqueror
 {
@@ -186,6 +187,11 @@ namespace TaskConqueror
             }
             
             _taskData.AddTasksToProject(_parentProject, selectedTaskIds);
+        }
+
+        public override void ViewHelp()
+        {
+            Help.ShowHelp(null, "TaskConqueror.chm", "html/projects/add_tasks.htm");
         }
 
         #endregion // Public Methods

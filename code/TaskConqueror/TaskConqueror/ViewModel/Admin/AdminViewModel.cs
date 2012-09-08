@@ -4,6 +4,7 @@ using System.Windows.Input;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Forms;
 
 namespace TaskConqueror
 {
@@ -110,7 +111,7 @@ namespace TaskConqueror
         /// </summary>
         public void Purge()
         {
-            if (MessageBox.Show(Properties.Resources.Objects_Purge_Confirm, Properties.Resources.Purge_Confirm, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            if (System.Windows.MessageBox.Show(Properties.Resources.Objects_Purge_Confirm, Properties.Resources.Purge_Confirm, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 if (SelectedObjectType == ObjectTypes.Any)
                 {
@@ -165,8 +166,13 @@ namespace TaskConqueror
                     }
                 }
 
-                MessageBox.Show(Properties.Resources.Objects_Purge_Success, Properties.Resources.Action_Success);
+                System.Windows.MessageBox.Show(Properties.Resources.Objects_Purge_Success, Properties.Resources.Action_Success);
             }
+        }
+
+        public override void ViewHelp()
+        {
+            Help.ShowHelp(null, "TaskConqueror.chm", "html/administrative/purge.htm");
         }
 
         #endregion // Public Methods
