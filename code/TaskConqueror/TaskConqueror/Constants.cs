@@ -31,6 +31,7 @@ namespace TaskConqueror
         public const int InProgress = 2;
         public const int Completed = 3;
         public const int Abandoned = 4;
+        public const int PendingResponse = 5;
     }
 
     public static class TaskPriorities

@@ -693,7 +693,7 @@ namespace TaskConqueror
         /// </summary>
         void ActiveTasksOnTaskUpdated(object sender, TaskUpdatedEventArgs e)
         {
-            QueryCacheItem cachedQuery = _appInfo.GlobalQueryCache.GetCacheItem(Constants.AllTasksCacheItem);
+            QueryCacheItem cachedQuery = _appInfo.GlobalQueryCache.GetCacheItem(Constants.ActiveTasksCacheItem);
 
             if (cachedQuery != null)
             {
