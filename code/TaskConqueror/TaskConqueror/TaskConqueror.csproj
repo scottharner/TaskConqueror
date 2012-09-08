@@ -50,6 +50,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>TaskConqueror.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ReuxablesLegacy">
       <HintPath>..\..\..\..\..\..\Desktop\LEGACY\ReuxablesLegacy.dll</HintPath>
@@ -384,6 +387,7 @@
     <Resource Include="Assets\Images\page_next.png" />
     <Resource Include="Assets\Images\page_prev.png" />
     <Resource Include="Assets\Images\help.png" />
+    <Resource Include="TaskConqueror.ico" />
     <Content Include="TaskConqueror.sdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
