@@ -388,6 +388,9 @@
     <Resource Include="Assets\Images\page_prev.png" />
     <Resource Include="Assets\Images\help.png" />
     <Resource Include="TaskConqueror.ico" />
+    <None Include="LICENSE.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="TaskConqueror.sdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
