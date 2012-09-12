@@ -74,6 +74,8 @@ namespace TaskConqueror
             _appInfo.GcContext.AddToGoals(dbGoal);
             _appInfo.GcContext.SaveChanges();
 
+            goal.GoalId = dbGoal.GoalID;
+
             if (this.GoalAdded != null)
                 this.GoalAdded(this, new GoalAddedEventArgs(goal));
 

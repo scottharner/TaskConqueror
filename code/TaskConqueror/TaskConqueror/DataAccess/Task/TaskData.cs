@@ -86,6 +86,8 @@ namespace TaskConqueror
             _appInfo.GcContext.AddToTasks(dbTask);
             _appInfo.GcContext.SaveChanges();
 
+            task.TaskId = dbTask.TaskID;
+
             if (this.TaskAdded != null)
                 this.TaskAdded(this, new TaskAddedEventArgs(task));
 

@@ -73,6 +73,8 @@ namespace TaskConqueror
             _appInfo.GcContext.AddToProjects(dbProject);
             _appInfo.GcContext.SaveChanges();
 
+            project.ProjectId = dbProject.ProjectID;
+
             if (this.ProjectAdded != null)
                 this.ProjectAdded(this, new ProjectAddedEventArgs(project));
 
