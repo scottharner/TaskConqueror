@@ -53,7 +53,18 @@ namespace TaskConqueror
                 throw new ArgumentNullException("goal");
 
             Data.Goal dbGoal = new Data.Goal();
-            dbGoal.GoalID = AppInfo.Instance.GcContext.Goals.Max(g => g.GoalID) + 1;
+            
+            int nextId;
+            if (AppInfo.Instance.GcContext.Goals.Count() == 0)
+            {
+                nextId = 1;
+            }
+            else
+            {
+                nextId = AppInfo.Instance.GcContext.Goals.Max(g => g.GoalID) + 1;
+            }
+            
+            dbGoal.GoalID = nextId;
             dbGoal.StatusID = goal.StatusId;
             dbGoal.CategoryID = goal.CategoryId;
             dbGoal.CreatedDate = goal.CreatedDate;

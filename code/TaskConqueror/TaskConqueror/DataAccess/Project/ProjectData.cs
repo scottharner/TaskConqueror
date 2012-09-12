@@ -53,7 +53,17 @@ namespace TaskConqueror
                 throw new ArgumentNullException("project");
 
             Data.Project dbProject = new Data.Project();
-            dbProject.ProjectID = AppInfo.Instance.GcContext.Projects.Max(p => p.ProjectID) + 1;
+            int nextId;
+            if (AppInfo.Instance.GcContext.Projects.Count() == 0)
+            {
+                nextId = 1;
+            }
+            else
+            {
+                nextId = AppInfo.Instance.GcContext.Projects.Max(p => p.ProjectID) + 1;
+            }
+
+            dbProject.ProjectID = nextId;
             dbProject.StatusID = project.StatusId;
             dbProject.CreatedDate = project.CreatedDate;
             dbProject.CompletedDate = project.CompletedDate;

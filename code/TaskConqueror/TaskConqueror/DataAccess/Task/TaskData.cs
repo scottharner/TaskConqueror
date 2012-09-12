@@ -58,7 +58,18 @@ namespace TaskConqueror
                 throw new ArgumentNullException("task");
 
             Data.Task dbTask = new Data.Task();
-            dbTask.TaskID = AppInfo.Instance.GcContext.Tasks.Max(t => t.TaskID) + 1;
+            
+            int nextId;
+            if (AppInfo.Instance.GcContext.Tasks.Count() == 0)
+            {
+                nextId = 1;
+            }
+            else
+            {
+                nextId = AppInfo.Instance.GcContext.Tasks.Max(t => t.TaskID) + 1;
+            }
+
+            dbTask.TaskID = nextId;
             dbTask.StatusID = task.StatusId;
             dbTask.PriorityID = task.PriorityId;
             dbTask.IsActive = task.IsActive;

@@ -339,6 +339,11 @@ namespace TaskConqueror
             return ChildTasks.Count(t => t.IsSelected == true) == 1;
         }
 
+        bool CanAddTasks()
+        {
+            return !IsNewProject;
+        }
+
         #endregion // Private Helpers
 
         #region IDataErrorInfo Members
@@ -457,7 +462,8 @@ namespace TaskConqueror
                 if (_addTasksCommand == null)
                 {
                     _addTasksCommand = new RelayCommand(
-                        param => this.AddTasks()
+                        param => this.AddTasks(),
+                        param => this.CanAddTasks()
                         );
                 }
                 return _addTasksCommand;
