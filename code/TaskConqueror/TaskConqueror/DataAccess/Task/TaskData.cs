@@ -132,7 +132,7 @@ namespace TaskConqueror
                 _appInfo.GcContext.SaveChanges();
 
                 if (this.TaskUpdated != null)
-                    this.TaskUpdated(this, new TaskUpdatedEventArgs(task));
+                    this.TaskUpdated(this, new TaskUpdatedEventArgs(task, dbTask));
             }
         }
 
@@ -383,7 +383,7 @@ namespace TaskConqueror
                 _appInfo.GcContext.SaveChanges();
 
                 if (this.TaskUpdated != null)
-                    this.TaskUpdated(this, new TaskUpdatedEventArgs(Task.CreateTask(childDbTask)));
+                    this.TaskUpdated(this, new TaskUpdatedEventArgs(Task.CreateTask(childDbTask), childDbTask));
             }
         }
 
@@ -614,7 +614,7 @@ namespace TaskConqueror
                 if (cachedQuery.FilterTerm == null || e.UpdatedTask.Title.Contains(cachedQuery.FilterTerm))
                 {
                     Data.Task oldTask = allTasks.FirstOrDefault(t => t.TaskID == e.UpdatedTask.TaskId);
-                    Data.Task newTask = allTasks.FirstOrDefault(t => t.TaskID == e.UpdatedTask.TaskId);
+                    Data.Task newTask = e.UpdatedDbTask;
                     if (oldTask != null && newTask != null)
                     {
                         allTasks.Remove(oldTask);
@@ -652,7 +652,7 @@ namespace TaskConqueror
 
                 foreach (var child in childTasks)
                 {
-                    this.TaskUpdated(this, new TaskUpdatedEventArgs(Task.CreateTask(child)));
+                    this.TaskUpdated(this, new TaskUpdatedEventArgs(Task.CreateTask(child), child));
                 }
             }
         }
@@ -716,7 +716,7 @@ namespace TaskConqueror
                     (cachedQuery.FilterTerm == null || e.UpdatedTask.Title.Contains(cachedQuery.FilterTerm)))
                 {
                     Data.Task oldTask = activeTasks.FirstOrDefault(t => t.TaskID == e.UpdatedTask.TaskId);
-                    Data.Task newTask = activeTasks.FirstOrDefault(t => t.TaskID == e.UpdatedTask.TaskId);
+                    Data.Task newTask = e.UpdatedDbTask;
                     if (oldTask != null && newTask != null)
                     {
                         activeTasks.Remove(oldTask);

@@ -7,11 +7,13 @@ namespace TaskConqueror
     /// </summary>
     public class ProjectUpdatedEventArgs : EventArgs
     {
-        public ProjectUpdatedEventArgs(Project updatedProject)
+        public ProjectUpdatedEventArgs(Project updatedProject, Data.Project updatedDbProject)
         {
             this.UpdatedProject = updatedProject;
+            this.UpdatedDbProject = updatedDbProject;
         }
 
         public Project UpdatedProject { get; private set; }
+        public Data.Project UpdatedDbProject { get; private set; }
     }
 }

@@ -118,7 +118,7 @@ namespace TaskConqueror
                 _appInfo.GcContext.SaveChanges();
 
                 if (this.ProjectUpdated != null)
-                    this.ProjectUpdated(this, new ProjectUpdatedEventArgs(project));
+                    this.ProjectUpdated(this, new ProjectUpdatedEventArgs(project, dbProject));
 
                 taskData.UpdateTasksByProject(project.ProjectId);
             }
@@ -364,7 +364,7 @@ namespace TaskConqueror
                 _appInfo.GcContext.SaveChanges();
 
                 if (this.ProjectUpdated != null)
-                    this.ProjectUpdated(this, new ProjectUpdatedEventArgs(Project.CreateProject(childDbProject)));
+                    this.ProjectUpdated(this, new ProjectUpdatedEventArgs(Project.CreateProject(childDbProject), childDbProject));
             }
         }
 
@@ -430,7 +430,7 @@ namespace TaskConqueror
 
                 foreach (var child in childProjects)
                 {
-                    this.ProjectUpdated(this, new ProjectUpdatedEventArgs(Project.CreateProject(child)));
+                    this.ProjectUpdated(this, new ProjectUpdatedEventArgs(Project.CreateProject(child), child));
                 }
             }
         }
@@ -583,7 +583,7 @@ namespace TaskConqueror
                 if (cachedQuery.FilterTerm == null || e.UpdatedProject.Title.Contains(cachedQuery.FilterTerm))
                 {
                     Data.Project oldProject = allProjects.FirstOrDefault(p => p.ProjectID == e.UpdatedProject.ProjectId);
-                    Data.Project newProject = allProjects.FirstOrDefault(p => p.ProjectID == e.UpdatedProject.ProjectId);
+                    Data.Project newProject = e.UpdatedDbProject;
                     if (oldProject != null && newProject != null)
                     {
                         allProjects.Remove(oldProject);

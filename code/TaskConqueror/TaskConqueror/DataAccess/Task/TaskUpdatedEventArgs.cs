@@ -7,11 +7,13 @@ namespace TaskConqueror
     /// </summary>
     public class TaskUpdatedEventArgs : EventArgs
     {
-        public TaskUpdatedEventArgs(Task updatedTask)
+        public TaskUpdatedEventArgs(Task updatedTask, Data.Task updatedDbTask)
         {
             this.UpdatedTask = updatedTask;
+            this.UpdatedDbTask = updatedDbTask;
         }
 
         public Task UpdatedTask { get; private set; }
+        public Data.Task UpdatedDbTask { get; private set; }
     }
 }

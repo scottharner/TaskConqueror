@@ -119,7 +119,7 @@ namespace TaskConqueror
                 _appInfo.GcContext.SaveChanges();
 
                 if (this.GoalUpdated != null)
-                    this.GoalUpdated(this, new GoalUpdatedEventArgs(goal));
+                    this.GoalUpdated(this, new GoalUpdatedEventArgs(goal, dbGoal));
 
                 projectData.UpdateProjectsByGoal(dbGoal.GoalID);
             }
@@ -518,7 +518,7 @@ namespace TaskConqueror
                 if (cachedQuery.FilterTerm == null || e.UpdatedGoal.Title.Contains(cachedQuery.FilterTerm))
                 {
                     Data.Goal oldGoal = allGoals.FirstOrDefault(g => g.GoalID == e.UpdatedGoal.GoalId);
-                    Data.Goal newGoal = allGoals.FirstOrDefault(g => g.GoalID == e.UpdatedGoal.GoalId);
+                    Data.Goal newGoal = e.UpdatedDbGoal;
                     if (oldGoal != null && newGoal != null)
                     {
                         allGoals.Remove(oldGoal);
