@@ -200,7 +200,7 @@ namespace TaskConqueror
                 if (allProjectsCacheItem.SortColumn != sortColumn)
                 {
                     _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.AllProjectsCacheItem, filterTerm, sortColumn, allProjectsList);
-                    SortList(allProjectsList, sortColumn);
+                    allProjectsList = SortList(allProjectsList, sortColumn);
                 }
             }
             
@@ -475,7 +475,7 @@ namespace TaskConqueror
             return dbProjectList;
         }
 
-        private void SortList(List<Data.Project> dbProjectList, SortableProperty sortColumn = null)
+        private List<Data.Project> SortList(List<Data.Project> dbProjectList, SortableProperty sortColumn = null)
         {
             if (sortColumn == null)
             {
@@ -505,6 +505,8 @@ namespace TaskConqueror
                         break;
                 }
             }
+
+            return dbProjectList;
         }
 
         private IQueryable<Data.Project> GetAllProjectsQuery(string filterTerm = "")
@@ -545,7 +547,8 @@ namespace TaskConqueror
                     {
                         allProjects.Add(addedProject);
                         // sort the query results according to the sort column
-                        SortList(allProjects, cachedQuery.SortColumn);
+                        allProjects = SortList(allProjects, cachedQuery.SortColumn);
+                        _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.AllProjectsCacheItem, cachedQuery.FilterTerm, cachedQuery.SortColumn, allProjects);
                     }
                 }
             }
@@ -565,6 +568,7 @@ namespace TaskConqueror
                 if (deletedProject != null)
                 {
                     allProjects.Remove(deletedProject);
+                    _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.AllProjectsCacheItem, cachedQuery.FilterTerm, cachedQuery.SortColumn, allProjects);
                 }
             }
         }
@@ -594,7 +598,7 @@ namespace TaskConqueror
                         allProjects.Add(newProject);
                     }
 
-                    SortList(allProjects, cachedQuery.SortColumn);
+                    allProjects = SortList(allProjects, cachedQuery.SortColumn);
                 }
                 else
                 {
@@ -605,6 +609,8 @@ namespace TaskConqueror
                         allProjects.Remove(oldProject);
                     }
                 }
+
+                _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.AllProjectsCacheItem, cachedQuery.FilterTerm, cachedQuery.SortColumn, allProjects);
             }
         }
 

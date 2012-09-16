@@ -202,7 +202,7 @@ namespace TaskConqueror
                 if (allTasksCacheItem.SortColumn != sortColumn)
                 {
                     _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.AllTasksCacheItem, filterTerm, sortColumn, allTasksList);
-                    SortList(allTasksList, sortColumn);
+                    allTasksList = SortList(allTasksList, sortColumn);
                 }
             }
             
@@ -297,7 +297,7 @@ namespace TaskConqueror
                 if (activeTasksCacheItem.SortColumn != sortColumn)
                 {
                     _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.ActiveTasksCacheItem, filterTerm, sortColumn, activeTasksList);
-                    SortList(activeTasksList, sortColumn);
+                    activeTasksList = SortList(activeTasksList, sortColumn);
                 }
             }
             
@@ -486,7 +486,7 @@ namespace TaskConqueror
             return dbTaskList;
         }
 
-        private void SortList(List<Data.Task> dbTaskList, SortableProperty sortColumn = null)
+        private List<Data.Task> SortList(List<Data.Task> dbTaskList, SortableProperty sortColumn = null)
         {
             if (sortColumn == null)
             {
@@ -516,6 +516,8 @@ namespace TaskConqueror
                         break;
                 }
             }
+
+            return dbTaskList;
         }
 
         private IQueryable<Data.Task> GetAllTasksQuery(string filterTerm = "")
@@ -576,7 +578,8 @@ namespace TaskConqueror
                     {
                         allTasks.Add(addedTask);
                         // sort the query results according to the sort column
-                        SortList(allTasks, cachedQuery.SortColumn);
+                        allTasks = SortList(allTasks, cachedQuery.SortColumn);
+                        _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.AllTasksCacheItem, cachedQuery.FilterTerm, cachedQuery.SortColumn, allTasks);
                     }
                 }
             }
@@ -596,6 +599,7 @@ namespace TaskConqueror
                 if (deletedTask != null)
                 {
                     allTasks.Remove(deletedTask);
+                    _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.AllTasksCacheItem, cachedQuery.FilterTerm, cachedQuery.SortColumn, allTasks);
                 }
             }
         }
@@ -625,7 +629,7 @@ namespace TaskConqueror
                         allTasks.Add(newTask);
                     }
 
-                    SortList(allTasks, cachedQuery.SortColumn);
+                    allTasks = SortList(allTasks, cachedQuery.SortColumn);
                 }
                 else
                 {
@@ -636,6 +640,8 @@ namespace TaskConqueror
                         allTasks.Remove(oldTask);
                     }
                 }
+
+                _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.AllTasksCacheItem, cachedQuery.FilterTerm, cachedQuery.SortColumn, allTasks);
             }
         }
 
@@ -677,7 +683,8 @@ namespace TaskConqueror
                     {
                         activeTasks.Add(addedTask);
                         // sort the query results according to the sort column
-                        SortList(activeTasks, cachedQuery.SortColumn);
+                        activeTasks = SortList(activeTasks, cachedQuery.SortColumn);
+                        _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.ActiveTasksCacheItem, cachedQuery.FilterTerm, cachedQuery.SortColumn, activeTasks);
                     }
                 }
             }
@@ -697,6 +704,7 @@ namespace TaskConqueror
                 if (deletedTask != null)
                 {
                     activeTasks.Remove(deletedTask);
+                    _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.ActiveTasksCacheItem, cachedQuery.FilterTerm, cachedQuery.SortColumn, activeTasks);
                 }
             }
         }
@@ -727,7 +735,7 @@ namespace TaskConqueror
                         activeTasks.Add(newTask);
                     }
 
-                    SortList(activeTasks, cachedQuery.SortColumn);
+                    activeTasks = SortList(activeTasks, cachedQuery.SortColumn);
                 }
                 else
                 {
@@ -738,6 +746,8 @@ namespace TaskConqueror
                         activeTasks.Remove(oldTask);
                     }
                 }
+
+                _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.ActiveTasksCacheItem, cachedQuery.FilterTerm, cachedQuery.SortColumn, activeTasks);
             }
         }
 

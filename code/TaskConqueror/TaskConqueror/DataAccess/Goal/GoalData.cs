@@ -201,7 +201,7 @@ namespace TaskConqueror
                 if (allGoalsCacheItem.SortColumn != sortColumn)
                 {
                     _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.AllGoalsCacheItem, filterTerm, sortColumn, dbGoalsList);
-                    SortList(dbGoalsList, sortColumn);
+                    dbGoalsList = SortList(dbGoalsList, sortColumn);
                 }
             }
 
@@ -413,7 +413,7 @@ namespace TaskConqueror
             return dbGoalList;
         }
 
-        private void SortList(List<Data.Goal> dbGoalList, SortableProperty sortColumn = null)
+        private List<Data.Goal> SortList(List<Data.Goal> dbGoalList, SortableProperty sortColumn = null)
         {
             if (sortColumn == null)
             {
@@ -440,6 +440,8 @@ namespace TaskConqueror
                         break;
                 }
             }
+
+            return dbGoalList;
         }
 
         private IQueryable<Data.Goal> GetAllGoalsQuery(string filterTerm = "")
@@ -480,7 +482,7 @@ namespace TaskConqueror
                     {
                         allGoals.Add(addedGoal);
                         // sort the query results according to the sort column
-                        SortList(allGoals, cachedQuery.SortColumn);
+                        allGoals = SortList(allGoals, cachedQuery.SortColumn);
                     }
                 }
             }
@@ -529,7 +531,7 @@ namespace TaskConqueror
                         allGoals.Add(newGoal);
                     }
 
-                    SortList(allGoals, cachedQuery.SortColumn);
+                    allGoals = SortList(allGoals, cachedQuery.SortColumn);
                 }
                 else
                 {
@@ -540,6 +542,8 @@ namespace TaskConqueror
                         allGoals.Remove(oldGoal);
                     }
                 }
+
+                _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.AllGoalsCacheItem, cachedQuery.FilterTerm, cachedQuery.SortColumn, allGoals);
             }
         }
 
