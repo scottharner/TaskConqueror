@@ -142,6 +142,7 @@
       DataContext="{StaticResource TaskGroups}" 
       ItemContainerStyle="{StaticResource TaskItemStyle}"
       ItemsSource="{Binding}"
+                            tc:GridViewColumnResize.Enabled="True"
         SelectionMode="Single"
       >
 
@@ -149,24 +150,83 @@
                                 <GridView>
                                     <GridViewColumn 
             Header="Title" 
-            DisplayMemberBinding="{Binding Path=Title}" 
-            />
+                        tc:GridViewColumnResize.Width="2*">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <TextBlock TextWrapping="WrapWithOverflow" Text="{Binding Path=Title}"/>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
                                     <GridViewColumn 
             Header="Status" 
-            DisplayMemberBinding="{Binding Path=StatusDescription}" 
-            />
+                        tc:GridViewColumnResize.Width="*">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <TextBlock TextWrapping="WrapWithOverflow" Text="{Binding Path=StatusDescription}"/>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
                                     <GridViewColumn
               Header="Priority"
-              DisplayMemberBinding="{Binding Path=PriorityDescription}"/>
+                        tc:GridViewColumnResize.Width="*">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <TextBlock TextWrapping="WrapWithOverflow" Text="{Binding Path=PriorityDescription}"/>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
                                     <GridViewColumn
               Header="Project"
-              DisplayMemberBinding="{Binding Path=ProjectTitle}"/>
+              DisplayMemberBinding="{Binding Path=ProjectTitle}"
+                                        tc:GridViewColumnResize.Width="2*">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <TextBlock TextWrapping="WrapWithOverflow" Text="{Binding Path=ProjectTitle}"/>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
                                     <GridViewColumn
-              Header="Date Created"
-              DisplayMemberBinding="{Binding Path=CreatedDate}"/>
+                        tc:GridViewColumnResize.Width="*">
+                                        <GridViewColumn.HeaderTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <TextBlock TextWrapping="WrapWithOverflow">Date Created</TextBlock>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </GridViewColumn.HeaderTemplate>
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <TextBlock TextWrapping="WrapWithOverflow" Text="{Binding Path=CreatedDate}"/>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
                                     <GridViewColumn
-              Header="Date Completed"
-              DisplayMemberBinding="{Binding Path=CompletedDate}"/>
+                                        tc:GridViewColumnResize.Width="*">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <TextBlock TextWrapping="WrapWithOverflow" Text="{Binding Path=CompletedDate}"/>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                        <GridViewColumn.HeaderTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <TextBlock TextWrapping="WrapWithOverflow">Date Completed</TextBlock>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </GridViewColumn.HeaderTemplate>
+                                    </GridViewColumn>
                                 </GridView>
                             </ListView.View>
                         </ListView>
