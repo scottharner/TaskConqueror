@@ -156,7 +156,6 @@
     <Compile Include="View\Behaviors\DialogCloser.cs" />
     <Compile Include="View\Behaviors\EventHandlerGenerator.cs" />
     <Compile Include="View\Behaviors\ExecutionStrategy.cs" />
-    <Compile Include="View\Behaviors\GridViewColumnResize.cs" />
     <Compile Include="View\Behaviors\TreeNodeChangedBehavior.cs" />
     <Compile Include="View\Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="View\Converters\SortTreeNodeConverter.cs" />

@@ -227,27 +227,70 @@
                                     <GridView>
                                         <GridViewColumn 
             Header="Title" 
-            DisplayMemberBinding="{Binding Path=Title}" 
-            />
-                                        <GridViewColumn 
-            Header="Status" 
-            DisplayMemberBinding="{Binding Path=StatusDescription}" 
-            />
-                                        <GridViewColumn Header="Est. Cost">
+            Width="250">
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <TextBlock TextAlignment="Right"
+                                                    <Grid>
+                                                        <TextBlock TextWrapping="wrap" Text="{Binding Path=Title}"/>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn 
+            Header="Status" 
+            Width="150">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <TextBlock TextWrapping="wrap" Text="{Binding Path=StatusDescription}"/>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn Header="Est. Cost"
+                                                        Width="150">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock TextWrapping="wrap" TextAlignment="Right"
                        Text="{Binding Path=EstimatedCost, StringFormat='{}{0:C}'}" />
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
 
                                         <GridViewColumn
-              Header="Date Created"
-              DisplayMemberBinding="{Binding Path=CreatedDate}"/>
+                                            Width="150">
+                                            <GridViewColumn.HeaderTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <TextBlock TextWrapping="wrap">Date Created</TextBlock>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </GridViewColumn.HeaderTemplate>
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <TextBlock TextWrapping="wrap" Text="{Binding Path=CreatedDate}"/>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
                                         <GridViewColumn
-              Header="Date Completed"
-              DisplayMemberBinding="{Binding Path=CompletedDate}"/>
+                                            Width="150">
+                                            <GridViewColumn.HeaderTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <TextBlock TextWrapping="wrap">Date Completed</TextBlock>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </GridViewColumn.HeaderTemplate>
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <TextBlock TextWrapping="wrap" Text="{Binding Path=CompletedDate}"/>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
                                     </GridView>
                                 </ListView.View>
                             </ListView>

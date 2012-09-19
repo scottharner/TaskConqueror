@@ -75,7 +75,6 @@
 
 
         <ListView 
-            tc:GridViewColumnResize.Enabled="True"
       AlternationCount="2" 
       DataContext="{StaticResource ProjectGroups}" 
       ItemContainerStyle="{StaticResource TaskItemDoubleClickStyle}"
@@ -86,31 +85,31 @@
         <GridView>
                     <GridViewColumn 
             Header="Title" 
-tc:GridViewColumnResize.Width="2*">
+Width="220">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <TextBlock TextWrapping="WrapWithOverflow" Text="{Binding Path=Title}"/>
+                                    <TextBlock TextWrapping="wrap" Text="{Binding Path=Title}"/>
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn 
             Header="Status" 
-                        tc:GridViewColumnResize.Width="*">
+                        Width="110">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <TextBlock TextWrapping="WrapWithOverflow" Text="{Binding Path=StatusDescription}"/>
+                                    <TextBlock TextWrapping="wrap" Text="{Binding Path=StatusDescription}"/>
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Header="Est. Cost"
-                        tc:GridViewColumnResize.Width="*">
+                        Width="110">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock TextAlignment="Right" TextWrapping="WrapWithOverflow"
+                                <TextBlock TextAlignment="Right" TextWrapping="wrap"
                        Text="{Binding Path=EstimatedCost, StringFormat='{}{0:C}'}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -118,45 +117,45 @@ tc:GridViewColumnResize.Width="2*">
 
                     <GridViewColumn
               Header="Goal"
-                        tc:GridViewColumnResize.Width="2*">
+                        Width="220">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <TextBlock TextWrapping="WrapWithOverflow" Text="{Binding Path=GoalTitle}"/>
+                                    <TextBlock TextWrapping="wrap" Text="{Binding Path=GoalTitle}"/>
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn
-                        tc:GridViewColumnResize.Width="*">
+                        Width="110">
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <TextBlock TextWrapping="WrapWithOverflow">Date Created</TextBlock>
+                                    <TextBlock TextWrapping="wrap">Date Created</TextBlock>
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.HeaderTemplate>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <TextBlock TextWrapping="WrapWithOverflow" Text="{Binding Path=CreatedDate}"/>
+                                    <TextBlock TextWrapping="wrap" Text="{Binding Path=CreatedDate}"/>
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn
-                        tc:GridViewColumnResize.Width="*">
+                        Width="110">
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <TextBlock TextWrapping="WrapWithOverflow">Date Completed</TextBlock>
+                                    <TextBlock TextWrapping="wrap">Date Completed</TextBlock>
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.HeaderTemplate>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <TextBlock TextWrapping="WrapWithOverflow" Text="{Binding Path=CompletedDate}"/>
+                                    <TextBlock TextWrapping="wrap" Text="{Binding Path=CompletedDate}"/>
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
