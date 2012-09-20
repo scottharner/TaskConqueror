@@ -249,4 +249,7 @@
   <data name="CacheItem_Exception_NotFound" xml:space="preserve">
     <value>Requested cache item does not exist.</value>
   </data>
+  <data name="Error_TitleTooLong" xml:space="preserve">
+    <value>Title is too long</value>
+  </data>
 </root>

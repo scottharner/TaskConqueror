@@ -23,6 +23,8 @@ namespace TaskConqueror
         public const string ActiveTasksCacheItem = "ActiveTasks";
         public const string AllProjectsCacheItem = "AllProjects";
         public const string AllGoalsCacheItem = "AllGoals";
+
+        public const int MaxTitleLength = 100;
     }
 
     public static class Statuses

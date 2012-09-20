@@ -277,6 +277,15 @@ namespace TaskConqueror.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Title is too long.
+        /// </summary>
+        internal static string Error_TitleTooLong {
+            get {
+                return ResourceManager.GetString("Error_TitleTooLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cannot run report with invalid criteria..
         /// </summary>
         internal static string Exception_CannotRunReport {

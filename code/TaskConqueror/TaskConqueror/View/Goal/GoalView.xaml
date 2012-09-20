@@ -6,6 +6,7 @@
   xmlns:tc="clr-namespace:TaskConqueror"
   FontSize="13" 
   FontFamily="Verdana"
+FocusManager.FocusedElement="{Binding ElementName=titleTxt}"
   Title="{Binding Path=AppDisplayName}"
     MinHeight="600"
   >

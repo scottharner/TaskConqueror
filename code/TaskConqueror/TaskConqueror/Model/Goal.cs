@@ -149,6 +149,13 @@ namespace TaskConqueror
             {
                 return Properties.Resources.Error_MissingTitle;
             }
+
+
+            if (this.Title.Length > Constants.MaxTitleLength)
+            {
+                return Properties.Resources.Error_TitleTooLong;
+            }
+
             return null;
         }
 

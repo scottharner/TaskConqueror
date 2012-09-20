@@ -6,6 +6,7 @@
   FontSize="13" 
   FontFamily="Verdana"
   Title="{Binding Path=AppDisplayName}"
+    FocusManager.FocusedElement="{Binding ElementName=titleTxt}"
   >
     <Window.Resources>
         <ResourceDictionary Source="/WorkspaceResources.xaml" />
