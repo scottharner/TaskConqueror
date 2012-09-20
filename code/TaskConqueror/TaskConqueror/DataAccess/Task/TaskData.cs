@@ -201,8 +201,8 @@ namespace TaskConqueror
                 
                 if (allTasksCacheItem.SortColumn != sortColumn)
                 {
-                    _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.AllTasksCacheItem, filterTerm, sortColumn, allTasksList);
                     allTasksList = SortList(allTasksList, sortColumn);
+                    _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.AllTasksCacheItem, filterTerm, sortColumn, allTasksList);
                 }
             }
             
@@ -296,8 +296,8 @@ namespace TaskConqueror
 
                 if (activeTasksCacheItem.SortColumn != sortColumn)
                 {
-                    _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.ActiveTasksCacheItem, filterTerm, sortColumn, activeTasksList);
                     activeTasksList = SortList(activeTasksList, sortColumn);
+                    _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.ActiveTasksCacheItem, filterTerm, sortColumn, activeTasksList);
                 }
             }
             

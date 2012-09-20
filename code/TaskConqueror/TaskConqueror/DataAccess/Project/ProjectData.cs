@@ -199,8 +199,8 @@ namespace TaskConqueror
 
                 if (allProjectsCacheItem.SortColumn != sortColumn)
                 {
-                    _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.AllProjectsCacheItem, filterTerm, sortColumn, allProjectsList);
                     allProjectsList = SortList(allProjectsList, sortColumn);
+                    _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.AllProjectsCacheItem, filterTerm, sortColumn, allProjectsList);
                 }
             }
             

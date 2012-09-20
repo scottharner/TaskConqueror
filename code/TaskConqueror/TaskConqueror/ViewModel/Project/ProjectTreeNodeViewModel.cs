@@ -34,7 +34,8 @@ namespace TaskConqueror
             List<Task> childTasks = projectData.GetChildTasks(project.ProjectId);
             foreach (Task childTask in childTasks)
             {
-                _childNodes.Add(new TaskTreeNodeViewModel(childTask, this));
+                if (!childTask.IsActive)
+                    _childNodes.Add(new TaskTreeNodeViewModel(childTask, this));
             }
 
             _parent = parent;

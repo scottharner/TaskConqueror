@@ -200,8 +200,8 @@ namespace TaskConqueror
 
                 if (allGoalsCacheItem.SortColumn != sortColumn)
                 {
-                    _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.AllGoalsCacheItem, filterTerm, sortColumn, dbGoalsList);
                     dbGoalsList = SortList(dbGoalsList, sortColumn);
+                    _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.AllGoalsCacheItem, filterTerm, sortColumn, dbGoalsList);
                 }
             }
 
