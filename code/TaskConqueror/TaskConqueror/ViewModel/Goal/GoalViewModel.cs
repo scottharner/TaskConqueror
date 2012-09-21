@@ -430,7 +430,8 @@ namespace TaskConqueror
                 if (_newProjectCommand == null)
                 {
                     _newProjectCommand = new RelayCommand(
-                        param => this.CreateProject()
+                        param => this.CreateProject(),
+                        param => this.CanAddProjects()
                         );
                 }
                 return _newProjectCommand;

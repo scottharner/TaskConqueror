@@ -409,7 +409,8 @@ namespace TaskConqueror
                 if (_newTaskCommand == null)
                 {
                     _newTaskCommand = new RelayCommand(
-                        param => this.CreateTask()
+                        param => this.CreateTask(),
+                        param => this.CanAddTasks()
                         );
                 }
                 return _newTaskCommand;
