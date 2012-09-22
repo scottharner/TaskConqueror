@@ -239,6 +239,8 @@ namespace TaskConqueror
         {
             List<Data.Task> dbTasks = (from t in _appInfo.GcContext.Tasks
                                        where t.Projects.Count == 0
+                                       && t.StatusID != Statuses.Abandoned 
+                                       && t.StatusID != Statuses.Completed 
                                        orderby t.Title
                                        select t).ToList();
 
