@@ -9,10 +9,10 @@
     <ROW Property="AI_SQL_COMPACT" MultiBuildValue="DefaultBuild:SQL Server Compact 3.5" ValueLocId="-"/>
     <ROW Property="ALLUSERS" Value="1"/>
     <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
-    <ROW Property="ARPCONTACT" Value="taskconqueror@turbografx.net"/>
-    <ROW Property="ARPHELPLINK" Value="http://taskconqueror.turbografx.net"/>
+    <ROW Property="ARPCONTACT" Value="taskconqueror@harner.us"/>
+    <ROW Property="ARPHELPLINK" Value="http://taskconqueror.harner.us"/>
     <ROW Property="ARPPRODUCTICON" Value="TaskConqueror.exe" Type="8"/>
-    <ROW Property="ARPURLINFOABOUT" Value="http://taskconqueror.turbografx.net"/>
+    <ROW Property="ARPURLINFOABOUT" Value="http://taskconqueror.harner.us"/>
     <ROW Property="Manufacturer" Value="Scott Harner" ValueLocId="*"/>
     <ROW Property="ProductCode" Value="1033:{0C3CBE43-3C31-4993-B3DF-48517A965600} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
