@@ -463,7 +463,7 @@ namespace TaskConqueror
                 switch (sortColumn.Name)
                 {
                     case "StatusId":
-                        dbTaskList = tasksQuery.OrderBy(t => t.StatusID).ToList();
+                        dbTaskList = tasksQuery.OrderBy(p => _appInfo.StatusList.Where(s => s.StatusID == p.StatusID).FirstOrDefault().Description).ToList();
                         break;
                     case "PriorityId":
                         dbTaskList = tasksQuery.OrderByDescending(t => t.PriorityID).ToList();
@@ -497,7 +497,7 @@ namespace TaskConqueror
                 switch (sortColumn.Name)
                 {
                     case "StatusId":
-                        dbTaskList = dbTaskList.OrderBy(t => t.StatusID).ToList();
+                        dbTaskList = dbTaskList.OrderBy(p => _appInfo.StatusList.Where(s => s.StatusID == p.StatusID).FirstOrDefault().Description).ToList();
                         break;
                     case "PriorityId":
                         dbTaskList = dbTaskList.OrderByDescending(t => t.PriorityID).ToList();

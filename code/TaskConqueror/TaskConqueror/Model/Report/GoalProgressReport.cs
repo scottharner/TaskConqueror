@@ -60,13 +60,13 @@ namespace TaskConqueror
             criteriaPara.Inlines.Add(dateValueSpan);
             flowDocument.Blocks.Add(criteriaPara);
 
-            Dictionary<string, string> columnDefinitions = new Dictionary<string, string>()
+            Dictionary<string, Tuple<string, string>> columnDefinitions = new Dictionary<string, Tuple<string, string>>()
             {
-                {"Title", "Project Title"},
-                {"StatusDescription", "Status"},
-                {"EstimatedCost", "Estimated Cost"},
-                {"CreatedDate", "Date Created"},
-                {"CompletedDate", "Date Completed"}
+                {"Title", new Tuple<string, string>("Project Title", null)},
+                {"StatusDescription", new Tuple<string, string>("Status", null)},
+                {"EstimatedCost", new Tuple<string, string>("Estimated Cost", "0:C")},
+                {"CreatedDate", new Tuple<string, string>("Date Created", null)},
+                {"CompletedDate", new Tuple<string, string>("Date Completed", null)}
             };
 
             using (ProjectData pData = new ProjectData())

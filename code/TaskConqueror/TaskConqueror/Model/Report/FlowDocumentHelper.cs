@@ -19,7 +19,7 @@ namespace TaskConqueror
             return titlePara;
         }
 
-        public static Table BuildTable<T>(Dictionary<string, string> columnDefinitions, List<T> rowRecords)
+        public static Table BuildTable<T>(Dictionary<string, Tuple<string, string>> columnDefinitions, List<T> rowRecords)
         {
             Table flowTable = new Table();
             flowTable.CellSpacing = 10;
@@ -46,7 +46,7 @@ namespace TaskConqueror
             // Add cells with content to the second row.
             foreach (string propertyName in columnDefinitions.Keys)
             {
-                currentRow.Cells.Add(new TableCell(new Paragraph(new Run(columnDefinitions[propertyName]))));
+                currentRow.Cells.Add(new TableCell(new Paragraph(new Run(columnDefinitions[propertyName].Item1))));
             }
 
             int currentRowCount = 1;
@@ -64,6 +64,10 @@ namespace TaskConqueror
                 {
                     object propertyValue = rowRecord.GetType().GetProperty(propertyName).GetValue(rowRecord, null);
                     string convertedValue = propertyValue == null ? "" : propertyValue.ToString();
+                    
+                    if (columnDefinitions[propertyName].Item2 != null)
+                        convertedValue = string.Format(columnDefinitions[propertyName].Item2, propertyValue);
+
                     currentRow.Cells.Add(new TableCell(new Paragraph(new Run(convertedValue))));
                 }
 

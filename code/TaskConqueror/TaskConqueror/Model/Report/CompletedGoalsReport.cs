@@ -26,13 +26,13 @@ namespace TaskConqueror
         {
             FlowDocument flowDocument = base.Build();
 
-            Dictionary<string, string> columnDefinitions = new Dictionary<string, string>()
+            Dictionary<string, Tuple<string, string>> columnDefinitions = new Dictionary<string, Tuple<string, string>>()
             {
-                {"Title", "Title"},
-                {"StatusDescription", "Status"},
-                {"CategoryDescription", "Category"},
-                {"CreatedDate", "Date Created"},
-                {"CompletedDate", "Date Completed"}
+                {"Title", new Tuple<string, string>("Title", null)},
+                {"StatusDescription", new Tuple<string, string>("Status", null)},
+                {"CategoryDescription", new Tuple<string, string>("Category", null)},
+                {"CreatedDate", new Tuple<string, string>("Date Created", null)},
+                {"CompletedDate", new Tuple<string, string>("Date Completed", null)}
             };
 
             using (GoalData gData = new GoalData())
