@@ -454,7 +454,7 @@ namespace TaskConqueror
                 switch (sortColumn.Name)
                 {
                     case "StatusId":
-                        dbProjectList = projectsQuery.OrderBy(p => _appInfo.StatusList.Where(s => s.StatusID == p.StatusID).FirstOrDefault().Description).ToList();
+                        dbProjectList = projectsQuery.OrderBy(p => p.Status.Description).ToList();
                         break;
                     case "EstimatedCost":
                         dbProjectList = projectsQuery.OrderBy(t => t.EstimatedCost).ToList();
@@ -488,7 +488,7 @@ namespace TaskConqueror
                 switch (sortColumn.Name)
                 {
                     case "StatusId":
-                        dbProjectList = dbProjectList.OrderBy(p => _appInfo.StatusList.Where(s => s.StatusID == p.StatusID).FirstOrDefault().Description).ToList();
+                        dbProjectList = dbProjectList.OrderBy(p => p.Status.Description).ToList();
                         break;
                     case "EstimatedCost":
                         dbProjectList = dbProjectList.OrderBy(t => t.EstimatedCost).ToList();

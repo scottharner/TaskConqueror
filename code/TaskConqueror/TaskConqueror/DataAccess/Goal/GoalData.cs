@@ -393,7 +393,7 @@ namespace TaskConqueror
                 switch (sortColumn.Name)
                 {
                     case "StatusId":
-                        dbGoalList = goalsQuery.OrderBy(t => _appInfo.StatusList.Where(s => s.StatusID == t.StatusID).FirstOrDefault().Description).ToList();
+                        dbGoalList = goalsQuery.OrderBy(g => g.Status.Description).ToList();
                         break;
                     case "CategoryId":
                         dbGoalList = goalsQuery.OrderBy(g => _appInfo.CategoryList.Where(c => c.CategoryID == g.CategoryID).FirstOrDefault().Description).ToList();
@@ -424,7 +424,7 @@ namespace TaskConqueror
                 switch (sortColumn.Name)
                 {
                     case "StatusId":
-                        dbGoalList = dbGoalList.OrderBy(t => _appInfo.StatusList.Where(s => s.StatusID == t.StatusID).FirstOrDefault().Description).ToList();
+                        dbGoalList = dbGoalList.OrderBy(g => g.Status.Description).ToList();
                         break;
                     case "CategoryId":
                         dbGoalList = dbGoalList.OrderBy(g => _appInfo.CategoryList.Where(c => c.CategoryID == g.CategoryID).FirstOrDefault().Description).ToList();
