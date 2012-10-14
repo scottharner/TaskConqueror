@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Markup;
 using System;
+using System.IO;
 
 namespace TaskConqueror
 {
@@ -29,6 +30,8 @@ namespace TaskConqueror
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+
+            AppDomain.CurrentDomain.SetData("DataDirectory", Path.Combine(Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData), "TaskConqueror"));
 
             MainWindow window = new MainWindow();
 
