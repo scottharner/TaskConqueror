@@ -117,7 +117,7 @@ namespace TaskConqueror
             }
             catch (Exception printError)
             {
-                System.Windows.MessageBox.Show(Properties.Resources.CannotPrint + " " + printError.Message, Properties.Resources.Error_Encountered);    
+                WPFMessageBox.Show(Properties.Resources.Error_Encountered, Properties.Resources.CannotPrint + " " + printError.Message, WPFMessageBoxButtons.OK, WPFMessageBoxImage.Error);
             }
         }
 

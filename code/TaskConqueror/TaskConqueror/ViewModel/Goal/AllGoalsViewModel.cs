@@ -229,8 +229,8 @@ namespace TaskConqueror
         public void DeleteGoal()
         {
             GoalViewModel selectedGoalVM = AllGoals.FirstOrDefault(g => g.IsSelected == true);
-            
-            if (selectedGoalVM != null && System.Windows.MessageBox.Show(Properties.Resources.Goals_Delete_Confirm, Properties.Resources.Delete_Confirm, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+
+            if (selectedGoalVM != null && WPFMessageBox.Show(Properties.Resources.Delete_Confirm, Properties.Resources.Goals_Delete_Confirm, WPFMessageBoxButtons.YesNo, WPFMessageBoxImage.Question) == WPFMessageBoxResult.Yes)
             {
                 _goalData.DeleteGoal(_goalData.GetGoalByGoalId(selectedGoalVM.GoalId), _projectData, _taskData);
                 selectedGoalVM.Dispose();

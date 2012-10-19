@@ -111,7 +111,7 @@ namespace TaskConqueror
         /// </summary>
         public void Purge()
         {
-            if (System.Windows.MessageBox.Show(Properties.Resources.Objects_Purge_Confirm, Properties.Resources.Purge_Confirm, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            if (WPFMessageBox.Show(Properties.Resources.Purge_Confirm, Properties.Resources.Objects_Purge_Confirm, WPFMessageBoxButtons.YesNo, WPFMessageBoxImage.Question) == WPFMessageBoxResult.Yes)
             {
                 if (SelectedObjectType == ObjectTypes.Any)
                 {
@@ -166,7 +166,7 @@ namespace TaskConqueror
                     }
                 }
 
-                System.Windows.MessageBox.Show(Properties.Resources.Objects_Purge_Success, Properties.Resources.Action_Success);
+                WPFMessageBox.Show(Properties.Resources.Action_Success, Properties.Resources.Objects_Purge_Success, WPFMessageBoxButtons.OK, WPFMessageBoxImage.Information);
             }
         }
 

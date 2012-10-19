@@ -87,6 +87,16 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppInfo.cs" />
+    <Compile Include="MessageBox\Commands\CommandReference.cs" />
+    <Compile Include="MessageBox\Commands\DelegateCommand.cs" />
+    <Compile Include="MessageBox\IconHelper.cs" />
+    <Compile Include="MessageBox\MessageBoxViewModel.cs" />
+    <Compile Include="MessageBox\WPFMessageBox.xaml.cs">
+      <DependentUpon>WPFMessageBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MessageBox\WPFMessageBoxButtons.cs" />
+    <Compile Include="MessageBox\WPFMessageBoxImage.cs" />
+    <Compile Include="MessageBox\WPFMessageBoxResult.cs" />
     <Compile Include="QueryCache.cs" />
     <Compile Include="QueryCacheItem.cs" />
     <Compile Include="Constants.cs" />
@@ -211,6 +221,10 @@
     <Compile Include="View\Task\TaskView.xaml.cs">
       <DependentUpon>TaskView.xaml</DependentUpon>
     </Compile>
+    <Page Include="MessageBox\WPFMessageBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\Admin\AdminView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -395,6 +409,14 @@
     <None Include="LICENSE.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Resource Include="Assets\Images\MessageBox\Alert.png" />
+    <Resource Include="Assets\Images\MessageBox\Default.png" />
+    <Resource Include="Assets\Images\MessageBox\Error.png" />
+    <Resource Include="Assets\Images\MessageBox\Help.png" />
+    <Resource Include="Assets\Images\MessageBox\Info.png" />
+    <Resource Include="Assets\Images\MessageBox\OK.png" />
+    <Resource Include="Assets\Images\no.png" />
+    <Resource Include="Assets\Images\yes.png" />
     <Content Include="Dependencies\ReuxablesLegacy.dll" />
     <Content Include="Dependencies\System.Windows.Interactivity.dll" />
     <Content Include="TaskConqueror.sdf">

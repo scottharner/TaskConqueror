@@ -296,7 +296,7 @@ namespace TaskConqueror
         {
             ProjectViewModel selectedProjectVM = ChildProjects.FirstOrDefault(p => p.IsSelected == true);
 
-            if (selectedProjectVM != null && System.Windows.MessageBox.Show(Properties.Resources.Projects_Delete_Confirm, Properties.Resources.Delete_Confirm, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            if (selectedProjectVM != null && WPFMessageBox.Show(Properties.Resources.Delete_Confirm, Properties.Resources.Projects_Delete_Confirm, WPFMessageBoxButtons.YesNo, WPFMessageBoxImage.Question) == WPFMessageBoxResult.Yes)
             {
                 _projectData.DeleteProject(_projectData.GetProjectByProjectId(selectedProjectVM.ProjectId), _taskData);
                 selectedProjectVM.Dispose();

@@ -63,7 +63,7 @@ namespace TaskConqueror
             {
                 if (_cancelCommand == null)
                     _cancelCommand = new RelayCommand(
-                        param => { if (IsSaved || MessageBox.Show("Cancel without saving changes?", "Confirm Cancel", MessageBoxButton.YesNo) == MessageBoxResult.Yes) this.OnRequestClose(); });
+                        param => { if (IsSaved || WPFMessageBox.Show("Confirm Cancel", "Cancel without saving changes?", WPFMessageBoxButtons.YesNo, WPFMessageBoxImage.Question) == WPFMessageBoxResult.Yes) this.OnRequestClose(); });
 
                 return _cancelCommand;
             }

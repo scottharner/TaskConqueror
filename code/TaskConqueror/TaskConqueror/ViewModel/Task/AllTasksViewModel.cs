@@ -225,7 +225,7 @@ namespace TaskConqueror
         {
             using (TaskViewModel selectedTaskVM = AllTasks.FirstOrDefault(t => t.IsSelected == true))
             {
-                if (selectedTaskVM != null && System.Windows.MessageBox.Show(Properties.Resources.Tasks_Delete_Confirm, Properties.Resources.Delete_Confirm, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                if (selectedTaskVM != null && WPFMessageBox.Show(Properties.Resources.Delete_Confirm, Properties.Resources.Tasks_Delete_Confirm, WPFMessageBoxButtons.YesNo, WPFMessageBoxImage.Question) == WPFMessageBoxResult.Yes)
                 {
                     _taskData.DeleteTask(_taskData.GetTaskByTaskId(selectedTaskVM.TaskId));
                 }
