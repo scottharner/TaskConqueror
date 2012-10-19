@@ -181,36 +181,45 @@ namespace TaskConqueror
         /// </summary>
         public List<Goal> GetGoals(string filterTerm = "", SortableProperty sortColumn = null, int? pageNumber = null)
         {
-            QueryCacheItem allGoalsCacheItem = _appInfo.GlobalQueryCache.GetCacheItem(Constants.AllGoalsCacheItem, filterTerm);
+            QueryCacheItem allGoalsCacheItem = _appInfo.GlobalQueryCache.GetCacheItem(Constants.AllGoalsCacheItem);
             List<Data.Goal> dbGoalsList;
 
             // retrieve the query from cache if available
             // this will avoid retrieving all records when only a page is needed
             if (allGoalsCacheItem == null)
             {
-                IQueryable<Data.Goal> allGoals = GetAllGoalsQuery(filterTerm);
+                // get the unordered, unfiltered list for caching
+                IQueryable<Data.Goal> allGoals = GetAllGoalsQuery();
+                dbGoalsList = GetOrderedList(allGoals);
+                _appInfo.GlobalQueryCache.AddCacheItem(Constants.AllGoalsCacheItem, dbGoalsList);
 
-                dbGoalsList = GetOrderedList(allGoals, sortColumn);
-
-                _appInfo.GlobalQueryCache.AddCacheItem(Constants.AllGoalsCacheItem, filterTerm, sortColumn, dbGoalsList);
             }
             else
             {
                 dbGoalsList = (List<Data.Goal>)allGoalsCacheItem.Value;
-
-                if (allGoalsCacheItem.SortColumn != sortColumn)
-                {
-                    dbGoalsList = SortList(dbGoalsList, sortColumn);
-                    _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.AllGoalsCacheItem, filterTerm, sortColumn, dbGoalsList);
-                }
             }
 
+            // now do the ordering and filtering
+            if (!string.IsNullOrEmpty(filterTerm))
+            {
+                dbGoalsList = (from g in dbGoalsList
+                               where g.Title.Contains(filterTerm)
+                               select g).ToList();
+            }
+
+            if (sortColumn != null)
+            {
+                dbGoalsList = SortList(dbGoalsList, sortColumn);
+            }
+
+            // do the paging
             if (pageNumber.HasValue)
             {
                 dbGoalsList = dbGoalsList.Skip(Constants.RecordsPerPage * (pageNumber.Value - 1))
                                 .Take(Constants.RecordsPerPage).ToList();
             }
 
+            // create system goal objects from db goal objects
             List<Goal> goals = new List<Goal>();
 
             foreach (Data.Goal dbGoal in dbGoalsList)
@@ -472,18 +481,14 @@ namespace TaskConqueror
 
             if (cachedQuery != null)
             {
-                // check if the added item satisfies the filter term
-                if (cachedQuery.FilterTerm == null || e.NewGoal.Title.Contains(cachedQuery.FilterTerm))
+                // add the added item to the cached query results
+                List<Data.Goal> allGoals = (List<Data.Goal>)cachedQuery.Value;
+                Data.Goal addedGoal = _appInfo.GcContext.Goals.FirstOrDefault(g => g.GoalID == e.NewGoal.GoalId);
+                if (addedGoal != null)
                 {
-                    // add the added item to the cached query results
-                    List<Data.Goal> allGoals = (List<Data.Goal>)cachedQuery.Value;
-                    Data.Goal addedGoal = _appInfo.GcContext.Goals.FirstOrDefault(g => g.GoalID == e.NewGoal.GoalId);
-                    if (addedGoal != null)
-                    {
-                        allGoals.Add(addedGoal);
-                        // sort the query results according to the sort column
-                        allGoals = SortList(allGoals, cachedQuery.SortColumn);
-                    }
+                    allGoals.Add(addedGoal);
+                    allGoals = SortList(allGoals);
+                    _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.AllGoalsCacheItem, allGoals);
                 }
             }
         }
@@ -502,6 +507,7 @@ namespace TaskConqueror
                 if (deletedGoal != null)
                 {
                     allGoals.Remove(deletedGoal);
+                    _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.AllGoalsCacheItem, allGoals);
                 }
             }
         }
@@ -517,33 +523,21 @@ namespace TaskConqueror
             {
                 // updated the query results if needed
                 List<Data.Goal> allGoals = (List<Data.Goal>)cachedQuery.Value;
-                if (cachedQuery.FilterTerm == null || e.UpdatedGoal.Title.Contains(cachedQuery.FilterTerm))
+                Data.Goal oldGoal = allGoals.FirstOrDefault(g => g.GoalID == e.UpdatedGoal.GoalId);
+                Data.Goal newGoal = e.UpdatedDbGoal;
+                if (oldGoal != null && newGoal != null)
                 {
-                    Data.Goal oldGoal = allGoals.FirstOrDefault(g => g.GoalID == e.UpdatedGoal.GoalId);
-                    Data.Goal newGoal = e.UpdatedDbGoal;
-                    if (oldGoal != null && newGoal != null)
-                    {
-                        allGoals.Remove(oldGoal);
-                        allGoals.Add(newGoal);
-                    }
-                    else if (newGoal != null)
-                    {
-                        allGoals.Add(newGoal);
-                    }
-
-                    allGoals = SortList(allGoals, cachedQuery.SortColumn);
+                    allGoals.Remove(oldGoal);
+                    allGoals.Add(newGoal);
                 }
-                else
+                else if (newGoal != null)
                 {
-                    // the updated goal doesnt meet the filter term so remove if it exists in list
-                    Data.Goal oldGoal = allGoals.FirstOrDefault(g => g.GoalID == e.UpdatedGoal.GoalId);
-                    if (oldGoal != null)
-                    {
-                        allGoals.Remove(oldGoal);
-                    }
+                    allGoals.Add(newGoal);
                 }
 
-                _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.AllGoalsCacheItem, cachedQuery.FilterTerm, cachedQuery.SortColumn, allGoals);
+                allGoals = SortList(allGoals);
+
+                _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.AllGoalsCacheItem, allGoals);
             }
         }
 

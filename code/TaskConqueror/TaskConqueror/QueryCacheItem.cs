@@ -15,19 +15,7 @@ namespace TaskConqueror
             set;
         }
 
-        public string FilterTerm
-        {
-            get;
-            set;
-        }
-
         public object Value
-        {
-            get;
-            set;
-        }
-
-        public SortableProperty SortColumn
         {
             get;
             set;

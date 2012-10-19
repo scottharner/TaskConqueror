@@ -31,14 +31,14 @@ namespace TaskConqueror
 
         #region Methods
 
-        public void AddCacheItem(string name, string filterTerm, SortableProperty sortColumn, object Value)
+        public void AddCacheItem(string name, object Value)
         {
-            if (GetCacheItem(name, filterTerm) != null)
+            if (GetCacheItem(name) != null)
             {
                 RemoveCacheItem(name);
             }
 
-            CacheItems.Add(new QueryCacheItem() { Name = name, Value = Value, FilterTerm = filterTerm, SortColumn = sortColumn });
+            CacheItems.Add(new QueryCacheItem() { Name = name, Value = Value });
         }
 
         public void RemoveCacheItem (string name)
@@ -50,14 +50,13 @@ namespace TaskConqueror
             }
         }
 
-        public void UpdateCacheItem(string name, string filterTerm, SortableProperty sortColumn, object value)
+        public void UpdateCacheItem(string name, object value)
         {
-            QueryCacheItem selectedItem = GetCacheItem(name, filterTerm);
+            QueryCacheItem selectedItem = GetCacheItem(name);
 
             if (selectedItem != null)
             {
                 selectedItem.Value = value;
-                selectedItem.SortColumn = sortColumn;
             }
             else
             {
@@ -65,16 +64,11 @@ namespace TaskConqueror
             }
         }
 
-        public QueryCacheItem GetCacheItem(string name, string filterTerm)
-        {
-            return CacheItems.FirstOrDefault(i => i.Name == name && i.FilterTerm == filterTerm);
-        }
-
         public QueryCacheItem GetCacheItem(string name)
         {
             return CacheItems.FirstOrDefault(i => i.Name == name);
         }
-        
+
         #endregion
     }
 }

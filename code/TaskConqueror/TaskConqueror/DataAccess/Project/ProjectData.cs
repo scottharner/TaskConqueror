@@ -180,30 +180,36 @@ namespace TaskConqueror
         /// </summary>
         public List<Project> GetProjects(string filterTerm = "", SortableProperty sortColumn = null, int? pageNumber = null)
         {
-            QueryCacheItem allProjectsCacheItem = _appInfo.GlobalQueryCache.GetCacheItem(Constants.AllProjectsCacheItem, filterTerm);
+            QueryCacheItem allProjectsCacheItem = _appInfo.GlobalQueryCache.GetCacheItem(Constants.AllProjectsCacheItem);
             List<Data.Project> allProjectsList;
 
             // retrieve the query from cache if available
             // this will avoid retrieving all records when only a page is needed
             if (allProjectsCacheItem == null)
             {
-                IQueryable<Data.Project> allProjects = GetAllProjectsQuery(filterTerm);
-
-                allProjectsList = GetOrderedList(allProjects, sortColumn);
-
-                _appInfo.GlobalQueryCache.AddCacheItem(Constants.AllProjectsCacheItem, filterTerm, sortColumn, allProjectsList);
+                // get the unordered, unfiltered list for caching
+                IQueryable<Data.Project> allProjects = GetAllProjectsQuery();
+                allProjectsList = GetOrderedList(allProjects);
+                _appInfo.GlobalQueryCache.AddCacheItem(Constants.AllProjectsCacheItem, allProjectsList);
             }
             else
             {
                 allProjectsList = (List<Data.Project>)allProjectsCacheItem.Value;
-
-                if (allProjectsCacheItem.SortColumn != sortColumn)
-                {
-                    allProjectsList = SortList(allProjectsList, sortColumn);
-                    _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.AllProjectsCacheItem, filterTerm, sortColumn, allProjectsList);
-                }
             }
-            
+
+            // now do the ordering and filtering
+            if (!string.IsNullOrEmpty(filterTerm))
+            {
+                allProjectsList = (from p in allProjectsList
+                               where p.Title.Contains(filterTerm)
+                               select p).ToList();
+            }
+
+            if (sortColumn != null)
+            {
+                allProjectsList = SortList(allProjectsList, sortColumn);
+            }
+
             if (pageNumber.HasValue)
             {
                 allProjectsList = allProjectsList.Skip(Constants.RecordsPerPage * (pageNumber.Value - 1))
@@ -539,19 +545,15 @@ namespace TaskConqueror
 
             if (cachedQuery != null)
             {
-                // check if the added item satisfies the filter term
-                if (cachedQuery.FilterTerm == null || e.NewProject.Title.Contains(cachedQuery.FilterTerm))
+                // add the added item to the cached query results
+                List<Data.Project> allProjects = (List<Data.Project>)cachedQuery.Value;
+                Data.Project addedProject = _appInfo.GcContext.Projects.FirstOrDefault(p => p.ProjectID == e.NewProject.ProjectId);
+                if (addedProject != null)
                 {
-                    // add the added item to the cached query results
-                    List<Data.Project> allProjects = (List<Data.Project>)cachedQuery.Value;
-                    Data.Project addedProject = _appInfo.GcContext.Projects.FirstOrDefault(p => p.ProjectID == e.NewProject.ProjectId);
-                    if (addedProject != null)
-                    {
-                        allProjects.Add(addedProject);
-                        // sort the query results according to the sort column
-                        allProjects = SortList(allProjects, cachedQuery.SortColumn);
-                        _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.AllProjectsCacheItem, cachedQuery.FilterTerm, cachedQuery.SortColumn, allProjects);
-                    }
+                    allProjects.Add(addedProject);
+                    // sort the query results according to the sort column
+                    allProjects = SortList(allProjects);
+                    _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.AllProjectsCacheItem, allProjects);
                 }
             }
         }
@@ -570,7 +572,7 @@ namespace TaskConqueror
                 if (deletedProject != null)
                 {
                     allProjects.Remove(deletedProject);
-                    _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.AllProjectsCacheItem, cachedQuery.FilterTerm, cachedQuery.SortColumn, allProjects);
+                    _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.AllProjectsCacheItem, allProjects);
                 }
             }
         }
@@ -586,33 +588,21 @@ namespace TaskConqueror
             {
                 // updated the query results if needed
                 List<Data.Project> allProjects = (List<Data.Project>)cachedQuery.Value;
-                if (cachedQuery.FilterTerm == null || e.UpdatedProject.Title.Contains(cachedQuery.FilterTerm))
+                Data.Project oldProject = allProjects.FirstOrDefault(p => p.ProjectID == e.UpdatedProject.ProjectId);
+                Data.Project newProject = e.UpdatedDbProject;
+                if (oldProject != null && newProject != null)
                 {
-                    Data.Project oldProject = allProjects.FirstOrDefault(p => p.ProjectID == e.UpdatedProject.ProjectId);
-                    Data.Project newProject = e.UpdatedDbProject;
-                    if (oldProject != null && newProject != null)
-                    {
-                        allProjects.Remove(oldProject);
-                        allProjects.Add(newProject);
-                    }
-                    else if (newProject != null)
-                    {
-                        allProjects.Add(newProject);
-                    }
-
-                    allProjects = SortList(allProjects, cachedQuery.SortColumn);
+                    allProjects.Remove(oldProject);
+                    allProjects.Add(newProject);
                 }
-                else
+                else if (newProject != null)
                 {
-                    // the updated project doesnt meet the filter term so remove if it exists in list
-                    Data.Project oldProject = allProjects.FirstOrDefault(p => p.ProjectID == e.UpdatedProject.ProjectId);
-                    if (oldProject != null)
-                    {
-                        allProjects.Remove(oldProject);
-                    }
+                    allProjects.Add(newProject);
                 }
 
-                _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.AllProjectsCacheItem, cachedQuery.FilterTerm, cachedQuery.SortColumn, allProjects);
+                allProjects = SortList(allProjects);
+
+                _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.AllProjectsCacheItem, allProjects);
             }
         }
 

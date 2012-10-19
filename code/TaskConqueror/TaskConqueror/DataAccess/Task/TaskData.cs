@@ -182,30 +182,36 @@ namespace TaskConqueror
         /// </summary>
         public List<Task> GetTasks(string filterTerm = "", SortableProperty sortColumn = null, int? pageNumber = null)
         {
-            QueryCacheItem allTasksCacheItem = _appInfo.GlobalQueryCache.GetCacheItem(Constants.AllTasksCacheItem, filterTerm);
+            QueryCacheItem allTasksCacheItem = _appInfo.GlobalQueryCache.GetCacheItem(Constants.AllTasksCacheItem);
             List<Data.Task> allTasksList;
 
             // retrieve the query from cache if available
             // this will avoid retrieving all records when only a page is needed
             if (allTasksCacheItem == null)
             {
+                // get the unordered, unfiltered list for caching
                 IQueryable<Data.Task> allTasks = GetAllTasksQuery(filterTerm);
-
                 allTasksList = GetOrderedList(allTasks, sortColumn);
-
-                _appInfo.GlobalQueryCache.AddCacheItem(Constants.AllTasksCacheItem, filterTerm, sortColumn, allTasksList);
+                _appInfo.GlobalQueryCache.AddCacheItem(Constants.AllTasksCacheItem, allTasksList);
             }
             else
             {
                 allTasksList = (List<Data.Task>)allTasksCacheItem.Value;
-                
-                if (allTasksCacheItem.SortColumn != sortColumn)
-                {
-                    allTasksList = SortList(allTasksList, sortColumn);
-                    _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.AllTasksCacheItem, filterTerm, sortColumn, allTasksList);
-                }
             }
-            
+
+            // now do the ordering and filtering
+            if (!string.IsNullOrEmpty(filterTerm))
+            {
+                allTasksList = (from t in allTasksList
+                               where t.Title.Contains(filterTerm)
+                               select t).ToList();
+            }
+
+            if (sortColumn != null)
+            {
+                allTasksList = SortList(allTasksList, sortColumn);
+            }
+
             if (pageNumber.HasValue)
             {
                 allTasksList = allTasksList.Skip(Constants.RecordsPerPage * (pageNumber.Value - 1))
@@ -279,30 +285,36 @@ namespace TaskConqueror
         /// </summary>
         public List<Task> GetActiveTasks(string filterTerm = "", SortableProperty sortColumn = null, int? pageNumber = null)
         {
-            QueryCacheItem activeTasksCacheItem = _appInfo.GlobalQueryCache.GetCacheItem(Constants.ActiveTasksCacheItem, filterTerm);
+            QueryCacheItem activeTasksCacheItem = _appInfo.GlobalQueryCache.GetCacheItem(Constants.ActiveTasksCacheItem);
             List<Data.Task> activeTasksList;
 
             // retrieve the query from cache if available
             // this will avoid retrieving all records when only a page is needed
             if (activeTasksCacheItem == null)
             {
-                IQueryable<Data.Task> activeTasks = GetActiveTasksQuery(filterTerm);
-
-                activeTasksList = GetOrderedList(activeTasks, sortColumn);
-
-                _appInfo.GlobalQueryCache.AddCacheItem(Constants.ActiveTasksCacheItem, filterTerm, sortColumn, activeTasksList);
+                // get the unordered, unfiltered list for caching
+                IQueryable<Data.Task> activeTasks = GetActiveTasksQuery();
+                activeTasksList = GetOrderedList(activeTasks);
+                _appInfo.GlobalQueryCache.AddCacheItem(Constants.ActiveTasksCacheItem, activeTasksList);
             }
             else
             {
                 activeTasksList = (List<Data.Task>)activeTasksCacheItem.Value;
-
-                if (activeTasksCacheItem.SortColumn != sortColumn)
-                {
-                    activeTasksList = SortList(activeTasksList, sortColumn);
-                    _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.ActiveTasksCacheItem, filterTerm, sortColumn, activeTasksList);
-                }
             }
-            
+
+            // now do the ordering and filtering
+            if (!string.IsNullOrEmpty(filterTerm))
+            {
+                activeTasksList = (from t in activeTasksList
+                               where t.Title.Contains(filterTerm)
+                               select t).ToList();
+            }
+
+            if (sortColumn != null)
+            {
+                activeTasksList = SortList(activeTasksList, sortColumn);
+            }
+
             if (pageNumber.HasValue)
             {
                 activeTasksList = activeTasksList.Skip(Constants.RecordsPerPage * (pageNumber.Value - 1))
@@ -570,19 +582,14 @@ namespace TaskConqueror
 
             if (cachedQuery != null)
             {
-                // check if the added item satisfies the filter term
-                if (cachedQuery.FilterTerm == null || e.NewTask.Title.Contains(cachedQuery.FilterTerm))
+                // add the added item to the cached query results
+                List<Data.Task> allTasks = (List<Data.Task>)cachedQuery.Value;
+                Data.Task addedTask = _appInfo.GcContext.Tasks.FirstOrDefault(t => t.TaskID == e.NewTask.TaskId);
+                if (addedTask != null)
                 {
-                    // add the added item to the cached query results
-                    List<Data.Task> allTasks = (List<Data.Task>)cachedQuery.Value;
-                    Data.Task addedTask = _appInfo.GcContext.Tasks.FirstOrDefault(t => t.TaskID == e.NewTask.TaskId);
-                    if (addedTask != null)
-                    {
-                        allTasks.Add(addedTask);
-                        // sort the query results according to the sort column
-                        allTasks = SortList(allTasks, cachedQuery.SortColumn);
-                        _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.AllTasksCacheItem, cachedQuery.FilterTerm, cachedQuery.SortColumn, allTasks);
-                    }
+                    allTasks.Add(addedTask);
+                    allTasks = SortList(allTasks);
+                    _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.AllTasksCacheItem, allTasks);
                 }
             }
         }
@@ -601,7 +608,7 @@ namespace TaskConqueror
                 if (deletedTask != null)
                 {
                     allTasks.Remove(deletedTask);
-                    _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.AllTasksCacheItem, cachedQuery.FilterTerm, cachedQuery.SortColumn, allTasks);
+                    _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.AllTasksCacheItem, allTasks);
                 }
             }
         }
@@ -617,33 +624,21 @@ namespace TaskConqueror
             {
                 // updated the query results if needed
                 List<Data.Task> allTasks = (List<Data.Task>)cachedQuery.Value;
-                if (cachedQuery.FilterTerm == null || e.UpdatedTask.Title.Contains(cachedQuery.FilterTerm))
+                Data.Task oldTask = allTasks.FirstOrDefault(t => t.TaskID == e.UpdatedTask.TaskId);
+                Data.Task newTask = e.UpdatedDbTask;
+                if (oldTask != null && newTask != null)
                 {
-                    Data.Task oldTask = allTasks.FirstOrDefault(t => t.TaskID == e.UpdatedTask.TaskId);
-                    Data.Task newTask = e.UpdatedDbTask;
-                    if (oldTask != null && newTask != null)
-                    {
-                        allTasks.Remove(oldTask);
-                        allTasks.Add(newTask);
-                    }
-                    else if (newTask != null)
-                    {
-                        allTasks.Add(newTask);
-                    }
-
-                    allTasks = SortList(allTasks, cachedQuery.SortColumn);
+                    allTasks.Remove(oldTask);
+                    allTasks.Add(newTask);
                 }
-                else
+                else if (newTask != null)
                 {
-                    // the updated task doesnt meet the filter term so remove if it exists in list
-                    Data.Task oldTask = allTasks.FirstOrDefault(t => t.TaskID == e.UpdatedTask.TaskId);
-                    if (oldTask != null)
-                    {
-                        allTasks.Remove(oldTask);
-                    }
+                    allTasks.Add(newTask);
                 }
 
-                _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.AllTasksCacheItem, cachedQuery.FilterTerm, cachedQuery.SortColumn, allTasks);
+                allTasks = SortList(allTasks);
+
+                _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.AllTasksCacheItem, allTasks);
             }
         }
 
@@ -675,8 +670,7 @@ namespace TaskConqueror
             if (cachedQuery != null)
             {
                 // check if the added item satisfies the filter term and is active
-                if (e.NewTask.IsActive &&
-                    (cachedQuery.FilterTerm == null || e.NewTask.Title.Contains(cachedQuery.FilterTerm)))
+                if (e.NewTask.IsActive)
                 {
                     // add the added item to the cached query results
                     List<Data.Task> activeTasks = (List<Data.Task>)cachedQuery.Value;
@@ -684,9 +678,8 @@ namespace TaskConqueror
                     if (addedTask != null)
                     {
                         activeTasks.Add(addedTask);
-                        // sort the query results according to the sort column
-                        activeTasks = SortList(activeTasks, cachedQuery.SortColumn);
-                        _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.ActiveTasksCacheItem, cachedQuery.FilterTerm, cachedQuery.SortColumn, activeTasks);
+                        activeTasks = SortList(activeTasks);
+                        _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.ActiveTasksCacheItem, activeTasks);
                     }
                 }
             }
@@ -706,7 +699,7 @@ namespace TaskConqueror
                 if (deletedTask != null)
                 {
                     activeTasks.Remove(deletedTask);
-                    _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.ActiveTasksCacheItem, cachedQuery.FilterTerm, cachedQuery.SortColumn, activeTasks);
+                    _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.ActiveTasksCacheItem, activeTasks);
                 }
             }
         }
@@ -722,8 +715,7 @@ namespace TaskConqueror
             {
                 // updated the query results if needed
                 List<Data.Task> activeTasks = (List<Data.Task>)cachedQuery.Value;
-                if (e.UpdatedTask.IsActive && 
-                    (cachedQuery.FilterTerm == null || e.UpdatedTask.Title.Contains(cachedQuery.FilterTerm)))
+                if (e.UpdatedTask.IsActive)
                 {
                     Data.Task oldTask = activeTasks.FirstOrDefault(t => t.TaskID == e.UpdatedTask.TaskId);
                     Data.Task newTask = e.UpdatedDbTask;
@@ -737,7 +729,7 @@ namespace TaskConqueror
                         activeTasks.Add(newTask);
                     }
 
-                    activeTasks = SortList(activeTasks, cachedQuery.SortColumn);
+                    activeTasks = SortList(activeTasks);
                 }
                 else
                 {
@@ -749,7 +741,7 @@ namespace TaskConqueror
                     }
                 }
 
-                _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.ActiveTasksCacheItem, cachedQuery.FilterTerm, cachedQuery.SortColumn, activeTasks);
+                _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.ActiveTasksCacheItem, activeTasks);
             }
         }
 
