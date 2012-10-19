@@ -326,7 +326,7 @@ namespace TaskConqueror
             }
 
             FirstRecordNumber = ActiveTasks.Count > 0 ? (Constants.RecordsPerPage * (pageNumber - 1)) + 1 : 0;
-            LastRecordNumber = FirstRecordNumber + ActiveTasks.Count - 1;
+            LastRecordNumber = ActiveTasks.Count > 0 ? FirstRecordNumber + ActiveTasks.Count - 1 : 0;
             TotalRecordCount = _taskData.GetActiveTasksCount(FilterTerm);
         }
 

@@ -272,7 +272,7 @@ namespace TaskConqueror
             }
 
             FirstRecordNumber = AllGoals.Count > 0 ? (Constants.RecordsPerPage * (pageNumber - 1)) + 1 : 0;
-            LastRecordNumber = FirstRecordNumber + AllGoals.Count - 1;
+            LastRecordNumber = AllGoals.Count > 0 ? FirstRecordNumber + AllGoals.Count - 1 : 0;
             TotalRecordCount = _goalData.GetGoalsCount(FilterTerm);
         }
 
