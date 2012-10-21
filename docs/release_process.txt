@@ -1,0 +1,20 @@
+1. Update release number in VS project.
+2. Update release notes.
+	a. Add new release info to help html.
+	b. Rebuild help file.
+	c. Replace help file in VS project.
+	d. Rebuild VS project.
+	e. Add new release info to installer readme.
+3. Update installer.
+	a. Set new version.
+	b. Update files and folders.
+	c. Rebuild installer.
+	d. Test installer.
+	e. Create new versioned copy of installer msi.
+4. Commit build.
+5. Test build.
+6. Tag build.
+7. Post bitbucket download.
+8. Update website download page.
+9. Post update to CNET.
+10. Post update to Softpedia.
