@@ -25,6 +25,8 @@ namespace TaskConqueror
         public const string AllGoalsCacheItem = "AllGoals";
 
         public const int MaxTitleLength = 100;
+
+        public const string DatabaseName = "TaskConqueror.sdf";
     }
 
     public static class Statuses

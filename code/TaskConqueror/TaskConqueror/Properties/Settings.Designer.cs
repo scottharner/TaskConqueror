@@ -22,5 +22,26 @@ namespace TaskConqueror.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=|DataDirectory|\\TaskConqueror.sdf;Password=success")]
+        public string TaskConquerorConnectionString {
+            get {
+                return ((string)(this["TaskConquerorConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=C:\\Documents and Settings\\scott\\Application Data\\TaskConqueror\\TaskCo" +
+            "nqueror.sdf;Password=success;Persist Security Info=True")]
+        public string TaskConquerorConnectionString1 {
+            get {
+                return ((string)(this["TaskConquerorConnectionString1"]));
+            }
+        }
     }
 }

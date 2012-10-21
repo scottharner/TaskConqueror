@@ -4,13 +4,14 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TaskConquerorModel.Store" Alias="Self" Provider="System.Data.SqlServerCe.3.5" ProviderManifestToken="3.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="TaskConquerorModel.Store" Alias="Self" Provider="System.Data.SqlServerCe.3.5" ProviderManifestToken="3.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="TaskConquerorModelStoreContainer">
           <EntitySet Name="Goal" EntityType="TaskConquerorModel.Store.Goal" store:Type="Tables" />
           <EntitySet Name="GoalCategory" EntityType="TaskConquerorModel.Store.GoalCategory" store:Type="Tables" />
           <EntitySet Name="GoalProject" EntityType="TaskConquerorModel.Store.GoalProject" store:Type="Tables" />
           <EntitySet Name="Project" EntityType="TaskConquerorModel.Store.Project" store:Type="Tables" />
           <EntitySet Name="ProjectTask" EntityType="TaskConquerorModel.Store.ProjectTask" store:Type="Tables" />
+          <EntitySet Name="Setting" EntityType="TaskConquerorModel.Store.Setting" store:Type="Tables" />
           <EntitySet Name="Status" EntityType="TaskConquerorModel.Store.Status" store:Type="Tables" />
           <EntitySet Name="Task" EntityType="TaskConquerorModel.Store.Task" store:Type="Tables" />
           <EntitySet Name="TaskPriority" EntityType="TaskConquerorModel.Store.TaskPriority" store:Type="Tables" />
@@ -95,6 +96,13 @@
           </Key>
           <Property Name="ProjectID" Type="int" Nullable="false" />
           <Property Name="TaskID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Setting">
+          <Key>
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Value" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Status">
           <Key>
@@ -230,8 +238,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TaskConquerorModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -270,6 +277,7 @@
             <End Role="Project" EntitySet="Projects" />
             <End Role="Task" EntitySet="Tasks" />
           </AssociationSet>
+          <EntitySet Name="Settings" EntityType="TaskConquerorModel.Setting" />
         </EntityContainer>
         <EntityType Name="Goal">
           <Key>
@@ -408,6 +416,13 @@
           <End Role="Project" Type="TaskConquerorModel.Project" Multiplicity="*" />
           <End Role="Task" Type="TaskConquerorModel.Task" Multiplicity="*" />
         </Association>
+        <EntityType Name="Setting">
+          <Key>
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Value" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -467,6 +482,14 @@
               <ScalarProperty Name="TaskID" ColumnName="TaskID" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Settings">
+            <EntityTypeMapping TypeName="TaskConquerorModel.Setting">
+              <MappingFragment StoreEntitySet="Setting">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -487,7 +510,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="TaskConqueror">
+      <Diagram Name="TaskConqueror" ZoomLevel="64">
         <EntityTypeShape EntityType="TaskConquerorModel.Goal" Width="1.5" PointX="3" PointY="1" Height="2.4140429687499996" IsExpanded="true" />
         <EntityTypeShape EntityType="TaskConquerorModel.GoalCategory" Width="1.5" PointX="0.75" PointY="5.5" Height="1.4279589843749996" IsExpanded="true" />
         <EntityTypeShape EntityType="TaskConquerorModel.Project" Width="1.5" PointX="5.25" PointY="1" Height="2.4140429687499996" IsExpanded="true" />
@@ -534,6 +557,7 @@
           <ConnectorPoint PointX="6.75" PointY="2.207021484375" />
           <ConnectorPoint PointX="7.5" PointY="2.207021484375" />
         </AssociationConnector>
+        <EntityTypeShape EntityType="TaskConquerorModel.Setting" Width="1.5" PointX="0.75" PointY="7.75" Height="1.2636116536458317" />
       </Diagram>
     </Diagrams>
   </Designer>
