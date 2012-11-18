@@ -109,7 +109,14 @@ This resource dictionary is used by the Worskpaces.
     <ControlTemplate x:Key="FilterControlsTemplate">
         <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
             <TextBlock Text="Title Contains:" VerticalAlignment="Center"/>
-            <TextBox Text="{Binding Path=FilterTerm}" Margin="10 0" MinWidth="150">
+            <TextBox Margin="10 0" MinWidth="150">
+                <TextBox.Text>
+                    <Binding Path="FilterTerm"
+             UpdateSourceTrigger="PropertyChanged"/>
+                </TextBox.Text>
+                <TextBox.InputBindings>
+                    <KeyBinding Key="Enter" Command="{Binding Path=FilterResultsCommand}"></KeyBinding>
+                </TextBox.InputBindings>
             </TextBox>
             <tc:ImageButton
                 Text="Filter"
