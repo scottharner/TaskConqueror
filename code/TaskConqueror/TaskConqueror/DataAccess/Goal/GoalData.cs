@@ -203,7 +203,7 @@ namespace TaskConqueror
             if (!string.IsNullOrEmpty(filterTerm))
             {
                 dbGoalsList = (from g in dbGoalsList
-                               where g.Title.Contains(filterTerm)
+                               where g.Title.ToLower().Contains(filterTerm.ToLower())
                                select g).ToList();
             }
 

@@ -201,7 +201,7 @@ namespace TaskConqueror
             if (!string.IsNullOrEmpty(filterTerm))
             {
                 allProjectsList = (from p in allProjectsList
-                               where p.Title.Contains(filterTerm)
+                               where p.Title.ToLower().Contains(filterTerm.ToLower())
                                select p).ToList();
             }
 

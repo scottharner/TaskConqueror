@@ -203,7 +203,7 @@ namespace TaskConqueror
             if (!string.IsNullOrEmpty(filterTerm))
             {
                 allTasksList = (from t in allTasksList
-                               where t.Title.Contains(filterTerm)
+                               where t.Title.ToLower().Contains(filterTerm.ToLower())
                                select t).ToList();
             }
 
@@ -306,7 +306,7 @@ namespace TaskConqueror
             if (!string.IsNullOrEmpty(filterTerm))
             {
                 activeTasksList = (from t in activeTasksList
-                               where t.Title.Contains(filterTerm)
+                               where t.Title.ToLower().Contains(filterTerm.ToLower())
                                select t).ToList();
             }
 
