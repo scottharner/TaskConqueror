@@ -420,6 +420,8 @@
     <Resource Include="Assets\Images\MessageBox\OK.png" />
     <Resource Include="Assets\Images\no.png" />
     <Resource Include="Assets\Images\yes.png" />
+    <Resource Include="Assets\Images\arrow_down.png" />
+    <Resource Include="Assets\Images\arrow_up.png" />
     <Content Include="Dependencies\ReuxablesLegacy.dll" />
     <Content Include="Dependencies\System.Windows.Interactivity.dll" />
     <None Include="TaskConqueror.sdf">

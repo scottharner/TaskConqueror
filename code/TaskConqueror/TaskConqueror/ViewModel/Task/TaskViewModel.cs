@@ -27,6 +27,7 @@ namespace TaskConqueror
         string _priorityDescription;
         RelayCommand _toggleCompleteCommand;
         int _originalStatusId;
+        bool _originalIsActive;
 
         #endregion // Fields
 
@@ -51,6 +52,7 @@ namespace TaskConqueror
             _statusDescription = _statusOptions.FirstOrDefault(s => s.StatusID == this.StatusId).Description;
             _priorityDescription = _priorityOptions.FirstOrDefault(p => p.PriorityID == this.PriorityId).Description;
             _originalStatusId = StatusId;
+            _originalIsActive = IsActive;
 
             base.DisplayName = Properties.Resources.Edit_Task_DisplayName;
             base.DisplayImage = "pack://application:,,,/TaskConqueror;Component/Assets/Images/task.png";
@@ -169,6 +171,20 @@ namespace TaskConqueror
             get { return _task.ParentProject; }
         }
 
+        public int? SortOrder
+        {
+            get { return _task.SortOrder; }
+            set
+            {
+                if (value == _task.SortOrder)
+                    return;
+
+                _task.SortOrder = value;
+
+                base.OnPropertyChanged("SortOrder");
+            }
+        }
+
         #endregion // Properties
 
         #region Presentation Properties
@@ -276,6 +292,9 @@ namespace TaskConqueror
                 
                 if (StatusId == Statuses.Completed)
                     CompletedDate = DateTime.Now;
+
+                if (this.IsActive)
+                    SortOrder = _taskData.GetNextAvailableSortOrder();
                 
                 TaskId = _taskData.AddTask(_task);
             }
@@ -290,10 +309,20 @@ namespace TaskConqueror
                     CompletedDate = null;
                 }
 
+                if (IsActive != _originalIsActive && IsActive == true)
+                {
+                    SortOrder = _taskData.GetNextAvailableSortOrder();
+                }
+                else if (IsActive != _originalIsActive)
+                {
+                    SortOrder = null;
+                }
+                
                 _taskData.UpdateTask(_task);
             }
 
             _originalStatusId = StatusId;
+            _originalIsActive = IsActive;
             _isSaved = true;
         }
 

@@ -45,7 +45,17 @@
                     Image="pack://application:,,,/TaskConqueror;Component/Assets/Images/remove.png"
                     Command="{Binding Path=DeactivateCommand}"
                     />
-            </StackPanel>
+                <tc:ImageButton 
+                    Text="Move Up" 
+                    Image="pack://application:,,,/TaskConqueror;Component/Assets/Images/arrow_up.png"
+                    Command="{Binding Path=MoveUpCommand}"
+                    />
+                <tc:ImageButton 
+                    Text="Move Down" 
+                    Image="pack://application:,,,/TaskConqueror;Component/Assets/Images/arrow_down.png"
+                    Command="{Binding Path=MoveDownCommand}"
+                    />
+                </StackPanel>
         </GroupBox>
             <GroupBox 
             DockPanel.Dock="Left"
@@ -59,23 +69,8 @@
                     />
                 </StackPanel>
             </GroupBox>
-            <ItemsControl
-            DockPanel.Dock="Right"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
-            Template="{StaticResource FilterControlsTemplate}"/>
             </DockPanel>
         <DockPanel DockPanel.Dock="Bottom">
-            <ItemsControl
-            DockPanel.Dock="Left"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center"
-            Template="{StaticResource PageControlsTemplate}"/>
-            <ItemsControl
-            DockPanel.Dock="Right"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
-            Template="{StaticResource SortControlsTemplate}"/>
         </DockPanel>
 
 

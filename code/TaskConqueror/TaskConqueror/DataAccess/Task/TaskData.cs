@@ -76,6 +76,7 @@ namespace TaskConqueror
             dbTask.CreatedDate = task.CreatedDate;
             dbTask.CompletedDate = task.CompletedDate;
             dbTask.Title = task.Title;
+            dbTask.SortOrder = task.SortOrder;
             if (task.ParentProject != null)
             {
                 dbTask.Projects.Add((from p in _appInfo.GcContext.Projects
@@ -128,6 +129,7 @@ namespace TaskConqueror
                 dbTask.CreatedDate = task.CreatedDate;
                 dbTask.CompletedDate = task.CompletedDate;
                 dbTask.Title = task.Title;
+                dbTask.SortOrder = task.SortOrder;
 
                 _appInfo.GcContext.SaveChanges();
 
@@ -332,6 +334,25 @@ namespace TaskConqueror
         }
 
         /// <summary>
+        /// Returns the next available sort order number for an active task
+        /// </summary>
+        public int GetNextAvailableSortOrder()
+        {
+            int? sortOrder =
+                (from t in _appInfo.GcContext.Tasks
+                    where t.IsActive == true
+                    select t.SortOrder)
+                    .Max();
+
+            if (sortOrder.HasValue)
+                sortOrder++;
+            else
+                sortOrder = 1;
+
+            return sortOrder.Value;
+        }
+
+        /// <summary>
         /// Returns the count of active tasks in the repository.
         /// </summary>
         public int GetActiveTasksCount(string filterTerm = "")
@@ -470,7 +491,7 @@ namespace TaskConqueror
 
             if (sortColumn == null)
             {
-                dbTaskList = tasksQuery.OrderBy(t => t.Title).ToList();
+                dbTaskList = tasksQuery.OrderBy(t => t.SortOrder).ToList();
             }
             else
             {
@@ -491,8 +512,11 @@ namespace TaskConqueror
                     case "CompletedDate":
                         dbTaskList = tasksQuery.OrderBy(t => t.CompletedDate).ToList();
                         break;
-                    default:
+                    case "Title":
                         dbTaskList = tasksQuery.OrderBy(t => t.Title).ToList();
+                        break;
+                    default:
+                        dbTaskList = tasksQuery.OrderBy(t => t.SortOrder).ToList();
                         break;
                 }
             }
@@ -524,6 +548,9 @@ namespace TaskConqueror
                         break;
                     case "CompletedDate":
                         dbTaskList = dbTaskList.OrderBy(t => t.CompletedDate).ToList();
+                        break;
+                    case "SortOrder":
+                        dbTaskList = dbTaskList.OrderBy(t => t.SortOrder).ToList();
                         break;
                     default:
                         dbTaskList = dbTaskList.OrderBy(t => t.Title).ToList();
@@ -561,12 +588,14 @@ namespace TaskConqueror
             {
                 activeTasks = (from t in _appInfo.GcContext.Tasks
                                where t.IsActive == true
+                               orderby t.SortOrder
                                select t);
             }
             else
             {
                 activeTasks = (from t in _appInfo.GcContext.Tasks
                                where t.Title.Contains(filterTerm) && t.IsActive == true
+                               orderby t.SortOrder
                                select t);
             }
 
@@ -678,7 +707,7 @@ namespace TaskConqueror
                     if (addedTask != null)
                     {
                         activeTasks.Add(addedTask);
-                        activeTasks = SortList(activeTasks);
+                        activeTasks = SortList(activeTasks, new SortableProperty() { Description = "Sort Order", Name = "SortOrder" });
                         _appInfo.GlobalQueryCache.UpdateCacheItem(Constants.ActiveTasksCacheItem, activeTasks);
                     }
                 }
@@ -729,7 +758,7 @@ namespace TaskConqueror
                         activeTasks.Add(newTask);
                     }
 
-                    activeTasks = SortList(activeTasks);
+                    activeTasks = SortList(activeTasks, new SortableProperty() { Description = "Sort Order", Name = "SortOrder" });
                 }
                 else
                 {

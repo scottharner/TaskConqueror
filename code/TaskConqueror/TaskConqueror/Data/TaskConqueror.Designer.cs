@@ -1344,6 +1344,30 @@ namespace TaskConqueror.Data
         private global::System.Int32 _TaskID;
         partial void OnTaskIDChanging(global::System.Int32 value);
         partial void OnTaskIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> SortOrder
+        {
+            get
+            {
+                return _SortOrder;
+            }
+            set
+            {
+                OnSortOrderChanging(value);
+                ReportPropertyChanging("SortOrder");
+                _SortOrder = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("SortOrder");
+                OnSortOrderChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _SortOrder;
+        partial void OnSortOrderChanging(Nullable<global::System.Int32> value);
+        partial void OnSortOrderChanged();
 
         #endregion
     

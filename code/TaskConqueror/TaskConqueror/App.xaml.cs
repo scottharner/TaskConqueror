@@ -142,6 +142,47 @@ namespace TaskConqueror
                   "  VALUES ('DBSchemaVersion', '1')";
                 insertCommand.ExecuteNonQuery();
             }
+            else if (version == 1)
+            {
+                // run script to insert sort order column
+                SqlCeCommand createCommand = connection.CreateCommand();
+                createCommand.CommandText =
+                  "ALTER TABLE Task ADD SortOrder INTEGER DEFAULT NULL";
+                createCommand.ExecuteNonQuery();
+
+                // run script to populate sort order values
+                int sortOrder = 1;
+                SqlCeCommand selectTasksCommand = new SqlCeCommand("SELECT TaskID FROM Task WHERE (IsActive = 1) ORDER BY Title", connection);
+                SqlCeDataReader tasksReader = selectTasksCommand.ExecuteReader();
+                while (tasksReader.Read())
+                {
+                    int taskId = Int32.Parse(tasksReader["TaskID"].ToString());
+
+                    SqlCeCommand sortUpdateCommand = connection.CreateCommand();
+                    sortUpdateCommand.CommandText =
+                      "UPDATE Task SET SortOrder=@sortOrder WHERE TaskID=@taskId";
+
+                    SqlCeParameter sortOrderParam = new SqlCeParameter("@sortOrder", SqlDbType.Int);
+                    sortOrderParam.Value = sortOrder;
+                    sortUpdateCommand.Parameters.Add(sortOrderParam);
+
+                    SqlCeParameter taskIdParam = new SqlCeParameter("@taskId", SqlDbType.Int);
+                    taskIdParam.Value = taskId;
+                    sortUpdateCommand.Parameters.Add(taskIdParam);
+                    
+                    sortUpdateCommand.Prepare();
+                    sortUpdateCommand.ExecuteNonQuery();
+                    sortOrder++;
+                }
+
+                tasksReader.Close();
+
+                // run script to update schema version setting
+                SqlCeCommand updateCommand = connection.CreateCommand();
+                updateCommand.CommandText =
+                  "UPDATE Setting SET Value='2' WHERE Name='DBSchemaVersion'";
+                updateCommand.ExecuteNonQuery();
+            }
         }
 
         private void CreateDatabase(string dbDir)

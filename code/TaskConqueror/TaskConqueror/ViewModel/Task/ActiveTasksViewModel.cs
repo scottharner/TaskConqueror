@@ -16,7 +16,7 @@ namespace TaskConqueror
     /// database.  This class also provides information
     /// related to multiple selected customers.
     /// </summary>
-    public class ActiveTasksViewModel : NavigatorViewModel
+    public class ActiveTasksViewModel : WorkspaceViewModel
     {
         #region Fields
 
@@ -25,6 +25,8 @@ namespace TaskConqueror
         RelayCommand _editCommand;
         RelayCommand _deactivateCompletedCommand;
         RelayCommand _deactivateCommand;
+        RelayCommand _moveUpCommand;
+        RelayCommand _moveDownCommand;
 
         #endregion // Fields
 
@@ -49,16 +51,8 @@ namespace TaskConqueror
             this.ActiveTasks = new ObservableCollection<TaskViewModel>();
             this.ActiveTasks.CollectionChanged += this.OnCollectionChanged;
 
-            this.PageFirst();
-
-            SortColumns.Add(new SortableProperty() { Description = "Title", Name = "Title" });
-            SortColumns.Add(new SortableProperty() { Description = "Status", Name = "StatusId" });
-            SortColumns.Add(new SortableProperty() { Description = "Priority", Name = "PriorityId" });
-            SortColumns.Add(new SortableProperty() { Description = "Project", Name = "ProjectTitle" });
-            SortColumns.Add(new SortableProperty() { Description = "Date Created", Name = "CreatedDate" });
-            SortColumns.Add(new SortableProperty() { Description = "Date Completed", Name = "CompletedDate" });
-
-            SelectedSortColumn = SortColumns.FirstOrDefault();
+            // todo - replace this with record retrieval call
+            GetActiveTasks();
         }
 
         #endregion // Constructor
@@ -116,20 +110,20 @@ namespace TaskConqueror
         {
             if (e.NewTask.IsActive)
             {
-                RefreshPage();
+                GetActiveTasks();
             }
         }
 
         void OnTaskUpdated(object sender, TaskUpdatedEventArgs e)
         {
-            RefreshPage();
+            GetActiveTasks();
         }
 
         void OnTaskDeleted(object sender, TaskDeletedEventArgs e)
         {
             if (e.DeletedTask.IsActive)
             {
-                RefreshPage();
+                GetActiveTasks();
             }
         }
 
@@ -170,6 +164,42 @@ namespace TaskConqueror
                         );
                 }
                 return _deactivateCompletedCommand;
+            }
+        }
+
+        /// <summary>
+        /// Returns a command that moves the selected task up in order within the active task list.
+        /// </summary>
+        public ICommand MoveUpCommand
+        {
+            get
+            {
+                if (_moveUpCommand == null)
+                {
+                    _moveUpCommand = new RelayCommand(
+                        param => this.MoveUpTask(),
+                        param => this.CanMoveUpTask()
+                        );
+                }
+                return _moveUpCommand;
+            }
+        }
+
+        /// <summary>
+        /// Returns a command that moves the selected task down in order within the active task list.
+        /// </summary>
+        public ICommand MoveDownCommand
+        {
+            get
+            {
+                if (_moveDownCommand == null)
+                {
+                    _moveDownCommand = new RelayCommand(
+                        param => this.MoveDownTask(),
+                        param => this.CanMoveDownTask()
+                        );
+                }
+                return _moveDownCommand;
             }
         }
 
@@ -223,6 +253,44 @@ namespace TaskConqueror
             {
                 selectedTaskVM.IsActive = false;
                 selectedTaskVM.Save();
+            }
+        }
+
+        /// <summary>
+        /// Moves the selected task up in order within active task list.
+        /// </summary>
+        public void MoveUpTask()
+        {
+            TaskViewModel selectedTaskVM = ActiveTasks.FirstOrDefault(t => t.IsSelected == true);
+            TaskViewModel previousTaskVM = ActiveTasks[ActiveTasks.IndexOf(selectedTaskVM)-1];
+
+            if (selectedTaskVM != null && previousTaskVM != null)
+            {
+                int selectedSortOrder = selectedTaskVM.SortOrder.Value;
+                int previousSortorder = previousTaskVM.SortOrder.Value;
+                selectedTaskVM.SortOrder = previousSortorder;
+                selectedTaskVM.Save();
+                previousTaskVM.SortOrder = selectedSortOrder;
+                previousTaskVM.Save();
+            }
+        }
+
+        /// <summary>
+        /// Moves the selected task down in order within active task list.
+        /// </summary>
+        public void MoveDownTask()
+        {
+            TaskViewModel selectedTaskVM = ActiveTasks.FirstOrDefault(t => t.IsSelected == true);
+            TaskViewModel nextTaskVM = ActiveTasks[ActiveTasks.IndexOf(selectedTaskVM)+1];
+
+            if (selectedTaskVM != null && nextTaskVM != null)
+            {
+                int selectedSortOrder = selectedTaskVM.SortOrder.Value;
+                int nextSortOrder = nextTaskVM.SortOrder.Value;
+                selectedTaskVM.SortOrder = nextSortOrder;
+                selectedTaskVM.Save();
+                nextTaskVM.SortOrder = selectedSortOrder;
+                nextTaskVM.Save();
             }
         }
 
@@ -291,20 +359,7 @@ namespace TaskConqueror
             }
         }
 
-        public override void PerformFilter()
-        {
-            if (FilterTermHasChanged)
-            {
-                PageFirst();
-            }
-        }
-
-        public override void SortResults()
-        {
-            PageFirst();
-        }
-
-        public override void GetPagedTasks(int pageNumber)
+        public void GetActiveTasks()
         {
             for (int i = (ActiveTasks.Count - 1); i >= 0; i--)
             {
@@ -314,7 +369,7 @@ namespace TaskConqueror
             }
 
             List<TaskViewModel> active =
-                (from task in _taskData.GetActiveTasks(FilterTerm, SelectedSortColumn, pageNumber)
+                (from task in _taskData.GetActiveTasks()
                  select new TaskViewModel(task, _taskData)).ToList();
 
             foreach (TaskViewModel tvm in active)
@@ -324,10 +379,6 @@ namespace TaskConqueror
             {
                 this.ActiveTasks.Add(active[i]);
             }
-
-            FirstRecordNumber = ActiveTasks.Count > 0 ? (Constants.RecordsPerPage * (pageNumber - 1)) + 1 : 0;
-            LastRecordNumber = ActiveTasks.Count > 0 ? FirstRecordNumber + ActiveTasks.Count - 1 : 0;
-            TotalRecordCount = _taskData.GetActiveTasksCount(FilterTerm);
         }
 
         public override void ViewHelp()
@@ -357,6 +408,18 @@ namespace TaskConqueror
         bool CanDeactivateCompletedTasks()
         {
             return ActiveTasks.Count(t => t.IsCompleted == true) > 0;
+        }
+
+        bool CanMoveUpTask()
+        {
+            TaskViewModel selectedTask = ActiveTasks.Where(t => t.IsSelected == true).FirstOrDefault();
+            return selectedTask != null && ActiveTasks.IndexOf(selectedTask) > 0 && ActiveTasks.Count(t => t.IsSelected == true) == 1;
+        }
+
+        bool CanMoveDownTask()
+        {
+            TaskViewModel selectedTask = ActiveTasks.Where(t => t.IsSelected == true).FirstOrDefault();
+            return selectedTask != null && (ActiveTasks.IndexOf(selectedTask) < (ActiveTasks.Count - 1)) && ActiveTasks.Count(t => t.IsSelected == true) == 1;
         }
 
         #endregion

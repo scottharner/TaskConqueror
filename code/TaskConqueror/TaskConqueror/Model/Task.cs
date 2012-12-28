@@ -22,7 +22,8 @@ namespace TaskConqueror
             {
                 IsActive = false,
                 StatusId = (int)Statuses.New,
-                PriorityId = (int)TaskPriorities.Medium
+                PriorityId = (int)TaskPriorities.Medium,
+                SortOrder = null
             };
 
             if (projectId.HasValue)
@@ -50,6 +51,7 @@ namespace TaskConqueror
                 CreatedDate = dbTask.CreatedDate,
                 CompletedDate = dbTask.CompletedDate,
                 Title = dbTask.Title,
+                SortOrder = dbTask.SortOrder,
                 ParentProject = parentProject == null ? null : Project.CreateProject(parentProject)
             };
         }
@@ -97,6 +99,11 @@ namespace TaskConqueror
         /// Gets/sets the task's title.
         /// </summary>
         public string Title { get; set; }
+
+        /// <summary>
+        /// Gets/sets the task's sort order in the active task list.
+        /// </summary>
+        public int? SortOrder { get; set; }
 
         public Project ParentProject { get; set; }
 
