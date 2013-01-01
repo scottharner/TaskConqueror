@@ -29,7 +29,7 @@
 		</OBJECT>
 	<UL>
 		<LI> <OBJECT type="text/sitemap">
-			<param name="Name" value="Browsing And Searching Active Tasks">
+			<param name="Name" value="Browsing Active Tasks">
 			<param name="Local" value="html\active_tasks\search.htm">
 			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">

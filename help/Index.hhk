@@ -34,11 +34,6 @@
 			<param name="Local" value="html\active_tasks\search.htm">
 			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">
-			<param name="Name" value="searching">
-			<param name="Name" value="Browsing And Searching Active Tasks">
-			<param name="Local" value="html\active_tasks\search.htm">
-			</OBJECT>
-		<LI> <OBJECT type="text/sitemap">
 			<param name="Name" value="adding">
 			<param name="Name" value="Adding An Active Task">
 			<param name="Local" value="html\active_tasks\add.htm">

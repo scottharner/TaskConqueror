@@ -58,6 +58,13 @@ namespace TaskConqueror
             SortColumns.Add(new SortableProperty() { Description = "Date Completed", Name = "CompletedDate" });
 
             SelectedSortColumn = SortColumns.FirstOrDefault();
+
+            // select the first project
+            ProjectViewModel firstProject = AllProjects.FirstOrDefault();
+            if (firstProject != null)
+            {
+                firstProject.IsSelected = true;
+            }
         }
 
         #endregion // Constructor
@@ -113,17 +120,41 @@ namespace TaskConqueror
 
         void OnProjectAdded(object sender, ProjectAddedEventArgs e)
         {
-            RefreshPage();
+            RefreshProjectsAfterModification();
         }
 
         void OnProjectUpdated(object sender, ProjectUpdatedEventArgs e)
         {
-            RefreshPage();
+            RefreshProjectsAfterModification();
         }
 
         void OnProjectDeleted(object sender, ProjectDeletedEventArgs e)
         {
+            RefreshProjectsAfterModification();
+        }
+
+        void RefreshProjectsAfterModification()
+        {
+            bool projectSelected = false;
+
+            ProjectViewModel origSelectedProject = AllProjects.Where(t => t.IsSelected == true).FirstOrDefault();
             RefreshPage();
+            if (origSelectedProject != null)
+            {
+                ProjectViewModel newSelectedProject = AllProjects.Where(t => t.ProjectId == origSelectedProject.ProjectId).FirstOrDefault();
+                if (newSelectedProject != null)
+                {
+                    newSelectedProject.IsSelected = true;
+                    projectSelected = true;
+                }
+            }
+
+            if (!projectSelected)
+            {
+                ProjectViewModel firstProject = AllProjects.FirstOrDefault();
+                if (firstProject != null)
+                    firstProject.IsSelected = true;
+            }
         }
 
         #endregion // Event Handling Methods

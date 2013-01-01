@@ -56,6 +56,13 @@ namespace TaskConqueror
             SortColumns.Add(new SortableProperty() { Description = "Project", Name = "ProjectTitle" });
             SortColumns.Add(new SortableProperty() { Description = "Date Created", Name = "CreatedDate" });
             SortColumns.Add(new SortableProperty() { Description = "Date Completed", Name = "CompletedDate" });
+
+            // select the first task
+            TaskViewModel firstTask = AllTasks.FirstOrDefault();
+            if (firstTask != null)
+            {
+                firstTask.IsSelected = true;
+            }
         }
 
         void ClearAllTasks()
@@ -116,17 +123,41 @@ namespace TaskConqueror
 
         void OnTaskAdded(object sender, TaskAddedEventArgs e)
         {
-            RefreshPage();
+            RefreshTasksAfterModification();
         }
 
         void OnTaskUpdated(object sender, TaskUpdatedEventArgs e)
         {
-            RefreshPage();
+            RefreshTasksAfterModification();
         }
 
         void OnTaskDeleted(object sender, TaskDeletedEventArgs e)
         {
+            RefreshTasksAfterModification();
+        }
+
+        void RefreshTasksAfterModification()
+        {
+            bool taskSelected = false;
+
+            TaskViewModel origSelectedTask = AllTasks.Where(t => t.IsSelected == true).FirstOrDefault();
             RefreshPage();
+            if (origSelectedTask != null)
+            {
+                TaskViewModel newSelectedTask = AllTasks.Where(t => t.TaskId == origSelectedTask.TaskId).FirstOrDefault();
+                if (newSelectedTask != null)
+                {
+                    newSelectedTask.IsSelected = true;
+                    taskSelected = true;
+                }
+            }
+
+            if (!taskSelected)
+            {
+                TaskViewModel firstTask = AllTasks.FirstOrDefault();
+                if (firstTask != null)
+                    firstTask.IsSelected = true;
+            }
         }
 
         #endregion // Event Handling Methods

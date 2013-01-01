@@ -66,6 +66,13 @@ namespace TaskConqueror
             SortColumns.Add(new SortableProperty() { Description = "Date Completed", Name = "CompletedDate" });
 
             SelectedSortColumn = SortColumns.FirstOrDefault();
+
+            // select the first goal
+            GoalViewModel firstGoal = AllGoals.FirstOrDefault();
+            if (firstGoal != null)
+            {
+                firstGoal.IsSelected = true;
+            }
         }
 
         #endregion // Constructor
@@ -121,17 +128,41 @@ namespace TaskConqueror
 
         void OnGoalAdded(object sender, GoalAddedEventArgs e)
         {
-            RefreshPage();
+            RefreshGoalsAfterModification();
         }
 
         void OnGoalUpdated(object sender, GoalUpdatedEventArgs e)
         {
-            RefreshPage();
+            RefreshGoalsAfterModification();
         }
 
         void OnGoalDeleted(object sender, GoalDeletedEventArgs e)
         {
+            RefreshGoalsAfterModification();
+        }
+
+        void RefreshGoalsAfterModification()
+        {
+            bool goalSelected = false;
+
+            GoalViewModel origSelectedGoal = AllGoals.Where(t => t.IsSelected == true).FirstOrDefault();
             RefreshPage();
+            if (origSelectedGoal != null)
+            {
+                GoalViewModel newSelectedGoal = AllGoals.Where(t => t.GoalId == origSelectedGoal.GoalId).FirstOrDefault();
+                if (newSelectedGoal != null)
+                {
+                    newSelectedGoal.IsSelected = true;
+                    goalSelected = true;
+                }
+            }
+
+            if (!goalSelected)
+            {
+                GoalViewModel firstGoal = AllGoals.FirstOrDefault();
+                if (firstGoal != null)
+                    firstGoal.IsSelected = true;
+            }
         }
 
         #endregion // Event Handling Methods

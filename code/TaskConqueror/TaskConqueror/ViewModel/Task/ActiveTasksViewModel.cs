@@ -51,8 +51,14 @@ namespace TaskConqueror
             this.ActiveTasks = new ObservableCollection<TaskViewModel>();
             this.ActiveTasks.CollectionChanged += this.OnCollectionChanged;
 
-            // todo - replace this with record retrieval call
             GetActiveTasks();
+            
+            // select the first task
+            TaskViewModel firstTask = ActiveTasks.FirstOrDefault();
+            if (firstTask != null)
+            {
+                firstTask.IsSelected = true;
+            }
         }
 
         #endregion // Constructor
@@ -110,20 +116,44 @@ namespace TaskConqueror
         {
             if (e.NewTask.IsActive)
             {
-                GetActiveTasks();
+                RefreshTasksAfterModification();
             }
         }
 
         void OnTaskUpdated(object sender, TaskUpdatedEventArgs e)
         {
-            GetActiveTasks();
+            RefreshTasksAfterModification();
         }
 
         void OnTaskDeleted(object sender, TaskDeletedEventArgs e)
         {
             if (e.DeletedTask.IsActive)
             {
-                GetActiveTasks();
+                RefreshTasksAfterModification();
+            }
+        }
+
+        void RefreshTasksAfterModification()
+        {
+            bool taskSelected = false;
+
+            TaskViewModel origSelectedTask = ActiveTasks.Where(t => t.IsSelected == true).FirstOrDefault();
+            GetActiveTasks();
+            if (origSelectedTask != null)
+            {
+                TaskViewModel newSelectedTask = ActiveTasks.Where(t => t.TaskId == origSelectedTask.TaskId).FirstOrDefault();
+                if (newSelectedTask != null)
+                {
+                    newSelectedTask.IsSelected = true;
+                    taskSelected = true;
+                }
+            }
+
+            if (!taskSelected)
+            {
+                TaskViewModel firstTask = ActiveTasks.FirstOrDefault();
+                if (firstTask != null)
+                    firstTask.IsSelected = true;
             }
         }
 
