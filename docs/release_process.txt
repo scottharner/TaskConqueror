@@ -5,17 +5,16 @@
 	c. Replace help file in VS project.
 	d. Rebuild VS project.
 	e. Add new release info to installer readme.
-3. Update release notes doc.
-4. Update installer.
+3. Update installer.
 	a. Set new version.
 	b. Update files and folders.
 	c. Rebuild installer.
 	d. Test installer.
 	e. Create new versioned copy of installer msi.
-5. Commit build.
-6. Test build.
-7. Tag build.
-8. Post bitbucket download.
-9. Update website download page.
-10. Post update to CNET.
-11. Post update to Softpedia.
+4. Commit build.
+5. Test build.
+6. Tag build.
+7. Post bitbucket download.
+8. Update website download page.
+9. Post update to CNET.
+10. Post update to Softpedia.
