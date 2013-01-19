@@ -184,6 +184,9 @@ namespace TaskConqueror
         /// </summary>
         public List<Task> GetTasks(string filterTerm = "", SortableProperty sortColumn = null, int? pageNumber = null)
         {
+            if (sortColumn == null)
+                sortColumn = new SortableProperty() { Description = "Title", Name = "Title" };
+
             QueryCacheItem allTasksCacheItem = _appInfo.GlobalQueryCache.GetCacheItem(Constants.AllTasksCacheItem);
             List<Data.Task> allTasksList;
 
