@@ -54,6 +54,10 @@
     <ApplicationIcon>TaskConqueror.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GongSolutions.Wpf.DragDrop, Version=0.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dependencies\GongSolutions.Wpf.DragDrop.dll</HintPath>
+    </Reference>
     <Reference Include="ReuxablesLegacy, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Dependencies\ReuxablesLegacy.dll</HintPath>
@@ -422,6 +426,7 @@
     <Resource Include="Assets\Images\yes.png" />
     <Resource Include="Assets\Images\arrow_down.png" />
     <Resource Include="Assets\Images\arrow_up.png" />
+    <Content Include="Dependencies\GongSolutions.Wpf.DragDrop.dll" />
     <Content Include="Dependencies\ReuxablesLegacy.dll" />
     <Content Include="Dependencies\System.Windows.Interactivity.dll" />
     <None Include="TaskConqueror.sdf">
