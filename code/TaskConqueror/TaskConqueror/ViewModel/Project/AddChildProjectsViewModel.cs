@@ -7,13 +7,15 @@ using System.Windows;
 using System.Data;
 using System.Collections.ObjectModel;
 using System.Windows.Forms;
+using GongSolutions.Wpf.DragDrop;
+using System.Windows.Data;
 
 namespace TaskConqueror
 {
     /// <summary>
     /// Allows addition of a project to a goal.
     /// </summary>
-    public class AddChildProjectsViewModel : WorkspaceViewModel
+    public class AddChildProjectsViewModel : WorkspaceViewModel, GongSolutions.Wpf.DragDrop.IDropTarget
     {
         #region Fields
 
@@ -241,5 +243,27 @@ namespace TaskConqueror
         }
 
         #endregion // Base Class Overrides
+
+        #region IDropTarget Implementation
+
+        void GongSolutions.Wpf.DragDrop.IDropTarget.DragOver(DropInfo dropInfo)
+        {
+            if (dropInfo.Data is ProjectViewModel &&
+                dropInfo.TargetCollection != dropInfo.DragInfo.SourceCollection)
+            {
+                dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
+                dropInfo.Effects = System.Windows.DragDropEffects.Move;
+            }
+        }
+
+        void GongSolutions.Wpf.DragDrop.IDropTarget.Drop(DropInfo dropInfo)
+        {
+            ProjectViewModel sourceProject = (ProjectViewModel)dropInfo.Data;
+            ((ListCollectionView)dropInfo.DragInfo.SourceCollection).Remove(sourceProject);
+            ((ListCollectionView)dropInfo.TargetCollection).AddNewItem(sourceProject);
+            ((ListCollectionView)dropInfo.TargetCollection).CommitNew();
+        }
+
+        #endregion
     }
 }

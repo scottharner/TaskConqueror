@@ -4,6 +4,7 @@
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:tc="clr-namespace:TaskConqueror"
   xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+  xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
   FontSize="13" 
   FontFamily="Verdana"
   Title="{Binding Path=AppDisplayName}"
@@ -49,7 +50,11 @@
                     <!-- INACTIVE TASKS -->
                     <DockPanel Grid.Row="0">
                         <TextBlock Text="Inactive Tasks" Margin="0 0 0 10" DockPanel.Dock="Top"/>
-                        <TreeView ItemsSource="{Binding Path=InactiveTasksByGoal, Converter={StaticResource SortConverter}}">
+                        <TreeView ItemsSource="{Binding Path=InactiveTasksByGoal, Converter={StaticResource SortConverter}}"
+                                                              dd:DragDrop.IsDragSource="True"
+                            dd:DragDrop.IsDropTarget="True"
+                            dd:DragDrop.DropHandler="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+>
                             <TreeView.Resources>
                                 <DataTemplate DataType="{x:Type tc:TaskTreeNodeViewModel}">
                                     <StackPanel Orientation="Horizontal" Margin="2">
@@ -143,6 +148,9 @@
       ItemContainerStyle="{StaticResource TaskItemStyle}"
       ItemsSource="{Binding}"
         SelectionMode="Single"
+                                                        dd:DragDrop.IsDragSource="True"
+                            dd:DragDrop.IsDropTarget="True"
+                            dd:DragDrop.DropHandler="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
       >
 
                             <ListView.View>

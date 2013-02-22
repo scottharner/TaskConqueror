@@ -7,6 +7,8 @@ using System.Linq;
 using System.Windows.Input;
 using System.Windows;
 using System.Windows.Forms;
+using GongSolutions.Wpf.DragDrop;
+using System.Windows.Data;
 
 namespace TaskConqueror
 {
@@ -16,7 +18,7 @@ namespace TaskConqueror
     /// database.  This class also provides information
     /// related to multiple selected customers.
     /// </summary>
-    public class ActiveTasksViewModel : WorkspaceViewModel
+    public class ActiveTasksViewModel : WorkspaceViewModel, GongSolutions.Wpf.DragDrop.IDropTarget
     {
         #region Fields
 
@@ -450,6 +452,85 @@ namespace TaskConqueror
         {
             TaskViewModel selectedTask = ActiveTasks.Where(t => t.IsSelected == true).FirstOrDefault();
             return selectedTask != null && (ActiveTasks.IndexOf(selectedTask) < (ActiveTasks.Count - 1)) && ActiveTasks.Count(t => t.IsSelected == true) == 1;
+        }
+
+        #endregion
+
+        #region IDropTarget Implementation
+
+        void GongSolutions.Wpf.DragDrop.IDropTarget.DragOver(DropInfo dropInfo)
+        {
+            if (dropInfo.Data is TaskViewModel)
+            {
+                dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
+                dropInfo.Effects = System.Windows.DragDropEffects.Move;
+            }
+        }
+
+        void GongSolutions.Wpf.DragDrop.IDropTarget.Drop(DropInfo dropInfo)
+        {
+            TaskViewModel sourceTask = (TaskViewModel)dropInfo.Data;
+            int oldIndex = ActiveTasks.IndexOf(sourceTask);
+            int newIndex = dropInfo.InsertIndex;
+
+            if (newIndex < oldIndex)
+            {
+                // move the item up in the list toward the top
+                ActiveTasks.Move(oldIndex, newIndex);
+                List<TaskViewModel> tasksToSave = new List<TaskViewModel>();
+
+                // update our sort order values
+                for (int i = newIndex; i < oldIndex; i++)
+                {
+                    TaskViewModel currentTaskVM = ActiveTasks[i];
+                    TaskViewModel nextTaskVM = ActiveTasks[i + 1];
+                    int currentSortOrder = currentTaskVM.SortOrder.Value;
+                    int nextSortOrder = nextTaskVM.SortOrder.Value;
+                    currentTaskVM.SortOrder = nextSortOrder;
+                    nextTaskVM.SortOrder = currentSortOrder;
+                    tasksToSave.Add(currentTaskVM);
+
+                    if (i + 1 == oldIndex)
+                    {
+                        tasksToSave.Add(nextTaskVM);
+                    }
+                }
+
+                foreach (TaskViewModel updatedTask in tasksToSave)
+                {
+                    updatedTask.Save();
+                }
+            }
+            else if (newIndex > oldIndex)
+            {
+                // move the item down in the list toward the bottom
+                ActiveTasks.Move(oldIndex, newIndex-1);
+                List<TaskViewModel> tasksToSave = new List<TaskViewModel>();
+
+                // update our sort order values
+                for (int i = newIndex-1; i > oldIndex; i--)
+                {
+                    TaskViewModel currentTaskVM = ActiveTasks[i];
+                    TaskViewModel previousTaskVM = ActiveTasks[i - 1];
+                    int currentSortOrder = currentTaskVM.SortOrder.Value;
+                    int previousSortOrder = previousTaskVM.SortOrder.Value;
+                    currentTaskVM.SortOrder = previousSortOrder;
+                    previousTaskVM.SortOrder = currentSortOrder;
+                    tasksToSave.Add(currentTaskVM);
+
+                    if (i - 1 == oldIndex)
+                    {
+                        tasksToSave.Add(previousTaskVM);
+                    }
+                }
+
+                foreach (TaskViewModel updatedTask in tasksToSave)
+                {
+                    updatedTask.Save();
+                }
+            }
+
+
         }
 
         #endregion

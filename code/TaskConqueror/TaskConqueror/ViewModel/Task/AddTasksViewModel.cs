@@ -7,13 +7,15 @@ using System.Windows;
 using System.Data;
 using System.Collections.ObjectModel;
 using System.Windows.Forms;
+using GongSolutions.Wpf.DragDrop;
+using System.Windows.Data;
 
 namespace TaskConqueror
 {
     /// <summary>
     /// Allows addition of a task to the active tasks list.
     /// </summary>
-    public class AddTasksViewModel : WorkspaceViewModel
+    public class AddTasksViewModel : WorkspaceViewModel, GongSolutions.Wpf.DragDrop.IDropTarget
     {
         #region Fields
 
@@ -192,23 +194,8 @@ namespace TaskConqueror
             TaskTreeNodeViewModel taskNodeVM = SelectedNode as TaskTreeNodeViewModel;
             TaskViewModel taskVM = new TaskViewModel(_taskData.GetTaskByTaskId(taskNodeVM.NodeId), _taskData);
             SelectedTasks.Add(taskVM);
-            
-            // remove the node and any empty ancestors from the tree
-            ITreeNodeContainerViewModel parent = taskNodeVM.Parent;
-            if (parent != null)
-            {
-                _removedNodes.Add(taskVM, taskNodeVM);
-                parent.ChildNodes.Remove(taskNodeVM);
-                while (parent != null && parent.ChildNodes.Count == 0)
-                {
-                    ITreeNodeContainerViewModel child = parent;
-                    parent = child.Parent;
-                    if (parent != null)
-                    {
-                        parent.ChildNodes.Remove(child);
-                    }
-                }
-            }
+
+            RemoveTaskFromTree(taskNodeVM, taskVM);
 
             // clear the selected node
             SelectedNode = null;
@@ -233,24 +220,7 @@ namespace TaskConqueror
         {
             using (TaskViewModel selectedTaskVM = SelectedTasks.FirstOrDefault(t => t.IsSelected == true))
             {
-                // add the task and missing ancestors back into the tree
-                ITreeNodeViewModel child = _removedNodes[selectedTaskVM];
-                ITreeNodeContainerViewModel parent = child.Parent;
-                bool inParentCollection = parent.ChildNodes.Contains(child);
-
-                while (parent != null && !inParentCollection)
-                {
-                    parent.ChildNodes.Add(child);
-                    parent.ChildNodes.OrderBy(n => n.Title);
-                    SelectedNode = child;
-                    child = parent;
-                    parent = child.Parent;
-                    if (parent != null)
-                    {
-                        inParentCollection = parent.ChildNodes.Contains(child);
-                    }
-                }
-
+                AddTaskToTree(selectedTaskVM);
                 SelectedTasks.Remove(selectedTaskVM);
             }
         }
@@ -295,6 +265,52 @@ namespace TaskConqueror
             { return SelectedTasks.Count > 0; }
         }
 
+        /// <summary>
+        /// Remove the node and any empty ancestors from the tree
+        /// </summary>
+        void RemoveTaskFromTree(TaskTreeNodeViewModel taskNodeVM, TaskViewModel taskVM)
+        {
+            ITreeNodeContainerViewModel parent = taskNodeVM.Parent;
+            if (parent != null)
+            {
+                _removedNodes.Add(taskVM, taskNodeVM);
+                parent.ChildNodes.Remove(taskNodeVM);
+                while (parent != null && parent.ChildNodes.Count == 0)
+                {
+                    ITreeNodeContainerViewModel child = parent;
+                    parent = child.Parent;
+                    if (parent != null)
+                    {
+                        parent.ChildNodes.Remove(child);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// add the task and missing ancestors back into the tree
+        /// </summary>
+        /// <param name="selectedTaskVM"></param>
+        void AddTaskToTree(TaskViewModel selectedTaskVM)
+        {
+            ITreeNodeViewModel child = _removedNodes[selectedTaskVM];
+            ITreeNodeContainerViewModel parent = child.Parent;
+            bool inParentCollection = parent.ChildNodes.Contains(child);
+
+            while (parent != null && !inParentCollection)
+            {
+                parent.ChildNodes.Add(child);
+                parent.ChildNodes.OrderBy(n => n.Title);
+                SelectedNode = child;
+                child = parent;
+                parent = child.Parent;
+                if (parent != null)
+                {
+                    inParentCollection = parent.ChildNodes.Contains(child);
+                }
+            }
+        }
+
         #endregion // Private Helpers
 
         #region  Base Class Overrides
@@ -308,5 +324,39 @@ namespace TaskConqueror
         }
 
         #endregion // Base Class Overrides
+
+        #region IDropTarget Implementation
+
+        void GongSolutions.Wpf.DragDrop.IDropTarget.DragOver(DropInfo dropInfo)
+        {
+            if ((dropInfo.Data is TaskViewModel || dropInfo.Data is TaskTreeNodeViewModel) &&
+                dropInfo.TargetCollection != dropInfo.DragInfo.SourceCollection)
+            {
+                dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
+                dropInfo.Effects = System.Windows.DragDropEffects.Move;
+            }
+        }
+
+        void GongSolutions.Wpf.DragDrop.IDropTarget.Drop(DropInfo dropInfo)
+        {
+            if (dropInfo.Data is TaskViewModel)
+            {
+                // drop a task from the list view to the tree view
+                TaskViewModel sourceTask = (TaskViewModel)dropInfo.Data;
+                ((ListCollectionView)dropInfo.DragInfo.SourceCollection).Remove(sourceTask);
+                AddTaskToTree(sourceTask);
+            }
+            else
+            {
+                // drop a task from the tree view to the list view
+                TaskTreeNodeViewModel sourceTask = (TaskTreeNodeViewModel)dropInfo.Data;
+                TaskViewModel taskVM = new TaskViewModel(_taskData.GetTaskByTaskId(sourceTask.NodeId), _taskData);
+                RemoveTaskFromTree(sourceTask, taskVM);
+                ((ListCollectionView)dropInfo.TargetCollection).AddNewItem(taskVM);
+                ((ListCollectionView)dropInfo.TargetCollection).CommitNew();
+            }
+        }
+
+        #endregion
     }
 }

@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:tc="clr-namespace:TaskConqueror"
     xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+  xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
     >
     <UserControl.Resources>
         <CollectionViewSource
@@ -80,6 +81,9 @@
             ItemContainerStyle="{StaticResource TaskItemDoubleClickStyle}"
             ItemsSource="{Binding}"
             SelectionMode="Single"
+                                                              dd:DragDrop.IsDragSource="True"
+                            dd:DragDrop.IsDropTarget="True"
+                            dd:DragDrop.DropHandler="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
         >
             <ListView.View>
                 <GridView>
