@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<DOCUMENT Type="Advanced Installer" CreateVersion="9.4" version="9.9" Modules="simple" RootPath="." Language="en" Id="{4C7A20F7-E0F2-4719-8C8C-349C339603E0}">
+<DOCUMENT Type="Advanced Installer" CreateVersion="9.4" version="9.4" Modules="simple" RootPath="." Language="en" Id="{4C7A20F7-E0F2-4719-8C8C-349C339603E0}">
   <COMPONENT cid="caphyon.advinst.msicomp.MsiValidationComponent">
     <ROW Table="File" Column="Sequence" MinValue="1" MaxValue="32767" Description="Sequence with respect to the media images; order must track cabinet order." Options="0" ColumnType="2" ColumnIndex="7" ColumnSize="2" MsiKey="File#Sequence"/>
     <ROW Table="Media" Column="LastSequence" MinValue="0" MaxValue="32767" Description="File sequence number for the last file for this media." Options="0" ColumnType="2" ColumnIndex="1" ColumnSize="2" MsiKey="Media#LastSequence"/>
@@ -11,13 +11,13 @@
     <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
     <ROW Property="ARPCONTACT" Value="taskconqueror@harner.us"/>
     <ROW Property="ARPHELPLINK" Value="http://taskconqueror.harner.us"/>
-    <ROW Property="ARPPRODUCTICON" Value="TaskConqueror_1.exe" Type="8"/>
+    <ROW Property="ARPPRODUCTICON" Value="TaskConqueror.exe" Type="8"/>
     <ROW Property="ARPURLINFOABOUT" Value="http://taskconqueror.harner.us"/>
     <ROW Property="Manufacturer" Value="Scott Harner" ValueLocId="*"/>
-    <ROW Property="ProductCode" Value="1033:{529C796E-DE83-4F84-BD6D-F35E9CC1D6FB} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{784A63FB-CECE-476C-9B85-FA3BE61DE67A} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="Task Conqueror" ValueLocId="*"/>
-    <ROW Property="ProductVersion" Value="1.0.5" Type="32"/>
+    <ROW Property="ProductVersion" Value="1.0.4" Type="32"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
     <ROW Property="UpgradeCode" Value="{B937E68C-1EA3-4E7A-8DF4-BE92AA38DE49}"/>
     <ROW Property="WIMinVersion" MultiBuildValue="DefaultBuild:3.01" ValueLocId="-"/>
@@ -38,7 +38,6 @@
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiCompsComponent">
     <ROW Component="GoalCrusher.Model.GoalCrusherEntities.da" ComponentId="{0FBB691C-5CDB-46A0-B228-256ECF8EF0D1}" Directory_="DataSources_Dir" Attributes="0" KeyPath="GoalCrusher.Model.GoalCrusherEntities.datasource" Type="0"/>
-    <ROW Component="GongSolutions.Wpf.DragDrop.dll" ComponentId="{2807FDC4-F30B-4435-9671-6920B92E6348}" Directory_="APPDIR" Attributes="0" KeyPath="GongSolutions.Wpf.DragDrop.dll"/>
     <ROW Component="ProductInformation" ComponentId="{4D5ECB60-5BDC-4458-A9AA-48726FE57345}" Directory_="APPDIR" Attributes="4" KeyPath="Version"/>
     <ROW Component="ReuxablesLegacy.dll" ComponentId="{8D879433-C566-4E78-9724-535A63FD8798}" Directory_="APPDIR" Attributes="0" KeyPath="ReuxablesLegacy.dll"/>
     <ROW Component="SHORTCUTDIR" ComponentId="{D51AC138-0310-464E-9829-5E6CA1F4BD3E}" Directory_="SHORTCUTDIR" Attributes="0"/>
@@ -46,16 +45,15 @@
     <ROW Component="TaskConqueror" ComponentId="{6623A098-97BF-4567-8BE9-92028508DCA8}" Directory_="TaskConqueror_Dir" Attributes="0"/>
     <ROW Component="TaskConqueror.chm" ComponentId="{DA5EA4D5-5125-468D-9B1B-F96D90067ABD}" Directory_="APPDIR" Attributes="0" KeyPath="TaskConqueror.chm" Type="1"/>
     <ROW Component="TaskConqueror.exe" ComponentId="{6700FC50-5931-4B7F-A96B-3273AEBC35A7}" Directory_="APPDIR" Attributes="0" KeyPath="TaskConqueror.exe"/>
-    <ROW Component="TaskConqueror.vshost.exe.manifest" ComponentId="{1E192AD5-4BC6-42B6-8B77-ABB6489E134D}" Directory_="APPDIR" Attributes="0" KeyPath="TaskConqueror.exe.config" Type="0"/>
+    <ROW Component="TaskConqueror.vshost.exe" ComponentId="{7E06CEB1-81EF-4EAA-AFB0-048D4C079CA8}" Directory_="APPDIR" Attributes="0" KeyPath="TaskConqueror.vshost.exe"/>
+    <ROW Component="TaskConqueror.vshost.exe.manifest" ComponentId="{1E192AD5-4BC6-42B6-8B77-ABB6489E134D}" Directory_="APPDIR" Attributes="0" KeyPath="TaskConqueror.vshost.exe.manifest" Type="0"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
-    <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="1" Level="1" Directory_="APPDIR" Attributes="0" Components="GoalCrusher.Model.GoalCrusherEntities.da GongSolutions.Wpf.DragDrop.dll ProductInformation ReuxablesLegacy.dll SHORTCUTDIR System.Windows.Interactivity.dll TaskConqueror TaskConqueror.chm TaskConqueror.exe TaskConqueror.vshost.exe.manifest"/>
+    <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="1" Level="1" Directory_="APPDIR" Attributes="0" Components="GoalCrusher.Model.GoalCrusherEntities.da ProductInformation ReuxablesLegacy.dll SHORTCUTDIR System.Windows.Interactivity.dll TaskConqueror TaskConqueror.chm TaskConqueror.exe TaskConqueror.vshost.exe TaskConqueror.vshost.exe.manifest"/>
     <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
-    <ROW File="GoalCrusher.Model.GoalCrusherEntities.datasource" Component_="GoalCrusher.Model.GoalCrusherEntities.da" FileName="GoalCr~1.dat|GoalCrusher.Model.GoalCrusherEntities.datasource" Attributes="0" SourcePath="..\code\TaskConqueror\TaskConqueror\bin\Release\Properties\DataSources\GoalCrusher.Model.GoalCrusherEntities.datasource" SelfReg="false" NextFile="LICENSE.txt"/>
-    <ROW File="GongSolutions.Wpf.DragDrop.dll" Component_="GongSolutions.Wpf.DragDrop.dll" FileName="GongSo~1.dll|GongSolutions.Wpf.DragDrop.dll" Attributes="0" SourcePath="..\code\TaskConqueror\TaskConqueror\bin\Release\GongSolutions.Wpf.DragDrop.dll" SelfReg="false" NextFile="GongSolutions.Wpf.DragDrop.xml"/>
-    <ROW File="GongSolutions.Wpf.DragDrop.xml" Component_="TaskConqueror.vshost.exe.manifest" FileName="GongSo~1.xml|GongSolutions.Wpf.DragDrop.xml" Attributes="0" SourcePath="..\code\TaskConqueror\TaskConqueror\bin\Release\GongSolutions.Wpf.DragDrop.xml" SelfReg="false"/>
+    <ROW File="GoalCrusher.Model.GoalCrusherEntities.datasource" Component_="GoalCrusher.Model.GoalCrusherEntities.da" FileName="GoalCr~1.dat|GoalCrusher.Model.GoalCrusherEntities.datasource" Attributes="0" SourcePath="..\code\TaskConqueror\TaskConqueror\bin\Release\Properties\DataSources\GoalCrusher.Model.GoalCrusherEntities.datasource" SelfReg="false" NextFile="TaskConqueror.vshost.exe.manifest"/>
     <ROW File="LICENSE.txt" Component_="TaskConqueror.vshost.exe.manifest" FileName="LICENSE.txt" Attributes="0" SourcePath="..\code\TaskConqueror\TaskConqueror\bin\Release\LICENSE.txt" SelfReg="false" NextFile="ReuxablesLegacy.dll"/>
     <ROW File="ReuxablesLegacy.dll" Component_="ReuxablesLegacy.dll" FileName="Reuxab~1.dll|ReuxablesLegacy.dll" Attributes="0" SourcePath="..\code\TaskConqueror\TaskConqueror\bin\Release\ReuxablesLegacy.dll" SelfReg="false" NextFile="System.Windows.Interactivity.dll"/>
     <ROW File="System.Windows.Interactivity.dll" Component_="System.Windows.Interactivity.dll" FileName="System~1.dll|System.Windows.Interactivity.dll" Attributes="0" SourcePath="..\code\TaskConqueror\TaskConqueror\bin\Release\System.Windows.Interactivity.dll" SelfReg="false" NextFile="TaskConqueror.chm"/>
@@ -63,7 +61,10 @@
     <ROW File="TaskConqueror.exe" Component_="TaskConqueror.exe" FileName="TaskCo~1.exe|TaskConqueror.exe" Attributes="0" SourcePath="..\code\TaskConqueror\TaskConqueror\bin\Release\TaskConqueror.exe" SelfReg="false" NextFile="TaskConqueror.exe.config"/>
     <ROW File="TaskConqueror.exe.config" Component_="TaskConqueror.vshost.exe.manifest" FileName="TaskCo~1.con|TaskConqueror.exe.config" Attributes="0" SourcePath="..\code\TaskConqueror\TaskConqueror\bin\Release\TaskConqueror.exe.config" SelfReg="false" NextFile="TaskConqueror.pdb"/>
     <ROW File="TaskConqueror.pdb" Component_="TaskConqueror.exe" FileName="TaskCo~1.pdb|TaskConqueror.pdb" Attributes="0" SourcePath="..\code\TaskConqueror\TaskConqueror\bin\Release\TaskConqueror.pdb" SelfReg="false" NextFile="TaskConqueror.sdf"/>
-    <ROW File="TaskConqueror.sdf" Component_="TaskConqueror.vshost.exe.manifest" FileName="TaskCo~1.sdf|TaskConqueror.sdf" Attributes="0" SourcePath="..\code\TaskConqueror\TaskConqueror\bin\Release\TaskConqueror.sdf" SelfReg="false" NextFile="GongSolutions.Wpf.DragDrop.dll"/>
+    <ROW File="TaskConqueror.sdf" Component_="TaskConqueror.vshost.exe.manifest" FileName="TaskCo~1.sdf|TaskConqueror.sdf" Attributes="0" SourcePath="..\code\TaskConqueror\TaskConqueror\bin\Release\TaskConqueror.sdf" SelfReg="false" NextFile="TaskConqueror.vshost.exe"/>
+    <ROW File="TaskConqueror.vshost.exe" Component_="TaskConqueror.vshost.exe" FileName="TaskCo~2.exe|TaskConqueror.vshost.exe" Attributes="0" SourcePath="..\code\TaskConqueror\TaskConqueror\bin\Release\TaskConqueror.vshost.exe" SelfReg="false" NextFile="TaskConqueror.vshost.exe.config"/>
+    <ROW File="TaskConqueror.vshost.exe.config" Component_="TaskConqueror.vshost.exe.manifest" FileName="TaskCo~2.con|TaskConqueror.vshost.exe.config" Attributes="0" SourcePath="..\code\TaskConqueror\TaskConqueror\bin\Release\TaskConqueror.vshost.exe.config" SelfReg="false"/>
+    <ROW File="TaskConqueror.vshost.exe.manifest" Component_="TaskConqueror.vshost.exe.manifest" FileName="TaskCo~1.man|TaskConqueror.vshost.exe.manifest" Attributes="0" SourcePath="..\code\TaskConqueror\TaskConqueror\bin\Release\TaskConqueror.vshost.exe.manifest" SelfReg="false" NextFile="LICENSE.txt"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BuildComponent">
     <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="0" Languages="en" InstallationType="4" UseLargeSchema="true"/>
@@ -150,6 +151,7 @@
     <ROW Action="SET_TARGETDIR_TO_APPDIR" Type="51" Source="TARGETDIR" Target="[APPDIR]"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
+    <ROW Name="TaskConqueror.exe" SourcePath="..\..\..\..\Desktop\TaskConqueror.ico" Index="0"/>
     <ROW Name="TaskConqueror_1.exe" SourcePath="..\code\TaskConqueror\TaskConqueror\TaskConqueror.ico" Index="0"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiInstExSeqComponent">
