@@ -473,64 +473,65 @@ namespace TaskConqueror
             int oldIndex = ActiveTasks.IndexOf(sourceTask);
             int newIndex = dropInfo.InsertIndex;
 
-            if (newIndex < oldIndex)
+            if (oldIndex >= 0)
             {
-                // move the item up in the list toward the top
-                ActiveTasks.Move(oldIndex, newIndex);
-                List<TaskViewModel> tasksToSave = new List<TaskViewModel>();
-
-                // update our sort order values
-                for (int i = newIndex; i < oldIndex; i++)
+                if (newIndex < oldIndex)
                 {
-                    TaskViewModel currentTaskVM = ActiveTasks[i];
-                    TaskViewModel nextTaskVM = ActiveTasks[i + 1];
-                    int currentSortOrder = currentTaskVM.SortOrder.Value;
-                    int nextSortOrder = nextTaskVM.SortOrder.Value;
-                    currentTaskVM.SortOrder = nextSortOrder;
-                    nextTaskVM.SortOrder = currentSortOrder;
-                    tasksToSave.Add(currentTaskVM);
+                    // move the item up in the list toward the top
+                    ActiveTasks.Move(oldIndex, newIndex);
+                    List<TaskViewModel> tasksToSave = new List<TaskViewModel>();
 
-                    if (i + 1 == oldIndex)
+                    // update our sort order values
+                    for (int i = newIndex; i < oldIndex; i++)
                     {
-                        tasksToSave.Add(nextTaskVM);
+                        TaskViewModel currentTaskVM = ActiveTasks[i];
+                        TaskViewModel nextTaskVM = ActiveTasks[i + 1];
+                        int currentSortOrder = currentTaskVM.SortOrder.Value;
+                        int nextSortOrder = nextTaskVM.SortOrder.Value;
+                        currentTaskVM.SortOrder = nextSortOrder;
+                        nextTaskVM.SortOrder = currentSortOrder;
+                        tasksToSave.Add(currentTaskVM);
+
+                        if (i + 1 == oldIndex)
+                        {
+                            tasksToSave.Add(nextTaskVM);
+                        }
+                    }
+
+                    foreach (TaskViewModel updatedTask in tasksToSave)
+                    {
+                        updatedTask.Save();
                     }
                 }
-
-                foreach (TaskViewModel updatedTask in tasksToSave)
+                else if (newIndex > oldIndex)
                 {
-                    updatedTask.Save();
-                }
-            }
-            else if (newIndex > oldIndex)
-            {
-                // move the item down in the list toward the bottom
-                ActiveTasks.Move(oldIndex, newIndex-1);
-                List<TaskViewModel> tasksToSave = new List<TaskViewModel>();
+                    // move the item down in the list toward the bottom
+                    ActiveTasks.Move(oldIndex, newIndex - 1);
+                    List<TaskViewModel> tasksToSave = new List<TaskViewModel>();
 
-                // update our sort order values
-                for (int i = newIndex-1; i > oldIndex; i--)
-                {
-                    TaskViewModel currentTaskVM = ActiveTasks[i];
-                    TaskViewModel previousTaskVM = ActiveTasks[i - 1];
-                    int currentSortOrder = currentTaskVM.SortOrder.Value;
-                    int previousSortOrder = previousTaskVM.SortOrder.Value;
-                    currentTaskVM.SortOrder = previousSortOrder;
-                    previousTaskVM.SortOrder = currentSortOrder;
-                    tasksToSave.Add(currentTaskVM);
-
-                    if (i - 1 == oldIndex)
+                    // update our sort order values
+                    for (int i = newIndex - 1; i > oldIndex; i--)
                     {
-                        tasksToSave.Add(previousTaskVM);
+                        TaskViewModel currentTaskVM = ActiveTasks[i];
+                        TaskViewModel previousTaskVM = ActiveTasks[i - 1];
+                        int currentSortOrder = currentTaskVM.SortOrder.Value;
+                        int previousSortOrder = previousTaskVM.SortOrder.Value;
+                        currentTaskVM.SortOrder = previousSortOrder;
+                        previousTaskVM.SortOrder = currentSortOrder;
+                        tasksToSave.Add(currentTaskVM);
+
+                        if (i - 1 == oldIndex)
+                        {
+                            tasksToSave.Add(previousTaskVM);
+                        }
+                    }
+
+                    foreach (TaskViewModel updatedTask in tasksToSave)
+                    {
+                        updatedTask.Save();
                     }
                 }
-
-                foreach (TaskViewModel updatedTask in tasksToSave)
-                {
-                    updatedTask.Save();
-                }
             }
-
-
         }
 
         #endregion
