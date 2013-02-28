@@ -14,10 +14,10 @@
     <ROW Property="ARPPRODUCTICON" Value="TaskConqueror_1.exe" Type="8"/>
     <ROW Property="ARPURLINFOABOUT" Value="http://taskconqueror.harner.us"/>
     <ROW Property="Manufacturer" Value="Scott Harner" ValueLocId="*"/>
-    <ROW Property="ProductCode" Value="1033:{529C796E-DE83-4F84-BD6D-F35E9CC1D6FB} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{DF78E6D7-4BF3-41E6-B09D-EABB198B5E11} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="Task Conqueror" ValueLocId="*"/>
-    <ROW Property="ProductVersion" Value="1.0.5" Type="32"/>
+    <ROW Property="ProductVersion" Value="1.0.6" Type="32"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
     <ROW Property="UpgradeCode" Value="{B937E68C-1EA3-4E7A-8DF4-BE92AA38DE49}"/>
     <ROW Property="WIMinVersion" MultiBuildValue="DefaultBuild:3.01" ValueLocId="-"/>
