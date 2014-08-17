@@ -69,6 +69,13 @@ namespace TaskConqueror
             dbProject.CompletedDate = project.CompletedDate;
             dbProject.Title = project.Title;
             dbProject.EstimatedCost = project.EstimatedCost;
+            if (project.ParentGoal != null)
+            {
+                dbProject.Goals.Add((from g in _appInfo.GcContext.Goals
+                                     where g.GoalID == project.ParentGoal.GoalId
+                                     select g).FirstOrDefault());
+            }
+
 
             _appInfo.GcContext.AddToProjects(dbProject);
             _appInfo.GcContext.SaveChanges();
