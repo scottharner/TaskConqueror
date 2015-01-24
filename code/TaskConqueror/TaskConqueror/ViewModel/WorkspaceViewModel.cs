@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using System.Windows;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace TaskConqueror
 {
@@ -20,6 +21,8 @@ namespace TaskConqueror
         #endregion // Fields
 
         #region Properties
+
+        protected CancelEventArgs CancelArgs { get; set; }
 
         #endregion
 
@@ -90,15 +93,30 @@ namespace TaskConqueror
 
         #endregion // RequestClose [event]
 
-        protected void ShowWorkspaceAsDialog(Window view, WorkspaceViewModel viewModel)
+        protected virtual void ShowWorkspaceAsDialog(Window view, WorkspaceViewModel viewModel)
         {
             // When the ViewModel asks to be closed, 
             // close the window.
             EventHandler handler = null;
             handler = delegate
             {
-                viewModel.RequestClose -= handler;
-                view.Close();
+                try
+                {
+                    if (viewModel.ShouldClose())
+                    {
+                            viewModel.RequestClose -= handler;
+                            view.Close();
+                    }
+                    else
+                    {
+                        if (viewModel.CancelArgs != null)
+                            viewModel.CancelArgs.Cancel = true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
             };
             viewModel.RequestClose += handler;
 
@@ -106,5 +124,11 @@ namespace TaskConqueror
 
             view.ShowDialog();
         }
+
+        protected virtual bool ShouldClose()
+        {
+            return true;
+        }
+
     }
 }

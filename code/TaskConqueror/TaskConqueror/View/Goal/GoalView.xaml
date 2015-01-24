@@ -3,6 +3,7 @@
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+  xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
   xmlns:tc="clr-namespace:TaskConqueror"
   FontSize="13" 
   FontFamily="Verdana"
@@ -13,6 +14,9 @@ FocusManager.FocusedElement="{Binding ElementName=titleTxt}"
     <Window.Resources>
         <ResourceDictionary Source="/WorkspaceResources.xaml" />
     </Window.Resources>
+    <i:Interaction.Behaviors>
+        <tc:EventToCommandBehavior Command="{Binding CloseWindowCommand}" Event="Closing" PassArguments="True" />
+    </i:Interaction.Behaviors>
     <TabControl Margin="4">
         <TabItem HeaderTemplate="{StaticResource TabItemHeaderTemplate}">
             <DockPanel Name="ContainingDockPanel" Margin="4">

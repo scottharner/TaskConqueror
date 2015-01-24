@@ -7,6 +7,7 @@ This resource dictionary is used by the Worskpaces.
   xmlns:tc="clr-namespace:TaskConqueror"
   xmlns:acb="clr-namespace:AttachedCommandBehavior"
   >
+    <tc:EventToCommandBehavior x:Key="EventToCommandBehavior" />
     <tc:SortTreeNodeConverter x:Key="SortConverter" />
     <DataTemplate x:Key="TabItemHeaderTemplate">
         <DockPanel MinWidth="125">

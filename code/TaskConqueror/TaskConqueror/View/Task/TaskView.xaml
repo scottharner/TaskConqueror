@@ -3,6 +3,7 @@
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:tc="clr-namespace:TaskConqueror"
+  xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
   FontSize="13" 
   FontFamily="Verdana"
   Title="{Binding Path=AppDisplayName}"
@@ -11,6 +12,9 @@
     <Window.Resources>
         <ResourceDictionary Source="/WorkspaceResources.xaml" />
     </Window.Resources>
+    <i:Interaction.Behaviors>
+        <tc:EventToCommandBehavior Command="{Binding CloseWindowCommand}" Event="Closing" PassArguments="True" />
+    </i:Interaction.Behaviors>
     <TabControl Margin="4">
         <TabItem HeaderTemplate="{StaticResource TabItemHeaderTemplate}">
             <DockPanel Margin="4">

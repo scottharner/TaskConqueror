@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 using System.Windows;
+using System.ComponentModel;
 
 namespace TaskConqueror
 {
@@ -16,6 +17,7 @@ namespace TaskConqueror
         RelayCommand _cancelCommand;
         bool _isSelected;
         RelayCommand _saveCommand;
+        ActionCommand<CancelEventArgs> _closeWindowCommand;
 
         #endregion // Fields
 
@@ -63,10 +65,29 @@ namespace TaskConqueror
             {
                 if (_cancelCommand == null)
                     _cancelCommand = new RelayCommand(
-                        param => { if (IsSaved || WPFMessageBox.Show("Confirm Cancel", "Cancel without saving changes?", WPFMessageBoxButtons.YesNo, WPFMessageBoxImage.Question) == WPFMessageBoxResult.Yes) this.OnRequestClose(); });
+                        param => { 
+                            this.OnRequestClose(); 
+                        });
 
                 return _cancelCommand;
             }
+        }
+
+        public ActionCommand<CancelEventArgs> CloseWindowCommand
+        {
+            get
+            {
+                if (_closeWindowCommand == null)
+                    _closeWindowCommand = new ActionCommand<CancelEventArgs>(OnClosingWindow);
+
+                return _closeWindowCommand;
+            }
+        }
+
+        protected void OnClosingWindow(CancelEventArgs e)
+        {
+            CancelArgs = e;
+            this.OnRequestClose();
         }
 
         /// <summary>
@@ -92,6 +113,15 @@ namespace TaskConqueror
         #region Public Methods
 
         public abstract void Save();
+
+        #endregion
+
+        #region Overrides
+
+        protected override bool ShouldClose()
+        {
+            return IsSaved || WPFMessageBox.Show("Confirm Cancel", "Cancel without saving changes?", WPFMessageBoxButtons.YesNo, WPFMessageBoxImage.Question) == WPFMessageBoxResult.Yes;
+        }
 
         #endregion
     }

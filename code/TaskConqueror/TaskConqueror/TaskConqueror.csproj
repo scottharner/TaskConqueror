@@ -92,7 +92,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ActionCommand.cs" />
     <Compile Include="AppInfo.cs" />
+    <Compile Include="EventToCommandBehavior.cs" />
     <Compile Include="MessageBox\Commands\CommandReference.cs" />
     <Compile Include="MessageBox\Commands\DelegateCommand.cs" />
     <Compile Include="MessageBox\IconHelper.cs" />
