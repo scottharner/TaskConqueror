@@ -46,7 +46,12 @@
                     Image="pack://application:,,,/TaskConqueror;Component/Assets/Images/remove.png"
                     Command="{Binding Path=DeactivateCommand}"
                     />
-                <tc:ImageButton 
+                    <tc:ImageButton 
+                    Text="Remove Completed" 
+                    Image="pack://application:,,,/TaskConqueror;Component/Assets/Images/remove.png"
+                    Command="{Binding Path=DeactivateCompletedCommand}"
+                    />
+                    <tc:ImageButton 
                     Text="Move Up" 
                     Image="pack://application:,,,/TaskConqueror;Component/Assets/Images/arrow_up.png"
                     Command="{Binding Path=MoveUpCommand}"
